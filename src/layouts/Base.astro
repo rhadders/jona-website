@@ -1,0 +1,70 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Iconen from "../components/Iconen.astro";
+import { schemaVoor } from "../lib/schema";
+import { ogPad } from "../lib/paginas";
+
+interface Props {
+  title: string;
+  description: string;
+  current?: "software" | "ai-scan" | "over-jona" | "advies" | "actuelegegevens";
+  noindex?: boolean;
+}
+const { title, description, current, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://jonatechnologie.nl");
+const fullTitle = title.includes("Jona") ? title : `${title} · Jona`;
+// Gestructureerde data alleen op openbare pagina's uit src/lib/paginas.ts.
+const schema = noindex ? null : schemaVoor(Astro.url.pathname);
+const ogImage = new URL(ogPad(Astro.url.pathname), canonical);
+---
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Jona · zinvolle technologie" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={fullTitle} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="Samenvatting voor AI-assistenten" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <meta name="theme-color" content="#073A56" />
+    <Iconen />
+    <link rel="preload" href="/fonts/lora-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, "\\u003c")} />}
+  </head>
+  <body>
+    <div class="page">
+      <Header current={current} />
+      <main id="inhoud">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  .page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  main {
+    flex: 1 0 auto;
+  }
+</style>

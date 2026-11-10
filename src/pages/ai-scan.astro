@@ -1,0 +1,199 @@
+---
+import { pagina } from "../lib/paginas";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import FormScript from "../components/FormScript.astro";
+import SoortSelect from "../components/SoortSelect.astro";
+---
+<Base
+  {...pagina("/ai-scan")}
+  current="ai-scan"
+>
+  <section id="ai-scan" class="top">
+    <div class="wrap grid">
+      <div class="stack gap-28">
+        <div class="stack gap-12">
+          <p class="eyebrow">De AI-scan</p>
+          <h1 class="h1 h1-sm">Eén dag meekijken, één plan waar je mee verder kunt</h1>
+          <p class="lead">Het kennismakingsgesprek geeft een eerste indruk. De AI-scan gaat een laag dieper: we lopen een dag mee in jullie organisatie, kijken wat er aan werk ligt en welke software er al is, en vertalen dat naar een plan dat jullie zelf kunnen beoordelen. Geen dik rapport, wel een eerlijk antwoord op de vraag wat slimmer kan, wat het oplevert en wat het kost.</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <span class="num">1</span>
+            <div class="stack gap-6">
+              <h3>Ochtend: meekijken</h3>
+              <p class="muted">We zitten naast de mensen die het werk doen. Ledenadministratie, communicatie, financiën, planning: waar gaat tijd in zitten, en waar loopt het vast?</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <div class="stack gap-6">
+              <h3>Middag: in kaart brengen</h3>
+              <p class="muted">Samen zetten we op een rij welk werk zich leent voor software of AI, welk werk beter bij mensen blijft, en wat daarvoor nodig is. Ook als het antwoord is: niets van ons.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <div class="stack gap-6">
+              <h3>Binnen een week: het plan</h3>
+              <p class="muted">Jullie krijgen een plan van een paar pagina's, in gewone taal: de drie tot vijf dingen die het meeste opleveren, wat ze kosten, en in welke volgorde je ze het beste aanpakt.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+      <div class="stack gap-24">
+        <div class="offer stack gap-20">
+          <h2 class="h3">Wat je krijgt</h2>
+          <ul class="checks">
+            <li><Icon name="check" /><span>Een dag op locatie met één van ons, bij voorkeur op een gewone werkdag.</span></li>
+            <li><Icon name="check" /><span>Een overzicht van het werk dat slimmer kan, met per onderdeel wat het oplevert.</span></li>
+            <li><Icon name="check" /><span>Een advies per onderdeel: een van onze producten, iets van een ander, maatwerk met EchoNova, of gewoon laten zoals het is.</span></li>
+            <li><Icon name="check" /><span>Een kostenindicatie en een volgorde, zodat je klein kunt beginnen.</span></li>
+            <li><Icon name="check" /><span>Een gesprek om het plan door te nemen, met wie er bij jullie over beslist.</span></li>
+          </ul>
+          <div class="prijs stack gap-6">
+            <span class="small muted">Vaste prijs</span>
+            <span class="bedrag">€ 795 <span class="small muted sans">excl. btw en reiskosten</span></span>
+          </div>
+          <a href="#aanvraag" class="btn btn-primary">Vraag de AI-scan aan <Icon name="arrow-right" /></a>
+          <p class="small muted">We nemen binnen twee werkdagen contact op om een dag te prikken.</p>
+        </div>
+        <p class="muted hint">Nog geen kennismakingsgesprek gehad? Dat blijft de beste eerste stap. In een half uur weet je of een scan voor jullie zin heeft. <a href="/advies">Plan een kennismaking</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-mist voorwie">
+    <div class="wrap stack gap-40">
+      <div class="narrow stack gap-12">
+        <p class="eyebrow">Voor wie</p>
+        <h2 class="h2">Voor organisaties die vermoeden dat het slimmer kan, maar niet weten waar te beginnen</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card kaart stack gap-12">
+          <h3>Het werk stapelt zich op</h3>
+          <p class="muted">Dezelfde lijstjes op drie plekken, elke maand opnieuw overtypen, en niemand die precies weet welke versie klopt.</p>
+        </div>
+        <div class="card kaart stack gap-12">
+          <h3>Er is al software, maar het wringt</h3>
+          <p class="muted">Een pakket dat te groot is voor wat jullie doen, of te klein, en waar maar één iemand echt mee overweg kan.</p>
+        </div>
+        <div class="card kaart stack gap-12">
+          <h3>Iedereen praat over AI</h3>
+          <p class="muted">Jullie willen weten wat het voor jullie betekent, zonder er een project van een jaar van te maken.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="aanvraag" class="section">
+    <div class="wrap grid">
+      <div class="stack gap-16">
+        <p class="eyebrow">Aanvragen</p>
+        <h2 class="h2">Vraag de AI-scan aan</h2>
+        <p class="muted intro">Vul het formulier in, dan nemen we contact op om een dag te prikken en af te stemmen wie er bij jullie bij moeten zijn. Je zit nog nergens aan vast; de scan gaat pas door als we samen de dag hebben vastgelegd.</p>
+      </div>
+      <form class="form formcard" method="post" action="/api/ai-scan" data-form="ai-scan" novalidate>
+        <input type="hidden" name="_bron" value="">
+        <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="row">
+          <div class="field">
+            <label for="s-naam">Je naam</label>
+            <input id="s-naam" name="naam" type="text" autocomplete="name" required>
+            <span class="err" data-error-for="naam"></span>
+          </div>
+          <div class="field">
+            <label for="s-rol">Je rol</label>
+            <input id="s-rol" name="rol" type="text" placeholder="Bijvoorbeeld: directeur, scriba">
+          </div>
+        </div>
+        <div class="field">
+          <label for="s-org">Organisatie</label>
+          <input id="s-org" name="organisatie" type="text" placeholder="Bijvoorbeeld: Stichting De Groene Weide" autocomplete="organization" required>
+          <span class="err" data-error-for="organisatie"></span>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="s-soort">Soort organisatie</label>
+            <SoortSelect id="s-soort" />
+          </div>
+          <div class="field">
+            <label for="s-mensen">Hoeveel mensen werken er (betaald en vrijwillig)?</label>
+            <select id="s-mensen" name="mensen">
+              <option>1 tot 5</option>
+              <option>5 tot 20</option>
+              <option>20 tot 50</option>
+              <option>Meer dan 50</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="s-email">E-mailadres</label>
+            <input id="s-email" name="email" type="email" placeholder="naam@organisatie.nl" autocomplete="email" required>
+            <span class="err" data-error-for="email"></span>
+          </div>
+          <div class="field">
+            <label for="s-tel">Telefoon <span class="opt">(niet verplicht)</span></label>
+            <input id="s-tel" name="telefoon" type="tel" placeholder="06 12 34 56 78" autocomplete="tel">
+          </div>
+        </div>
+        <div class="field">
+          <label for="s-bericht">Waar wil je vooral naar laten kijken?</label>
+          <textarea id="s-bericht" name="bericht" rows="4" placeholder="Bijvoorbeeld: de ledenadministratie en de nieuwsbrief."></textarea>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <button type="submit" class="btn btn-primary btn-block btn-52">Vraag de AI-scan aan <Icon name="arrow-right" /></button>
+        <p class="note">We nemen binnen twee werkdagen contact op en gebruiken je gegevens alleen daarvoor. Liever mailen? <a href="mailto:info@jonatechnologie.nl">info@jonatechnologie.nl</a></p>
+      </form>
+    </div>
+  </section>
+  <FormScript />
+</Base>
+
+<style>
+  .top { padding: 112px 0 96px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 64px;
+    align-items: start;
+  }
+  .h1-sm { font-size: clamp(34px, 4.8vw, 52px); }
+  .offer {
+    padding: 32px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-card);
+  }
+  .prijs { padding-top: 16px; border-top: 1px solid var(--border); }
+  .bedrag { font-family: var(--font-serif); font-size: 28px; letter-spacing: -0.015em; }
+  .sans { font-family: var(--font-sans); letter-spacing: 0; }
+  .hint { font-size: 15px; }
+  .voorwie { padding: 80px 0; }
+  .kaart { padding: 24px; }
+  .kaart h3 { font-size: 19px; font-weight: 500; }
+  .kaart p { font-size: 16px; }
+  .intro { font-size: 18px; }
+  .formcard {
+    padding: 40px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-52 { min-height: 52px; }
+  .err { font-size: 13px; color: var(--warn-ink); }
+  .err:empty { display: none; }
+  @media (max-width: 767px) {
+    .top { padding: 72px 0 64px; }
+    .grid { gap: 40px; }
+    .voorwie { padding: 64px 0; }
+    .formcard { padding: 24px 20px; }
+    .offer { padding: 24px 20px; }
+  }
+  @media (max-width: 479px) {
+    .grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

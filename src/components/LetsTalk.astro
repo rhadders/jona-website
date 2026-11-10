@@ -1,0 +1,90 @@
+---
+// Het navy "Let's talk"-blok met het korte kennismakingsformulier.
+import Icon from "./Icon.astro";
+interface Props { id?: string }
+const { id = "advies" } = Astro.props;
+---
+<section id={id} class="letstalk">
+  <div class="wrap">
+    <div class="panel on-navy">
+      <img src="/logo/jona-mark.svg" alt="" aria-hidden="true" class="watermark" width="560" height="560">
+      <div class="stack gap-20 intro">
+        <p class="eyebrow">Let's talk</p>
+        <h2 class="h2-lt">Hoe kunnen we met software en AI voor jou het verschil maken?</h2>
+        <p class="lead-lt">We zitten al genoeg achter ons beeldscherm, daarom komen we graag naar je toe om je bedrijf of organisatie beter te leren kennen. Kost verder niets, behalve een kop koffie of thee (als het kan met wat lekkers).</p>
+      </div>
+      <form class="form" method="post" action="/api/kennismaking" data-form="kennismaking" novalidate>
+        <input type="hidden" name="_bron" value="">
+        <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="row">
+          <div class="field">
+            <label for={`${id}-naam`}>Je naam</label>
+            <input id={`${id}-naam`} name="naam" type="text" autocomplete="name" required>
+            <span class="err" data-error-for="naam"></span>
+          </div>
+          <div class="field">
+            <label for={`${id}-organisatie`}>Organisatie</label>
+            <input id={`${id}-organisatie`} name="organisatie" type="text" autocomplete="organization">
+          </div>
+        </div>
+        <div class="field">
+          <label for={`${id}-email`}>E-mailadres</label>
+          <input id={`${id}-email`} name="email" type="email" autocomplete="email" required>
+          <span class="err" data-error-for="email"></span>
+        </div>
+        <div class="field">
+          <label for={`${id}-bericht`}>Met welk idee of welke vraag loop je rond?</label>
+          <textarea id={`${id}-bericht`} name="bericht" rows="4" placeholder="Een paar zinnen is genoeg."></textarea>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <button type="submit" class="btn btn-accent self-start"><span>Plan een kennismaking</span> <Icon name="arrow-right" /></button>
+        <p class="note">We gebruiken je gegevens alleen om contact op te nemen.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .letstalk { padding: 0 0 96px; }
+  .panel {
+    position: relative;
+    overflow: hidden;
+    background: var(--navy-800);
+    border-radius: var(--r-dialog);
+    padding: 64px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 48px;
+    align-items: start;
+  }
+  .watermark {
+    position: absolute;
+    bottom: -200px;
+    left: -160px;
+    width: 560px;
+    height: 560px;
+    opacity: 0.08;
+    filter: brightness(0) invert(1);
+    pointer-events: none;
+  }
+  .intro, .form { position: relative; }
+  .h2-lt {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(28px, 3.2vw, 36px);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    max-width: 20ch;
+  }
+  .lead-lt { font-size: 19px; color: var(--ink-on-navy); max-width: 44ch; }
+  .self-start { align-self: flex-start; }
+  .err { font-size: 13px; color: var(--teal-300); min-height: 0; }
+  .err:empty { display: none; }
+  @media (max-width: 767px) {
+    .letstalk { padding-bottom: 64px; }
+    .panel { padding: 36px 24px; border-radius: var(--r-card); }
+  }
+  @media (max-width: 479px) {
+    .panel { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

@@ -1,0 +1,588 @@
+---
+import { pagina } from "../lib/paginas";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import FormScript from "../components/FormScript.astro";
+
+const lezers = [
+  { icon: "newspaper", titel: "Eén abonnement, alle titels", tekst: "Blader door tientallen christelijke tijdschriften en lees wat je wilt. Met een maandabonnement lees je steeds de nieuwste editie van elk magazine, met een jaarabonnement ook het volledige archief." },
+  { icon: "smartphone", titel: "Op elk apparaat, ook offline", tekst: "Selaread is er als app voor iPhone en Android en als webapp voor tablet en desktop. Download een editie en lees verder in de trein, zonder internet." },
+  { icon: "search", titel: "Ontdekken, volgen, verder lezen", tekst: "Ontdek titels per rubriek, volg je favoriete magazines en ga verder waar je gebleven was. Je bibliotheek reist met je mee, van telefoon naar tablet." },
+] as const;
+
+const uitgevers = [
+  { icon: "smartphone", titel: "Geen eigen app nodig", tekst: "Een eigen iOS- en Android-app bouwen en onderhouden kost al snel duizenden euro's, naast alle tijd en technische kennis die nodig is voor het beheren van app stores, het updaten van de app en het helpen van lezers bij inlogproblemen. Selaread neemt dit volledig uit handen. Jij levert de pdf's aan, wij zorgen voor de digitale ontsluiting. In een optimale leesomgeving op desktop, tablet en smartphone." },
+  { icon: "trending-up", titel: "Vergroot je inkomsten", tekst: "Door jouw tijdschrift aan te bieden in de Selaread-app vergroot je het bereik van je magazine, zonder ook maar een cent te hoeven investeren in distributie en marketing. Dat heeft een positief effect op de naamsbekendheid van je blad, op de advertentieverkoop en op je verdienmodel. Want voor het eerst verdien je hierdoor ook aan lezers die wel interesse hebben in jouw blad, maar (nog) geen printabonnement willen." },
+] as const;
+
+const stappen = [
+  { titel: "Meld je aan als uitgever", tekst: "Je maakt een gratis account aan in het uitgeversportaal. Na onze goedkeuring kun je publiceren." },
+  { titel: "Upload je pdf's", tekst: "Elke editie lever je aan als pdf. Wij maken er een editie van die prettig leest op elk scherm." },
+  { titel: "Lezers vinden je titel", tekst: "Je magazine staat in de kiosk, per rubriek vindbaar. Lezers volgen je titel en krijgen bericht bij een nieuw nummer." },
+  { titel: "Jij ontvangt je deel", tekst: "Je volgt in het portaal hoeveel lezers je edities hebben en ontvangt 70% van de omzet, naar rato van wat er van jouw titels gelezen wordt." },
+] as const;
+
+const pro = [
+  { icon: "key", titel: "Abonneetoegang beheren", tekst: "Geef je bestaande (print)abonnees toegang tot de digitale editie, zonder dat zij een Selaread-abonnement nodig hebben. Zo krijgt het reguliere abonnement meer waarde." },
+  { icon: "sparkles", titel: "AI-tekstredactie", tekst: "Geavanceerde tekstherkenning op je geüploade edities, zodat artikelen doorzoekbaar zijn en prettig lezen op een klein scherm." },
+  { icon: "chart", titel: "Gedetailleerde inzichten", tekst: "Zie per editie en per artikel hoe er gelezen wordt, en wat je lezers boeit. Zo weet je wat werkt, ook voor je advertentieverkoop." },
+  { icon: "ticket", titel: "Vouchercampagnes", tekst: "Maak toegangscodes voor partners, acties of proefabonnementen en volg wat ze opleveren." },
+  { icon: "layers", titel: "Uitgebreid archief", tekst: "Bied een onbeperkt aantal oude jaargangen aan. Oude edities blijken goed voor 20% meer omzet." },
+] as const;
+
+const faq = [
+  { v: "Is er wel genoeg animo voor digitaal lezen?", a: "Nederland telt 9 miljoen lezers van gedrukte tijdschriften en daarnaast 8 miljoen digitale lezers. In totaal zijn er circa 1.100 titels digitaal beschikbaar. De markt voor digitale tijdschriften is dus groot en groeit nog altijd." },
+  { v: "Waarom is Selaread beter dan een eigen app?", a: "Een magazine zelfstandig distribueren en vermarkten is duur en voor de meeste uitgevers niet rendabel. Met Selaread hoef je hier niet in te investeren en is het ook voor kleinere uitgevers mogelijk om geld te verdienen met hun uitgaven. Daarbij blijken lezers een sterke voorkeur te hebben voor één leesapp, in plaats van allerlei verschillende apps te moeten gebruiken." },
+  { v: "Levert het uitgevers wel voldoende op?", a: "Uit cijfers van Britse uitgevers blijkt dat zij al meer dan de helft van hun inkomsten halen uit all-you-can-read-apps. De groei zit juist in digitaal lezen. Daarbij heeft een groter bereik ook een positief effect op de advertentieverkoop." },
+  { v: "Verliezen uitgevers geen abonnees hierdoor?", a: "Soortgelijke apps als Readly hebben bewezen dat uitgevers juist lezers terugwinnen die zij eerder verloren waren. Ook zijn er veel lezers die wel interesse hebben in een bepaalde titel, maar (nog) te weinig om abonnee te worden. Met Selaread kunnen uitgevers tóch aan hen verdienen. Daarnaast kun je met Selaread Pro je bestaande abonnees toegang geven tot de digitale editie, zonder dat zij een abonnement bij Selaread hoeven te hebben. Zo krijgt het reguliere abonnement meer waarde en zijn abonnees minder snel geneigd op te zeggen." },
+  { v: "Wat kost Selaread voor uitgevers?", a: "Een basisaccount is gratis: je betaalt niets om je titel in de kiosk te zetten en deelt mee in de omzet. Wil je meer, dan is er Selaread Pro voor € 25 per maand. Voor kerken zijn de basisfuncties altijd gratis. Voor goede doelen en andere non-profits geldt een apart tarief, dat bespreken we graag persoonlijk." },
+  { v: "Wanneer kan ik Selaread gebruiken?", a: "De lancering staat gepland voor het voorjaar van 2027. Tot die tijd testen we de app met een groep lezers en uitgevers. Meld je hieronder aan, dan nodigen we je uit zodra de beta-test start." },
+];
+---
+<Base
+  {...pagina("/selaread")}
+  current="software"
+>
+  <section class="hero">
+    <div class="wrap stack gap-56">
+      <nav aria-label="Kruimelpad" class="crumbs">
+        <a href="/#producten">Onze software</a>
+        <Icon name="chevron-right" size={14} />
+        <span>Selaread</span>
+      </nav>
+      <div class="hero-grid">
+        <div class="stack gap-24 hero-tekst">
+          <span class="tag">Lancering voorjaar 2027</span>
+          <h1 class="h1 h1-sm"><img src="/beeld/selaread-logo.png" srcset="/beeld/selaread-logo.webp" width="240" height="242" alt="" class="merk">Selaread: de leeskiosk voor christelijk Nederland</h1>
+          <p class="lead">Eén abonnement, alle christelijke tijdschriften, op mobiel, tablet en desktop. Voor lezers een moderne kioskapp. Voor uitgevers een nieuw kanaal voor meer bereik en inkomsten, zonder te hoeven investeren in techniek, marketing en support.</p>
+          <div class="actions">
+            <a href="#beta" class="btn btn-primary"><span>Meld je aan voor de beta-test</span> <Icon name="arrow-right" /></a>
+            <a href="#uitgevers" class="btn btn-secondary">Informatie voor uitgevers</a>
+          </div>
+        </div>
+        <picture class="hero-beeld">
+          <source srcset="/beeld/selaread-apparaten.webp" type="image/webp">
+          <img src="/beeld/selaread-apparaten.png" width="1400" height="1639" alt="Selaread op een tablet en een telefoon: op de tablet een artikel uit een tijdschrift in de lezer, op de telefoon de startpagina met recent toegevoegde magazines" fetchpriority="high">
+        </picture>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-mist lezers">
+    <div class="wrap stack gap-40">
+      <div class="narrow stack gap-12">
+        <p class="eyebrow">Voor lezers</p>
+        <h2 class="h2">Alle christelijke tijdschriften in één app</h2>
+        <p class="lead-sm muted">Van opinie en Bijbelstudie tot kerkbladen en kinderbladen: lees onbeperkt, in een leesomgeving die klopt op elk scherm.</p>
+      </div>
+      <ul class="grid-3 kaarten">
+        {lezers.map((k) => (
+          <li class="card kaart stack gap-12">
+            <div class="bol"><Icon name={k.icon} size={22} /></div>
+            <h3>{k.titel}</h3>
+            <p class="muted">{k.tekst}</p>
+          </li>
+        ))}
+      </ul>
+      <figure class="browser screen">
+        <div class="browser-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="url">selaread.app/explore</span>
+        </div>
+        <picture>
+          <source srcset="/beeld/selaread-ontdek.webp" type="image/webp">
+          <img src="/beeld/selaread-ontdek.png" width="1800" height="1177" loading="lazy" alt="De pagina Ontdek in Selaread: een zoekveld, rubrieken als Israël, Kerkbladen en Kinderen, en een overzicht van magazines met hun omslagen">
+        </picture>
+      </figure>
+    </div>
+  </section>
+
+  <section id="uitgevers" class="uitgevers">
+    <div class="wrap stack gap-48">
+      <div class="narrow stack gap-12">
+        <p class="eyebrow">Voor uitgevers</p>
+        <h2 class="h2">Een nieuw kanaal voor je tijdschrift, zonder eigen app</h2>
+        <p class="lead-sm muted">Selaread brengt christelijke tijdschriften samen in één abonnement. Voor uitgevers betekent dit een nieuw kanaal om meer bereik en inkomsten te creëren, zonder te hoeven investeren in techniek, marketing en support.</p>
+      </div>
+
+      <div class="grid-2 start kaarten">
+        {uitgevers.map((k) => (
+          <article class="card kaart kaart-groot stack gap-12">
+            <div class="bol"><Icon name={k.icon} size={22} /></div>
+            <h3>{k.titel}</h3>
+            <p class="muted">{k.tekst}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="band">
+        <p class="band-cijfer"><span class="groot">70%</span><span class="band-sub">van de omzet is voor de uitgever</span></p>
+        <div class="stack gap-8">
+          <h3 class="band-kop">Uitgevers ontvangen maar liefst 70% van de omzet</h3>
+          <p class="muted">Dit is de hoogste vergoeding in de markt. Voor ons is dit belangrijk, omdat we willen investeren in de toekomst van christelijke media. Ook digitaal lezen moet een duurzame bron van inkomsten kunnen zijn voor uitgevers.</p>
+        </div>
+      </div>
+
+      <div class="stack gap-24">
+        <h3 class="h3 h3-22">Zo werkt het</h3>
+        <ol class="stappen">
+          {stappen.map((s, i) => (
+            <li class="stack gap-8">
+              <span class="num">{i + 1}</span>
+              <h4>{s.titel}</h4>
+              <p class="muted">{s.tekst}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-mist pro-sectie">
+    <div class="wrap stack gap-40">
+      <div class="pro-kop">
+        <div class="stack gap-12">
+          <p class="eyebrow">Selaread Pro</p>
+          <h2 class="h2">Bereik meer met Selaread Pro</h2>
+        </div>
+        <p class="lead-sm muted">Voor uitgevers die alle mogelijkheden willen benutten en hun abonnees de optimale leeservaring willen bieden, is er Selaread Pro: vijf extra's bovenop het gratis basisaccount.</p>
+      </div>
+
+      <div class="pro-kaart">
+        <figure class="pro-beeld">
+          <picture>
+            <source srcset="/beeld/selaread-uitgeversportaal.webp" type="image/webp">
+            <img src="/beeld/selaread-uitgeversportaal.png" width="998" height="648" loading="lazy" alt="Het uitgeversportaal van Selaread op een laptop: het overzicht Edities met per editie het magazine, de datum, de status en het aantal unieke lezers">
+          </picture>
+        </figure>
+        <div class="pro-slider" data-slider>
+          <p class="eyebrow pro-teller">Pro-functie <span data-nummer>1</span> van {pro.length}</p>
+          <div class="functies" aria-live="polite">
+            {pro.map((p, i) => (
+              <article class="functie" data-functie={i}>
+                <div class="bol bol-groot"><Icon name={p.icon} size={24} /></div>
+                <h3>{p.titel}</h3>
+                <p class="muted">{p.tekst}</p>
+              </article>
+            ))}
+          </div>
+          <div class="pro-nav">
+            <div class="pijlen">
+              <button type="button" class="pijl" data-vorige aria-label="Vorige functie"><Icon name="chevron-left" /></button>
+              <button type="button" class="pijl" data-volgende aria-label="Volgende functie"><Icon name="chevron-right" /></button>
+            </div>
+            <div class="dots">
+              {pro.map((p, i) => (
+                <button type="button" class="dot" data-naar={i} aria-label={`Functie ${i + 1}: ${p.titel}`}></button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prijsbalk">
+        <span class="prijs-naam">Selaread Pro</span>
+        <span class="prijs-scheiding" aria-hidden="true"></span>
+        <p class="prijs"><span class="prijs-bedrag">€ 25</span><span class="prijs-per">per maand</span></p>
+        <span class="muted prijs-noot">Een basisaccount is en blijft gratis.</span>
+        <a href="#beta" class="btn btn-primary"><span>Meld je aan als uitgever</span> <Icon name="arrow-right" /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-sectie">
+    <div class="wrap narrow stack gap-28">
+      <h2 class="faq-kop">Veelgestelde vragen</h2>
+      <div class="faq">
+        {faq.map((f) => (
+          <div class="vraag stack gap-6">
+            <h3>{f.v}</h3>
+            <p class="muted">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="beta" class="beta">
+    <div class="wrap">
+      <div class="kaart-navy on-navy">
+        <img src="/beeld/selaread-logo.png" alt="" aria-hidden="true" class="watermark" width="240" height="242">
+        <div class="stack gap-16 kaart-tekst">
+          <p class="eyebrow">Beta-test</p>
+          <h2 class="kaart-kop">Als eerste lezen, of als eerste uitgever aan boord?</h2>
+          <p class="kaart-lead">Voor de lancering in het voorjaar van 2027 testen we Selaread met een groep lezers en uitgevers. Meld je aan en we nodigen je uit zodra de beta-test start.</p>
+          <ul class="checks checks-navy">
+            <li><Icon name="check" /><span>Lezers: gratis toegang tijdens de beta-test</span></li>
+            <li><Icon name="check" /><span>Uitgevers: persoonlijke begeleiding bij het aanleveren</span></li>
+            <li><Icon name="check" /><span>Jouw feedback bepaalt mee wat we bouwen</span></li>
+          </ul>
+        </div>
+        <form id="aanvraag" class="form kaart-form" method="post" action="/api/beta-selaread" data-form="beta-selaread" novalidate>
+          <input type="hidden" name="_bron" value="">
+          <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <div class="field">
+            <label for="sr-rol">Ik meld me aan als</label>
+            <select id="sr-rol" name="rol">
+              <option>Lezer</option>
+              <option>Uitgever</option>
+              <option>Kerk of organisatie</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="sr-naam">Je naam</label>
+              <input id="sr-naam" name="naam" type="text" autocomplete="name" required>
+              <span class="err" data-error-for="naam"></span>
+            </div>
+            <div class="field">
+              <label for="sr-email">E-mailadres</label>
+              <input id="sr-email" name="email" type="email" autocomplete="email" required>
+              <span class="err" data-error-for="email"></span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="sr-organisatie">Uitgeverij, tijdschrift of organisatie <span class="optioneel">(optioneel)</span></label>
+            <input id="sr-organisatie" name="organisatie" type="text" autocomplete="organization">
+          </div>
+          <p class="form-status" role="status" aria-live="polite"></p>
+          <button type="submit" class="btn btn-accent btn-block btn-52">Meld me aan <Icon name="arrow-right" /></button>
+          <p class="note">Liever mailen? Uitgevers kunnen ook direct contact opnemen via <a href="mailto:ruben@selaread.app">ruben@selaread.app</a>.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <FormScript />
+</Base>
+
+<script>
+  // De functieslider van Selaread Pro: zonder JavaScript staan de vijf functies onder elkaar.
+  for (const slider of document.querySelectorAll<HTMLElement>("[data-slider]")) {
+    const functies = [...slider.querySelectorAll<HTMLElement>("[data-functie]")];
+    const dots = [...slider.querySelectorAll<HTMLButtonElement>("[data-naar]")];
+    const nummer = slider.querySelector<HTMLElement>("[data-nummer]");
+    if (functies.length < 2) continue;
+    let i = 0;
+    const toon = (n: number) => {
+      i = (n + functies.length) % functies.length;
+      functies.forEach((f, k) => f.classList.toggle("actief", k === i));
+      dots.forEach((d, k) => d.setAttribute("aria-current", k === i ? "true" : "false"));
+      if (nummer) nummer.textContent = String(i + 1);
+    };
+    slider.querySelector("[data-vorige]")?.addEventListener("click", () => toon(i - 1));
+    slider.querySelector("[data-volgende]")?.addEventListener("click", () => toon(i + 1));
+    dots.forEach((d, k) => d.addEventListener("click", () => toon(k)));
+    slider.classList.add("js");
+    toon(0);
+  }
+</script>
+
+<style>
+  .hero { padding: 96px 0 72px; }
+  .h1-sm { font-size: clamp(34px, 4.6vw, 50px); }
+  .crumbs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .crumbs a { color: var(--muted); }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; padding-top: 4px; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 48px;
+    align-items: center;
+  }
+  .hero-tekst { max-width: 58ch; }
+  .merk {
+    display: block;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 18px;
+  }
+  .hero-beeld { display: block; margin: 0; }
+  .hero-beeld img { width: 100%; height: auto; max-width: 520px; margin-left: auto; display: block; }
+
+  .lead-sm { font-size: 18px; }
+  .lezers { padding: 80px 0; }
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--mist);
+  }
+  .dot { width: 10px; height: 10px; border-radius: var(--r-pill); background: var(--border); }
+  .url {
+    margin-left: 8px;
+    padding: 4px 12px;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .kaarten { list-style: none; margin: 0; padding: 0; }
+  .kaart { padding: 28px; }
+  .kaart h3 { font-size: 20px; font-weight: 500; line-height: 1.3; }
+  .kaart p { font-size: 16px; }
+  .kaart-groot { padding: 32px; }
+  .kaart-groot h3 { font-size: 22px; }
+  .kaart-groot p { font-size: 17px; }
+  .bol {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--r-pill);
+    display: grid;
+    place-items: center;
+    background: var(--teal-100);
+    color: var(--teal-800);
+    margin-bottom: 4px;
+  }
+
+  .uitgevers { padding: 96px 0; }
+  .gap-48 { gap: 48px; }
+  .gap-8 { gap: 8px; }
+  .band {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+    padding: 36px 40px;
+    border-radius: var(--r-card);
+    background: var(--teal-100);
+  }
+  .band-cijfer { display: flex; flex-direction: column; gap: 4px; min-width: 200px; }
+  .groot {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 72px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--teal-800);
+  }
+  .band-sub { font-size: 14px; color: var(--teal-800); max-width: 18ch; }
+  .band-kop { font-size: 22px; font-weight: 500; line-height: 1.3; }
+  .band p { font-size: 17px; }
+  .h3-22 { font-size: 22px; }
+  .stappen {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px;
+  }
+  .stappen h4 { font-size: 18px; font-weight: 500; line-height: 1.3; }
+  .stappen p { font-size: 16px; }
+  .num {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--r-pill);
+    display: grid;
+    place-items: center;
+    background: var(--navy);
+    color: var(--white);
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .pro-sectie { padding: 96px 0; }
+  .pro-kop {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px 64px;
+    align-items: end;
+  }
+  .pro-kop .lead-sm { max-width: 52ch; }
+  .pro-kaart {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .pro-beeld {
+    margin: 0;
+    padding: 48px 0 0 48px;
+    background: var(--teal-100);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .pro-beeld img {
+    width: 112%;
+    max-width: none;
+    height: auto;
+    display: block;
+    margin-bottom: -4%;
+    filter: drop-shadow(0 24px 40px color-mix(in srgb, var(--navy-900) 18%, transparent));
+  }
+  .pro-slider {
+    padding: 48px 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .pro-teller { color: var(--teal-700); }
+  .functies { display: flex; flex-direction: column; gap: 32px; flex-grow: 1; }
+  .functie { display: flex; flex-direction: column; gap: 14px; }
+  .functie h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  .functie p { font-size: 17px; max-width: 40ch; }
+  .bol-groot { width: 56px; height: 56px; margin-bottom: 0; }
+  .bol-groot svg { color: var(--teal-700); }
+  /* met JavaScript: één functie tegelijk, met pijlen en bolletjes */
+  .pro-slider.js .functies { min-height: 300px; }
+  .pro-slider.js .functie:not(.actief) { display: none; }
+  .pro-nav { display: none; align-items: center; justify-content: space-between; gap: 16px; }
+  .pro-slider.js .pro-nav { display: flex; }
+  .pijlen, .dots { display: flex; gap: 8px; }
+  .pijl {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--navy);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    padding: 0;
+    transition: border-color 140ms ease-out;
+  }
+  .pijl:hover { border-color: var(--teal-300); }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--r-pill);
+    border: 0;
+    padding: 0;
+    background: var(--border);
+    cursor: pointer;
+    transition: width 220ms ease-out, background 220ms ease-out;
+  }
+  .dot[aria-current="true"] { width: 24px; background: var(--navy); }
+  .prijsbalk {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px 28px;
+    padding: 20px 20px 20px 32px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+  }
+  .prijs-naam { font-size: 20px; font-weight: 500; }
+  .prijs-scheiding { width: 1px; height: 32px; background: var(--border); }
+  .prijs { display: flex; align-items: baseline; gap: 8px; }
+  .prijs-bedrag {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 31px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .prijs-per, .prijs-noot { font-size: 16px; }
+  .prijsbalk .btn { margin-left: auto; }
+
+  .faq-sectie { padding: 96px 0 0; }
+  .faq-kop {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 31px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .faq { display: flex; flex-direction: column; }
+  .vraag { padding: 24px 0; border-top: 1px solid var(--border); }
+  .vraag:last-child { border-bottom: 1px solid var(--border); }
+  .vraag h3 { font-size: 19px; font-weight: 500; }
+
+  .beta { padding: 96px 0; }
+  .kaart-navy {
+    position: relative;
+    overflow: hidden;
+    background: var(--navy-800);
+    border-radius: 28px;
+    padding: 56px 64px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 48px;
+    align-items: center;
+  }
+  .watermark {
+    position: absolute;
+    bottom: -120px;
+    right: -90px;
+    width: 400px;
+    height: 400px;
+    opacity: 0.08;
+    filter: brightness(0) invert(1);
+    pointer-events: none;
+  }
+  .kaart-tekst, .kaart-form { position: relative; }
+  .kaart-tekst { max-width: 48ch; }
+  .kaart-kop {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .kaart-lead { font-size: 18px; color: var(--ink-on-navy); }
+  .checks-navy { font-size: 16px; }
+  .checks-navy svg { color: var(--teal-300); }
+  .optioneel { font-weight: 400; opacity: 0.75; }
+  .btn-52 { min-height: 52px; }
+  .err { font-size: 13px; color: var(--warn-ink); }
+  .err:empty { display: none; }
+
+  @media (max-width: 1023px) {
+    .hero-grid { gap: 32px; }
+    .stappen { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pro-kop { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    .pro-kaart { grid-template-columns: minmax(0, 1fr); }
+    .pro-beeld { padding: 40px 40px 0; }
+    .pro-beeld img { width: 100%; margin-bottom: -3%; }
+    .pro-slider.js .functies { min-height: 0; }
+    .prijs-scheiding { display: none; }
+  }
+  @media (max-width: 767px) {
+    .hero { padding: 64px 0 48px; }
+    .hero-grid { grid-template-columns: minmax(0, 1fr); }
+    .hero-beeld img { max-width: 340px; margin: 0 auto; }
+    .lezers, .pro-sectie { padding: 64px 0; }
+    .uitgevers, .beta { padding: 64px 0; }
+    .faq-sectie { padding: 64px 0 0; }
+    .kaart, .kaart-groot { padding: 24px; }
+    .band { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 28px 24px; }
+    .groot { font-size: 56px; }
+    .stappen { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .pro-beeld { padding: 24px 24px 0; }
+    .pro-slider { padding: 28px 24px; gap: 24px; }
+    .functie h3 { font-size: 24px; }
+    .prijsbalk { padding: 20px 24px; gap: 12px 20px; }
+    .prijsbalk .btn { margin-left: 0; width: 100%; justify-content: center; }
+    .kaart-navy { padding: 36px 24px; gap: 32px; }
+    .kaart-kop { font-size: 27px; }
+    .watermark { width: 260px; height: 260px; bottom: -80px; right: -60px; }
+  }
+  @media (max-width: 479px) {
+    .kaart-navy { grid-template-columns: minmax(0, 1fr); }
+    .actions .btn { width: 100%; justify-content: center; }
+  }
+</style>

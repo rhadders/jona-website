@@ -1,0 +1,590 @@
+---
+import { pagina } from "../lib/paginas";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import FormScript from "../components/FormScript.astro";
+import SoortSelect from "../components/SoortSelect.astro";
+
+const stappen = [
+  { icon: "upload", titel: "Relaties importeren", tekst: "Hoe je relatiebestand ook is samengesteld, onze tool weet er wel raad mee. Importeer je CSV- of Excel-bestand, kies de gegevens die gecontroleerd of aangevuld moeten worden en onze software doet de rest. Veilig en AVG-proof." },
+  { icon: "link", titel: "Campagne starten", tekst: "Je relaties ontvangen een link naar een pagina waar zij hun gegevens kunnen inzien en aanpassen. Zij hoeven niet ergens in te loggen, maar hebben genoeg aan de code in de uitnodiging." },
+  { icon: "chart", titel: "Wijzigingen volgen", tekst: "Op het dashboard zie je precies wie heeft gereageerd, wat er is gewijzigd en wie nog een herinnering nodig heeft. Geen reactie? Met één druk op de knop maak je een brief of kaart. Waarbij je zelfs het printen en verzenden niet meer zelf hoeft te doen." },
+  { icon: "download", titel: "Bestand downloaden", tekst: "Campagne afgelopen? Je krijgt het relatiebestand op dezelfde manier terug als je het hebt aangeleverd. Alleen dan met actuele gegevens." },
+] as const;
+
+const faq = [
+  { v: "Betekent dit dat onze relaties moeten inloggen op een portaal?", a: "Nee, juist niet. Uit ervaring weten we dat dit bij veel mensen juist voor ergernissen zorgt. Een relatie krijgt een persoonlijke link en code. Daarmee kunnen de eigen gegevens worden ingezien en aangepast. We hebben dit proces bewust heel eenvoudig gemaakt en we horen terug dat relaties dit waarderen. Dat komt het imago van jouw organisatie ten goede." },
+  { v: "Wat als een lid geen e-mailadres heeft?", a: "Dan gaat de uitnodiging per post: als brief, of als handgeschreven kaart. De link en de code staan erin, de rest werkt hetzelfde. Voor € 2,25 excl. btw per brief zorgen wij ervoor dat deze binnen 1 werkdag wordt geprint, in een envelop wordt gedaan en wordt verzonden." },
+  { v: "Maakt het echt niet uit wat voor software ik gebruik voor relatiebeheer?", a: "We hebben in de praktijk ervaren dat actualisatiecampagnes vaak moeilijk in te richten zijn met bestaande systemen, zelfs al gebruik je professionele crm-software zoals AFAS of Salesforce. Onze tool staat daar volledig los van. Je hebt dus ook geen dure koppelingen nodig. Het enige wat je hoeft te doen is een relatiebestand exporteren als CSV- of Excel-bestand. Die importeer je in onze tool en na de campagne krijg je van ons hetzelfde bestand weer terug, zodat je het eenvoudig weer kunt importeren in je eigen software." },
+  { v: "Hoe zit het met de privacy?", a: "Met relatiegegevens wil je dat zeer zorgvuldig wordt omgegaan. Dat doen wij dus ook. Je gegevens worden versleuteld bewaard op een server in Nederland, die ISO 27001-gecertificeerd is en voldoet aan de hoogste veiligheidsnormen. Bij het uploaden van je relatiebestand controleren wij bovendien automatisch op gevoelige data, wat er in sommige gevallen toe kan leiden dat we de upload weigeren (bijvoorbeeld als je bestand wachtwoorden of BSN-nummers bevat). Na afloop van de campagne wissen we alle data, volledig. Dit alles staat helder beschreven in een verwerkersovereenkomst die wordt aangemaakt op het moment dat je je relatiebestand met ons deelt." },
+];
+---
+<Base
+  {...pagina("/actuelegegevens")}
+  current="software"
+>
+  <section class="hero">
+    <div class="wrap stack gap-56">
+      <nav aria-label="Kruimelpad" class="crumbs">
+        <a href="/#producten">Onze software</a>
+        <Icon name="chevron-right" size={14} />
+        <span>ActueleGegevens.nl</span>
+      </nav>
+      <div class="narrow stack gap-24">
+        <span class="tag">Live vanaf 1 december</span>
+        <h1 class="h1 h1-sm">ActueleGegevens.nl: je relatiebestand opschonen was nog nooit zó simpel.</h1>
+        <p class="lead">Elke organisatie zal het herkennen: een relatiebestand dat steeds meer verouderde en incomplete gegevens bevat. Ongemerkt blijven hierdoor inkomsten liggen. Je weet het, maar opschonen en bijwerken is een enorme klus. Voor het eerst is er nu een tool die dit probleem oplost. En het kost je nog maar een kwartiertje van je tijd.</p>
+        <div class="actions">
+          <a href="#testgebruiker" class="btn btn-primary"><span>Testgebruiker worden</span> <Icon name="arrow-right" /></a>
+          <a href="https://actuelegegevens.nl" rel="noopener" class="btn btn-secondary">Naar actuelegegevens.nl</a>
+        </div>
+      </div>
+      <figure class="browser screen">
+        <div class="browser-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="url">actuelegegevens.nl/app</span>
+        </div>
+        <picture>
+          <source srcset="/beeld/actuelegegevens-import.webp" type="image/webp">
+          <img src="/beeld/actuelegegevens-import.png" width="1800" height="1125" alt="De importstap van ActueleGegevens.nl: een geüpload ledenbestand met tabbladkeuze, de regel met kolomnamen en de eerste regels uit het bestand">
+        </picture>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section-mist stappen-sectie">
+    <div class="wrap stack gap-40">
+      <div class="narrow stack gap-12">
+        <p class="eyebrow">In een paar stappen je relatiebestand opschonen</p>
+        <h2 class="h2">Eenvoudiger kunnen we het écht niet maken</h2>
+      </div>
+      <ol class="tijdlijn">
+        {stappen.map((s, i) => (
+          <li>
+            <div class="bol"><Icon name={s.icon} size={22} /></div>
+            <p class="eyebrow">Stap {i + 1}</p>
+            <h3>{s.titel}</h3>
+            <p class="muted">{s.tekst}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="bijzonder">
+    <div class="wrap stack gap-80">
+
+      <div class="feature">
+        <div class="stack gap-16">
+          <p class="eyebrow">Kant-en-klaar formulier</p>
+          <h2 class="h2-sm">Een formulier dat zichzelf bouwt, met de velden uit jouw bestand</h2>
+          <p class="muted f-tekst">Je importeert je bestand en de tool herkent de kolommen: naam, adres, e-mail, telefoon, wat er maar in staat. Daar maakt hij meteen het formulier van dat je relaties te zien krijgen. Je bepaalt per veld of het zichtbaar, bewerkbaar of verplicht is, en of er uitleg bij hoort.</p>
+        </div>
+        <div class="illu" aria-hidden="true">
+          <div class="mini bestand">
+            <div class="mini-kop"><span>Leden_2026.xlsx</span><span>3 kolommen</span></div>
+            <table>
+              <tr class="kop"><td>Naam</td><td>Adres</td><td>E-mail</td></tr>
+              <tr><td>De Vries</td><td>Kerkstraat 12</td><td>familie@…</td></tr>
+              <tr><td>Janssen</td><td>Molenweg 4</td><td>m.j@…</td></tr>
+            </table>
+          </div>
+          <Icon name="arrow-right" size={28} class="pijl" />
+          <div class="mini formulier">
+            <div class="f-regel"><span class="b">Formulier</span><span class="xs muted">automatisch aangemaakt</span></div>
+            <div class="veld"><div class="f-regel"><span class="b">Naam</span><span class="pils"><span class="pil">zichtbaar</span><span class="pil">verplicht</span></span></div><div class="invoer">Familie De Vries</div></div>
+            <div class="veld"><div class="f-regel"><span class="b">Adres</span><span class="pils"><span class="pil">bewerkbaar</span></span></div><div class="invoer">Kerkstraat 12, Zeist</div></div>
+            <div class="veld"><div class="f-regel"><span class="b">E-mail</span><span class="pils"><span class="pil">bewerkbaar</span></span></div><div class="invoer">familie@mijndomein.nl</div></div>
+            <div class="veld"><div class="f-regel"><span class="b">Telefoon</span><span class="pils"><span class="pil">bewerkbaar</span><span class="pil lijn">optioneel</span></span></div><div class="invoer"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature omgekeerd">
+        <div class="illu" aria-hidden="true">
+          <div class="mini lijst">
+            <div class="mini-kop plain"><span class="b">Nog geen reactie</span><span class="muted">3 relaties</span></div>
+            <div class="rij"><span>M. Janssen</span><span class="waarschuwing">Geen e-mail</span></div>
+            <div class="rij"><span>Huishouden Bakker</span><span class="waarschuwing">Geen reactie</span></div>
+            <div class="rij"><span>S. van Dijk</span><span class="waarschuwing">Geen reactie</span></div>
+            <div class="rij knop-rij"><span class="mini-knop"><Icon name="mail" size={14} />Maak 3 brieven</span></div>
+          </div>
+          <Icon name="arrow-right" size={28} class="pijl" />
+          <div class="mini brief">
+            <div class="afzender">Vereniging De Groene Weide</div>
+            <div class="adres">Mevr. M. Janssen<br>Molenweg 4<br>3871 AB Hoevelaken</div>
+            <div class="lijn"></div><div class="lijn w92"></div><div class="lijn w96"></div><div class="lijn w60"></div>
+            <div class="code"><span class="code-kop">Jouw code</span><span class="code-waarde">7H4 K2P</span><span class="code-url">mijngegevens.groeneweide.nl</span></div>
+          </div>
+        </div>
+        <div class="stack gap-16">
+          <p class="eyebrow">Automatische brieven</p>
+          <h2 class="h2-sm">Een handgeschreven kaart of brief voor wie niet reageren</h2>
+          <p class="muted f-tekst">Niet iedereen heeft e-mail, en niet iedereen reageert. Daar is de post voor. Met één druk op de knop maak je brieven of kaarten voor precies die groep, elk met een eigen code. Printen en verzenden doe je zelf, of je laat het aan ons over.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="stack gap-16">
+          <p class="eyebrow">Whitelabel</p>
+          <h2 class="h2-sm">Een uitnodiging in je eigen stijl, vanaf je eigen domein</h2>
+          <p class="muted f-tekst">Relaties zien de naam en huisstijl van jullie organisatie, niet die van ons. Logo, kleuren en afzender stel je één keer in. Wil je de link op je eigen domein, dan kan dat ook, zodat niemand twijfelt of de uitnodiging echt van jullie komt.</p>
+        </div>
+        <div class="illu" aria-hidden="true">
+          <div class="mini site">
+            <div class="site-bar"><span class="dots"><i></i><i></i><i></i></span><span class="site-url"><Icon name="lock" size={11} />mijngegevens.groeneweide.nl</span></div>
+            <div class="site-body">
+              <div class="site-uitnodiging">
+                <div class="org"><span class="avatar">GW</span><span class="b">De Groene Weide</span></div>
+                <div class="site-kop">Kloppen je gegevens nog?</div>
+                <div class="site-tekst">Controleer en pas aan wat niet meer klopt. Het kost twee minuten.</div>
+                <span class="site-knop">Gegevens bekijken</span>
+              </div>
+              <div class="site-instellingen">
+                <span class="xs eyebrow-xs">Huisstijl</span>
+                <div class="f-regel links"><span class="swatch g1"></span><span class="swatch g2"></span><span class="swatch g3"></span><span class="muted">Kleuren</span></div>
+                <div class="f-regel links"><span class="swatch logo">GW</span><span class="muted">Logo</span></div>
+                <div class="stack"><span class="muted">Afzender</span><span class="invoer">leden@groeneweide.nl</span></div>
+                <div class="stack"><span class="muted">Eigen domein</span><span class="invoer tussen"><span>mijngegevens.groeneweide.nl</span><span class="actief">actief</span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="testgebruiker" class="section section-mist">
+    <div class="wrap grid">
+      <div class="stack gap-28">
+        <div class="stack gap-12">
+          <p class="eyebrow">Beta test</p>
+          <h2 class="h2">Gelijk beginnen met je relatiebestand opschonen?</h2>
+          <p class="muted f-tekst">Op 1 december gaat ActueleGegevens.nl officieel live. Maar er zijn al organisaties en bedrijven die de tool in de praktijk gebruiken. Hun feedback helpt ons de software verder te polijsten, voordat deze beschikbaar komt voor iedereen. Wil je ook beta-gebruiker worden? Meld je dan aan vóór 1 december.</p>
+        </div>
+        <div class="card verwachten stack gap-20">
+          <h3 class="h3 h3-22">Wat je mag verwachten</h3>
+          <ul class="checks">
+            <li><Icon name="check" /><span>Persoonlijke hulp en aandacht bij je actualisatiecampagne</span></li>
+            <li><Icon name="check" /><span>Direct toegang tot alle functionaliteit</span></li>
+            <li><Icon name="check" /><span>Geen campagnekosten (korting t.w.v. 49 euro)</span></li>
+            <li><Icon name="check" /><span>Een opgeschoond relatiebestand</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <form id="aanvraag" class="form formcard" method="post" action="/api/testgebruiker" data-form="testgebruiker" novalidate>
+        <h3 class="h3">Meld je aan voor de gesloten beta</h3>
+        <input type="hidden" name="_bron" value="">
+        <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="field">
+          <label for="ag-organisatie">Organisatie</label>
+          <input id="ag-organisatie" name="organisatie" type="text" autocomplete="organization" required>
+          <span class="err" data-error-for="organisatie"></span>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="ag-soort">Soort organisatie</label>
+            <SoortSelect id="ag-soort" />
+          </div>
+          <div class="field">
+            <label for="ag-aantal">Aantal relaties in het bestand</label>
+            <select id="ag-aantal" name="aantal">
+              <option>Tot 250</option>
+              <option>250 tot 1.000</option>
+              <option>1.000 tot 5.000</option>
+              <option>Meer dan 5.000</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="ag-naam">Je naam en rol</label>
+            <input id="ag-naam" name="naam" type="text" autocomplete="name" required>
+            <span class="err" data-error-for="naam"></span>
+          </div>
+          <div class="field">
+            <label for="ag-email">E-mailadres</label>
+            <input id="ag-email" name="email" type="email" autocomplete="email" required>
+            <span class="err" data-error-for="email"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="ag-wanneer">Wanneer willen jullie een actualisatiecampagne doen?</label>
+          <select id="ag-wanneer" name="wanneer">
+            <option>Zo snel mogelijk</option>
+            <option>Binnen drie maanden</option>
+            <option>Later dit jaar</option>
+            <option>Nog geen idee</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="ag-bericht">Waar lopen jullie nu tegenaan? <span class="opt">(niet verplicht)</span></label>
+          <textarea id="ag-bericht" name="bericht" rows="3" placeholder="Een paar zinnen is genoeg."></textarea>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <button type="submit" class="btn btn-primary btn-block btn-52">Meld ons aan <Icon name="arrow-right" /></button>
+        <p class="note">We nemen binnen twee werkdagen contact op en gebruiken je gegevens alleen daarvoor. Liever mailen? <a href="mailto:ruben@jonacommunicatie.nl">ruben@jonacommunicatie.nl</a></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap narrow stack gap-32">
+      <h2 class="faq-kop">Veelgestelde vragen</h2>
+      <div class="faq">
+        {faq.map((f) => (
+          <div class="vraag stack gap-6">
+            <h3>{f.v}</h3>
+            <p class="muted">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <FormScript />
+</Base>
+
+<style>
+  .hero { padding: 96px 0 64px; }
+  .h1-sm { font-size: clamp(34px, 4.8vw, 52px); }
+  .crumbs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .crumbs a { color: var(--muted); }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; padding-top: 4px; }
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--mist);
+  }
+  .dot { width: 10px; height: 10px; border-radius: var(--r-pill); background: var(--border); }
+  .url {
+    margin-left: 12px;
+    flex: 1;
+    min-height: 28px;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* tijdlijn */
+  .stappen-sectie { padding: 80px 0; }
+  .tijdlijn {
+    list-style: none;
+    padding: 0;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .tijdlijn::before {
+    content: "";
+    position: absolute;
+    left: 28px;
+    right: calc(25% + 28px);
+    top: 28px;
+    height: 2px;
+    background: var(--teal);
+    opacity: 0.45;
+  }
+  .tijdlijn li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding-right: 24px;
+  }
+  .tijdlijn h3 { font-size: 20px; font-weight: 500; line-height: 1.3; }
+  .tijdlijn p.muted { font-size: 16px; }
+  .bol {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    border: 2px solid var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--teal-700);
+    box-shadow: 0 0 0 6px var(--mist);
+  }
+
+  /* uitgelichte functies */
+  .bijzonder { padding: 80px 0 60px; border-top: 1px solid var(--border); }
+  .gap-80 { gap: 80px; }
+  .feature {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 56px;
+    align-items: center;
+  }
+  .f-tekst { font-size: 18px; }
+  .illu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    min-height: 320px;
+    font-size: 12px;
+    color: var(--navy);
+  }
+  .pijl { color: var(--teal); flex-shrink: 0; }
+  .mini {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-small);
+    overflow: hidden;
+  }
+  .mini-kop {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .mini-kop.plain { padding: 10px 12px; border-bottom: none; align-items: center; }
+  .bestand table { border-collapse: collapse; font-size: 11.5px; }
+  .bestand td { padding: 6px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  .bestand tr:last-child td { border-bottom: none; }
+  .bestand .kop { background: var(--mist); font-weight: 500; }
+  .formulier {
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 200px;
+    flex: 1 1 200px;
+  }
+  .f-regel { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .f-regel.links { justify-content: flex-start; }
+  .b { font-weight: 500; }
+  .xs { font-size: 10px; }
+  .veld { display: flex; flex-direction: column; gap: 4px; }
+  .pils { display: flex; gap: 4px; }
+  .pil {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: var(--r-pill);
+    font-size: 10px;
+    background: var(--teal-100);
+    color: var(--teal-800);
+  }
+  .pil.lijn { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+  .invoer {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 8px;
+    color: var(--muted);
+    min-height: 26px;
+  }
+  .lijst { min-width: 230px; }
+  .rij {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 7px 12px;
+    border-top: 1px solid var(--border);
+  }
+  .knop-rij { padding: 12px; }
+  .waarschuwing {
+    padding: 1px 8px;
+    border-radius: var(--r-pill);
+    background: var(--warn-bg);
+    color: var(--warn-ink);
+    font-size: 10.5px;
+  }
+  .mini-knop {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    background: var(--navy);
+    color: var(--white);
+    border-radius: var(--r-pill);
+    font-weight: 500;
+  }
+  .brief {
+    width: 190px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    border-radius: 6px;
+  }
+  .afzender { font-family: var(--font-serif); font-size: 13px; }
+  .adres { font-size: 10.5px; color: var(--muted); line-height: 1.4; }
+  .lijn { height: 5px; width: 100%; background: var(--border); border-radius: 3px; }
+  .w92 { width: 92%; } .w96 { width: 96%; } .w60 { width: 60%; }
+  .code {
+    margin-top: 4px;
+    padding: 8px 10px;
+    border: 1px dashed var(--teal);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .code-kop { font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-700); }
+  .code-waarde { font-family: var(--font-serif); font-size: 16px; letter-spacing: 0.08em; }
+  .code-url { font-size: 9.5px; color: var(--muted); }
+  .site { width: 100%; max-width: 520px; }
+  .site-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--mist);
+  }
+  .dots { display: flex; gap: 4px; }
+  .dots i { width: 8px; height: 8px; border-radius: var(--r-pill); background: var(--border); display: block; }
+  .site-url {
+    flex: 1;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    padding: 3px 12px;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .site-url svg { color: var(--teal-700); }
+  .site-body { display: grid; grid-template-columns: 1fr 1fr; }
+  /* de huisstijl van de fictieve vereniging, bewust niet uit de Jona-tokens */
+  .site-uitnodiging {
+    --gw: #2f6b4b;
+    padding: 16px 18px;
+    background: var(--gw);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .org { display: flex; align-items: center; gap: 8px; }
+  .avatar {
+    width: 24px; height: 24px;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    color: #2f6b4b;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 11px;
+  }
+  .site-kop { font-family: var(--font-serif); font-size: 15px; line-height: 1.25; }
+  .site-tekst { font-size: 11px; opacity: 0.85; }
+  .site-knop {
+    align-self: flex-start;
+    padding: 5px 12px;
+    background: var(--white);
+    color: #2f6b4b;
+    border-radius: var(--r-pill);
+    font-weight: 500;
+    font-size: 11px;
+  }
+  .site-instellingen { padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .eyebrow-xs { letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .swatch { width: 22px; height: 22px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; }
+  .g1 { background: #2f6b4b; } .g2 { background: #1f4a33; } .g3 { background: #eaf3ec; border: 1px solid var(--border); }
+  .swatch.logo { border: 1px dashed var(--teal); color: var(--teal-700); font-size: 9px; }
+  .site-instellingen .invoer { color: var(--navy); min-height: 0; padding: 4px 8px; }
+  .tussen { display: flex; justify-content: space-between; gap: 8px; font-size: 10.5px; }
+  .actief { color: var(--teal-800); font-weight: 500; }
+
+  /* beta */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 56px;
+    align-items: start;
+  }
+  .verwachten { padding: 28px; }
+  .h3-22 { font-size: 22px; }
+  .formcard {
+    padding: 36px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-52 { min-height: 52px; }
+  .err { font-size: 13px; color: var(--warn-ink); }
+  .err:empty { display: none; }
+
+  /* faq */
+  .gap-32 { gap: 32px; }
+  .faq-kop {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 31px;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    color: var(--teal-700);
+  }
+  .faq { display: flex; flex-direction: column; }
+  .vraag { padding: 24px 0; border-top: 1px solid var(--border); }
+  .vraag:last-child { border-bottom: 1px solid var(--border); }
+  .vraag h3 { font-size: 19px; font-weight: 500; }
+
+  @media (max-width: 1023px) {
+    .tijdlijn { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 24px; }
+    .tijdlijn::before { display: none; }
+  }
+  @media (max-width: 767px) {
+    .hero { padding: 64px 0 48px; }
+    .stappen-sectie { padding: 64px 0; }
+    .bijzonder { padding: 64px 0 40px; }
+    .gap-80 { gap: 56px; }
+    .feature { gap: 28px; }
+    .omgekeerd .illu { order: 1; }
+    .illu { min-height: 0; flex-wrap: wrap; }
+    .formcard { padding: 24px 20px; }
+    .verwachten { padding: 20px; }
+  }
+  @media (max-width: 560px) {
+    .tijdlijn { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .tijdlijn::before {
+      display: block;
+      left: 27px;
+      right: auto;
+      top: 28px;
+      bottom: 28px;
+      width: 2px;
+      height: auto;
+    }
+    .tijdlijn li { padding: 0 0 40px 76px; }
+    .tijdlijn li:last-child { padding-bottom: 0; }
+    .tijdlijn .bol { position: absolute; left: 0; top: 0; }
+    .site-body { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 479px) {
+    .feature, .grid { grid-template-columns: minmax(0, 1fr); }
+    .actions .btn { width: 100%; }
+    .pijl { transform: rotate(90deg); }
+    .illu { flex-direction: column; }
+    .formulier { width: 100%; }
+  }
+</style>

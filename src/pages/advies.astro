@@ -1,0 +1,142 @@
+---
+import { pagina } from "../lib/paginas";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import FormScript from "../components/FormScript.astro";
+import SoortSelect from "../components/SoortSelect.astro";
+---
+<Base
+  {...pagina("/advies")}
+  current="advies"
+>
+  <section class="kennismaken">
+    <div class="wrap grid">
+      <div class="stack gap-40">
+        <div class="stack gap-24">
+          <p class="eyebrow">Kennismaken</p>
+          <h1 class="h1 h1-sm">Een half uur over hoe software jullie werk leuker kan maken</h1>
+          <p class="lead">Gratis, zonder verplichtingen, online of bij jullie aan tafel. We luisteren, stellen vragen en zeggen eerlijk wat je beter wel of niet kunt doen met software en AI.</p>
+        </div>
+
+        <ol class="steps">
+          <li>
+            <span class="num">1</span>
+            <div class="stack gap-6">
+              <h2>Jullie vertellen</h2>
+              <p class="muted">Hoe het werk nu gaat en waar het knelt. Wat je liever anders zou zien en hoe dat het verschil zou maken.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <div class="stack gap-6">
+              <h2>Wij kijken mee</h2>
+              <p class="muted">Wordt er al software gebruikt en is dat wel passend? Wie moeten ermee werken? Wat is er te automatiseren?</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <div class="stack gap-6">
+              <h2>Jullie beslissen</h2>
+              <p class="muted">Na het gesprek sturen we een korte samenvatting met een advies. Wat jullie daarmee doen, is aan jullie.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="scan-card stack gap-12">
+          <p class="eyebrow">Wil je verder?</p>
+          <h2 class="h3 h3-22">De AI-scan</h2>
+          <p class="muted scan-tekst">Een dag meekijken in jullie organisatie, met als uitkomst een concreet plan: welk werk kan slimmer, wat levert het op en wat kost het.</p>
+          <a href="/ai-scan" class="link self-start">Lees hoe de AI-scan werkt <Icon name="arrow-right" size={16} /></a>
+        </div>
+      </div>
+
+      <form id="aanvraag" class="form formcard" method="post" action="/api/kennismaking" data-form="kennismaking" novalidate>
+        <h2 class="h3 h3-26">Plan een kennismaking</h2>
+        <input type="hidden" name="_bron" value="">
+        <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="row">
+          <div class="field">
+            <label for="naam">Je naam</label>
+            <input id="naam" name="naam" type="text" autocomplete="name" required>
+            <span class="err" data-error-for="naam"></span>
+          </div>
+          <div class="field">
+            <label for="rol">Je rol</label>
+            <input id="rol" name="rol" type="text" autocomplete="organization-title">
+          </div>
+        </div>
+        <div class="field">
+          <label for="organisatie">Organisatie</label>
+          <input id="organisatie" name="organisatie" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="soort">Soort organisatie</label>
+          <SoortSelect id="soort" />
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="email">E-mailadres</label>
+            <input id="email" name="email" type="email" placeholder="naam@organisatie.nl" autocomplete="email" required>
+            <span class="err" data-error-for="email"></span>
+          </div>
+          <div class="field">
+            <label for="telefoon">Telefoon <span class="opt">(niet verplicht)</span></label>
+            <input id="telefoon" name="telefoon" type="tel" placeholder="06 12 34 56 78" autocomplete="tel">
+          </div>
+        </div>
+        <div class="field">
+          <label for="bericht">Waar blijft bij jullie werk liggen?</label>
+          <textarea id="bericht" name="bericht" rows="4" placeholder="Een paar zinnen is genoeg."></textarea>
+        </div>
+        <fieldset class="radios">
+          <legend>Voorkeur</legend>
+          <label><input type="radio" name="vorm" value="Online, via videobellen" checked> Online, via videobellen</label>
+          <label><input type="radio" name="vorm" value="Bij ons op locatie"> Bij ons op locatie</label>
+        </fieldset>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <button type="submit" class="btn btn-primary btn-block btn-52">Verstuur en plan het gesprek <Icon name="arrow-right" /></button>
+        <p class="note">We nemen binnen twee werkdagen contact op en gebruiken je gegevens alleen daarvoor. Liever mailen? <a href="mailto:info@jonatechnologie.nl">info@jonatechnologie.nl</a></p>
+      </form>
+    </div>
+  </section>
+  <FormScript />
+</Base>
+
+<style>
+  .kennismaken { padding: 112px 0 96px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 72px;
+    align-items: start;
+  }
+  .h1-sm { font-size: clamp(34px, 4.8vw, 52px); }
+  .scan-card {
+    padding: 24px;
+    background: var(--mist);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+  }
+  .h3-22 { font-size: 22px; }
+  .h3-26 { font-size: 26px; }
+  .scan-tekst { font-size: 16px; }
+  .self-start { align-self: flex-start; }
+  .formcard {
+    padding: 40px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-52 { min-height: 52px; }
+  .err { font-size: 13px; color: var(--warn-ink); }
+  .err:empty { display: none; }
+  @media (max-width: 767px) {
+    .kennismaken { padding: 72px 0 64px; }
+    .grid { gap: 40px; }
+    .formcard { padding: 24px 20px; }
+  }
+  @media (max-width: 479px) {
+    .grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

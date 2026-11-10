@@ -1,0 +1,136 @@
+---
+import Icon from "./Icon.astro";
+interface Props { current?: "software" | "ai-scan" | "over-jona" | "advies" | "actuelegegevens" }
+const { current } = Astro.props;
+const items = [
+  { href: "/#producten", label: "Onze software", key: "software" },
+  { href: "/ai-scan", label: "AI-scan", key: "ai-scan" },
+  { href: "/over-jona", label: "Over Jona", key: "over-jona" },
+];
+---
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="/" class="brand" aria-label="Jona · zinvolle technologie, naar de homepage">
+      <img src="/logo/jona-logo.svg" alt="Jona · zinvolle technologie" width="230" height="80">
+    </a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="hoofdmenu" data-menu-toggle>
+      <span class="open"><Icon name="menu" size={22} /></span>
+      <span class="close"><Icon name="x" size={22} /></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+    <nav id="hoofdmenu" class="nav" aria-label="Hoofdmenu">
+      {items.map((i) => (
+        <a href={i.href} aria-current={current === i.key ? "page" : undefined}>{i.label}</a>
+      ))}
+      <a href="/advies" class={"btn pill " + (current === "advies" ? "btn-primary" : "btn-outline")} aria-current={current === "advies" ? "page" : undefined}>Plan een kennismaking</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const header = btn?.closest(".site-header");
+  btn?.addEventListener("click", () => {
+    const open = btn.getAttribute("aria-expanded") === "true";
+    btn.setAttribute("aria-expanded", String(!open));
+    header?.classList.toggle("is-open", !open);
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 72px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .brand img {
+    display: block;
+    height: 64px;
+    width: auto;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-size: 16px;
+  }
+  .nav a:not(.btn) {
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+  }
+  .nav a:not(.btn):hover {
+    border-bottom-color: var(--teal);
+  }
+  .nav a[aria-current="page"]:not(.btn) {
+    font-weight: 500;
+    border-bottom-color: var(--teal);
+  }
+  .pill {
+    min-height: 44px;
+    padding: 0 22px;
+    font-size: 16px;
+  }
+  .menu-btn {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    background: var(--white);
+    color: var(--navy);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .menu-btn .close { display: none; }
+  .is-open .menu-btn .open { display: none; }
+  .is-open .menu-btn .close { display: inline-flex; }
+  .menu-btn span { display: inline-flex; }
+
+  @media (max-width: 860px) {
+    .brand img { height: 52px; }
+    .menu-btn { display: inline-flex; }
+    .nav {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      padding: 12px var(--gutter) 20px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+    }
+    .is-open .nav { display: flex; }
+    .nav a:not(.btn) {
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--border);
+      font-size: 18px;
+    }
+    .nav a[aria-current="page"]:not(.btn),
+    .nav a:not(.btn):hover { border-bottom-color: var(--teal); }
+    .nav .btn { margin-top: 12px; }
+  }
+</style>

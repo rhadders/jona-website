@@ -1,0 +1,580 @@
+/* Jona design system: tokens en basisopmaak.
+   Geen harde kleuren in pagina's of componenten; alles via deze tokens. */
+
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/lora-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Lora";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/lora-latin-500-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/jost-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Jost";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/jost-latin-400-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/jost-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/jost-latin-600-normal.woff2") format("woff2");
+}
+
+:root {
+  /* kleuren */
+  --navy: #073a56;
+  --navy-800: #052a3f;
+  --navy-900: #04202f;
+  --teal: #2bbcc0;
+  --teal-700: #1a7f83;
+  --teal-800: #14666a;
+  --teal-100: #dff5f6;
+  --teal-300: #7fd6d8;
+  --mist: #f5f8fa;
+  --border: #e3eaef;
+  --muted: #3f5866;
+  --ink-on-navy: #dce7ee;
+  --white: #ffffff;
+  --warn-bg: #fff4e5;
+  --warn-ink: #8a5a00;
+
+  /* typografie */
+  --font-serif: "Lora", Georgia, "Times New Roman", serif;
+  --font-sans: "Jost", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* stralen */
+  --r-field: 8px;
+  --r-notice: 12px;
+  --r-card: 18px;
+  --r-dialog: 28px;
+  --r-pill: 999px;
+
+  /* maten */
+  --wrap: 1180px;
+  --narrow: 760px;
+  --gutter: 32px;
+
+  --shadow-card: 0 20px 44px -16px rgba(7, 58, 86, 0.18);
+  --shadow-small: 0 10px 24px -14px rgba(7, 58, 86, 0.25);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--navy);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+}
+img {
+  height: auto;
+}
+
+a {
+  color: var(--navy);
+}
+a:hover {
+  color: var(--teal-700);
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+}
+
+/* focus: teal rand plus zachte ring */
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(43, 188, 192, 0.25);
+  border-radius: 4px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.narrow {
+  max-width: var(--narrow);
+}
+
+/* teksttypes */
+.eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-700);
+}
+.on-navy .eyebrow,
+.eyebrow.light {
+  color: var(--teal-300);
+}
+.h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(36px, 5.2vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+.h2 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(30px, 3.6vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+.h2-sm {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(28px, 3.2vw, 34px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+.h3 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+.lead {
+  font-size: clamp(18px, 1.7vw, 21px);
+  line-height: 1.55;
+}
+.muted {
+  color: var(--muted);
+}
+.small {
+  font-size: 13px;
+}
+
+/* knoppen: pillen, zakken 1px bij indrukken */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 26px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.08s ease;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn svg {
+  flex-shrink: 0;
+}
+.btn-primary {
+  background: var(--navy);
+  color: var(--white);
+}
+.btn-primary:hover {
+  background: var(--navy-800);
+  color: var(--white);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--navy);
+  border-color: var(--border);
+}
+.btn-secondary:hover {
+  border-color: var(--navy);
+  color: var(--navy);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--navy);
+  border-color: var(--navy);
+}
+.btn-outline:hover {
+  background: var(--navy);
+  color: var(--white);
+}
+.btn-accent {
+  background: var(--teal);
+  color: var(--navy-900);
+}
+.btn-accent:hover {
+  background: var(--teal-300);
+  color: var(--navy-900);
+}
+.btn-block {
+  width: 100%;
+}
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* tekstlink met teal onderstreping */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: var(--navy);
+  text-decoration: underline;
+  text-decoration-color: var(--teal);
+  text-underline-offset: 4px;
+}
+.link:hover {
+  color: var(--teal-700);
+}
+
+/* label-pil */
+.tag {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: var(--r-pill);
+  background: var(--teal-100);
+  color: var(--teal-800);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* kaarten en schermen */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+}
+.card-shadow {
+  box-shadow: var(--shadow-card);
+}
+.screen {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.screen img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* secties */
+.section {
+  padding: 96px 0;
+}
+.section-mist {
+  background: var(--mist);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+@media (max-width: 767px) {
+  .section {
+    padding: 64px 0;
+  }
+  :root {
+    --gutter: 20px;
+  }
+}
+
+/* stapels en rasters */
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+.gap-6 {
+  gap: 6px;
+}
+.gap-12 {
+  gap: 12px;
+}
+.gap-16 {
+  gap: 16px;
+}
+.gap-20 {
+  gap: 20px;
+}
+.gap-24 {
+  gap: 24px;
+}
+.gap-28 {
+  gap: 28px;
+}
+.gap-40 {
+  gap: 40px;
+}
+.gap-48 {
+  gap: 48px;
+}
+.gap-56 {
+  gap: 56px;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 48px;
+  align-items: center;
+}
+.grid-2.start {
+  align-items: start;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+@media (max-width: 479px) {
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* genummerde stappen */
+.steps {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.steps li {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.steps .num {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--r-pill);
+  background: var(--teal-100);
+  color: var(--teal-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 18px;
+}
+.steps h2,
+.steps h3 {
+  font-size: 19px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+}
+
+/* vinkjeslijst */
+.checks {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 16px;
+}
+.checks li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.checks svg {
+  flex-shrink: 0;
+  margin-top: 4px;
+  color: var(--teal-700);
+}
+
+/* formulieren */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.form .row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field label {
+  font-size: 14px;
+  font-weight: 500;
+}
+.field label .opt {
+  color: var(--muted);
+  font-weight: 400;
+}
+.on-navy .field label {
+  color: var(--ink-on-navy);
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-field);
+  font: inherit;
+  font-size: 16px;
+  color: var(--navy);
+}
+.field textarea {
+  padding: 12px 16px;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 0;
+}
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--teal);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(43, 188, 192, 0.25);
+}
+.field input[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+  border-color: var(--warn-ink);
+}
+.radios {
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.radios legend {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 0 6px;
+}
+.radios label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+.radios input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--navy);
+}
+.form .note {
+  font-size: 13px;
+  color: var(--muted);
+}
+.on-navy .form .note {
+  color: var(--ink-on-navy);
+}
+.form-status {
+  display: none;
+  padding: 14px 16px;
+  border-radius: var(--r-notice);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.form-status[data-state="error"] {
+  display: block;
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+.form-status[data-state="ok"] {
+  display: block;
+  background: var(--teal-100);
+  color: var(--teal-800);
+}
+/* honingpot: onzichtbaar voor mensen */
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.on-navy {
+  color: var(--white);
+}
+.on-navy a {
+  color: var(--white);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

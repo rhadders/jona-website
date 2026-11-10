@@ -1,0 +1,56 @@
+---
+// Verstuurt formulieren met data-form via fetch; valt zonder JavaScript terug
+// op een gewone post naar hetzelfde endpoint.
+---
+<script>
+  const forms = document.querySelectorAll<HTMLFormElement>("form[data-form]");
+  for (const form of forms) {
+    const status = form.querySelector<HTMLElement>(".form-status");
+    const button = form.querySelector<HTMLButtonElement>("button[type=submit]");
+    const bron = form.querySelector<HTMLInputElement>("input[name=_bron]");
+    if (bron) bron.value = location.href.split("#")[0] ?? "";
+
+    const setErrors = (errors: Record<string, string> = {}) => {
+      for (const el of form.querySelectorAll<HTMLInputElement>("[name]")) {
+        const msg = errors[el.name];
+        el.setAttribute("aria-invalid", msg ? "true" : "false");
+        const hint = form.querySelector<HTMLElement>(`[data-error-for="${el.name}"]`);
+        if (hint) hint.textContent = msg ?? "";
+      }
+    };
+
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      if (status) { status.dataset.state = ""; status.textContent = ""; }
+      setErrors();
+      if (button) { button.disabled = true; }
+      try {
+        const data = Object.fromEntries(new FormData(form).entries());
+        const res = await fetch(form.action, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(data),
+        });
+        const body = (await res.json()) as { ok: boolean; message?: string; errors?: Record<string, string> };
+        if (body.ok) {
+          location.assign(`/bedankt?soort=${encodeURIComponent(form.dataset.form ?? "")}`);
+          return;
+        }
+        setErrors(body.errors);
+        if (status) { status.dataset.state = "error"; status.textContent = body.message ?? "Er ging iets mis."; }
+        form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+      } catch {
+        if (status) { status.dataset.state = "error"; status.textContent = "Het versturen lukt nu niet. Mail ons dan rechtstreeks op info@jonatechnologie.nl."; }
+      } finally {
+        if (button) button.disabled = false;
+      }
+    });
+  }
+
+  // Foutmelding na een post zonder JavaScript (?fout=…)
+  const fout = new URLSearchParams(location.search).get("fout");
+  if (fout) {
+    const status = document.querySelector<HTMLElement>("form[data-form] .form-status");
+    if (status) { status.dataset.state = "error"; status.textContent = fout; }
+  }
+</script>

@@ -1,0 +1,90 @@
+---
+import "../styles/global.css";
+import Icon from "../components/Icon.astro";
+import Iconen from "../components/Iconen.astro";
+import { gateAan, veiligPad } from "../lib/toegang";
+import { zoekPagina, ogPad } from "../lib/paginas";
+export const prerender = false;
+
+if (!gateAan()) return Astro.redirect("/", 303);
+
+// Via de middleware komt elke pagina zonder cookie hier terecht (zelfde adres);
+// rechtstreeks bezoek aan /toegang gaat na de code naar de homepage.
+const herkomst = Astro.originPathname.replace(/\/+$/, "") || "/";
+const naar = veiligPad(Astro.url.searchParams.get("naar") ?? herkomst);
+const fout = Astro.url.searchParams.get("fout");
+const melding = fout === "2" ? "Te veel pogingen. Probeer het over tien minuten opnieuw." : fout ? "Deze code klopt niet." : "";
+if (herkomst !== "/toegang") Astro.response.status = 401;
+// Ook achter de code tonen gedeelde links een passende titel en plaatje.
+const gedeeld = zoekPagina(herkomst) ?? zoekPagina("/")!;
+const site = Astro.site ?? new URL("https://jonatechnologie.nl");
+---
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Toegangscode · Jona</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#073A56" />
+    <Iconen />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Jona · zinvolle technologie" />
+    <meta property="og:title" content={gedeeld.title} />
+    <meta property="og:description" content={gedeeld.description} />
+    <meta property="og:url" content={new URL(gedeeld.pad, site)} />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:image" content={new URL(ogPad(gedeeld.pad), site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/lora-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <main class="poort">
+      <div class="kaart stack gap-16">
+        <img src="/logo/jona-mark.svg" alt="" width="48" height="47" class="merk" />
+        <p class="eyebrow">Jonatechnologie.nl</p>
+        <h1 class="h1 kop">Nog even geduld</h1>
+        <p class="lead">Deze website is nog in bewerking. Heb je een toegangscode gekregen? Vul die hieronder in.</p>
+        <form method="post" action="/api/toegang" class="form" novalidate>
+          <input type="hidden" name="naar" value={naar} />
+          <div class="field">
+            <label for="code">Toegangscode</label>
+            <input id="code" name="code" type="password" inputmode="numeric" autocomplete="one-time-code" autofocus required aria-invalid={melding ? "true" : undefined} aria-describedby={melding ? "melding" : undefined} />
+          </div>
+          {melding && <p id="melding" class="form-status" data-state="error" role="alert">{melding}</p>}
+          <button type="submit" class="btn btn-primary btn-block">Open de website <Icon name="arrow-right" size={18} /></button>
+        </form>
+        <p class="muted noot">Nog geen code? Mail naar <a href="mailto:info@jonatechnologie.nl">info@jonatechnologie.nl</a>.</p>
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  body { background: var(--mist); }
+  .poort {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+  .kaart {
+    width: 100%;
+    max-width: 440px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-card);
+    padding: 40px 36px;
+  }
+  .merk { width: 48px; height: auto; }
+  .kop { font-size: clamp(30px, 4vw, 36px); }
+  .lead { font-size: 17px; }
+  .form { margin-top: 8px; }
+  .noot { font-size: 14px; }
+  @media (max-width: 479px) { .kaart { padding: 32px 24px; } }
+</style>

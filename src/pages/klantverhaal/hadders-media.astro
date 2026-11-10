@@ -1,0 +1,187 @@
+---
+import { pagina } from "../../lib/paginas";
+// Klantverhaal, naar het ontwerp "Verhaal · VOO" uit de artefact "Jona website — drie richtingen".
+import Base from "../../layouts/Base.astro";
+import Icon from "../../components/Icon.astro";
+import LetsTalk from "../../components/LetsTalk.astro";
+import FormScript from "../../components/FormScript.astro";
+
+const kort = [
+  { k: "Organisatie", v: "Hadders Media" },
+  { k: "Sector", v: "Audiovisuele dienstverlening", v2: "Uitvaart" },
+  { k: "Wat we bouwden", v: "Livestream platform" },
+  { k: "Jaar", v: "2026" },
+  { k: "Website", v: "www.haddersmedia.nl", href: "https://www.haddersmedia.nl" },
+];
+---
+<Base
+  {...pagina("/klantverhaal/hadders-media")}
+>
+  <article class="verhaal">
+    <section class="kop">
+      <div class="wrap narrow stack gap-24">
+        <nav aria-label="Kruimelpad" class="crumbs">
+          <a href="/#verhaal">Gemaakt voor een klant</a>
+          <Icon name="chevron-right" size={14} />
+          <span>Hadders Media</span>
+        </nav>
+        <p class="eyebrow">Verhaal · in opdracht gebouwd</p>
+        <h1 class="h1 h1-sm">Een afscheid volgen, waar je ook bent en welke taal je ook spreekt</h1>
+        <p class="lead">Hadders Media maakt het mogelijk om op afstand bij een afscheid te zijn en biedt als eerste in Nederland live ondertiteling en nasynchronisatie aan bij uitvaarten. Wij bouwden een eigen platform dat livestreams, vertalingen en condoleances samenbrengt. Eenvoudig te beheren voor Hadders Media en toegankelijk voor familie en vrienden, overal ter wereld.</p>
+      </div>
+    </section>
+
+    <section class="beeld">
+      <div class="wrap">
+        <figure class="stack gap-12">
+          <div class="screen">
+            <picture>
+              <source srcset="/beeld/hadders-media-beheer.webp" type="image/webp">
+              <img src="/beeld/hadders-media-beheer.png" width="1800" height="1416" alt="Het beheer van het livestreamplatform van Hadders Media: de livestreams van vandaag met per uitzending de opdrachtgever, de status (terugkijken, live of gepland), de toegangscode en het aantal reacties, en daaronder de komende uitzendingen">
+            </picture>
+          </div>
+          <figcaption class="bijschrift">Het beheer: de uitzendingen van vandaag met hun status, toegangscode en reacties, en daaronder wat er komende dagen gepland staat.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="artikel">
+      <div class="wrap kolommen">
+        <div class="tekst stack gap-48">
+          <div class="stack gap-16">
+            <h2 class="kop2">De vraag</h2>
+            <p class="alinea">Een afscheid wil je samen beleven. Ook met familie in het buitenland of vrienden die er door ziekte niet bij kunnen zijn. Hadders Media verzorgt livestreams van uitvaarten door heel Nederland en maakt het mogelijk om op afstand mee te kijken.</p>
+            <p class="alinea">Daarbij gaat het om meer dan beeld en geluid. Hoe zorg je dat ook iemand die geen Nederlands spreekt de herinneringen en persoonlijke woorden kan volgen? Hadders Media biedt als eerste in Nederland live ondertiteling en nasynchronisatie aan bij uitvaarten. Zo kunnen mensen het afscheid in hun eigen taal volgen, thuis én op locatie.</p>
+            <p class="alinea">Om dit goed te organiseren, waren achter de schermen veel losse handelingen nodig. Hadders Media vroeg ons om één platform te ontwikkelen dat het klaarzetten en beheren van uitzendingen eenvoudiger maakt, met een persoonlijke kijkomgeving voor iedere opdrachtgever.</p>
+          </div>
+
+          <div class="stack gap-16">
+            <h2 class="kop2">Wat we bouwden</h2>
+            <p class="alinea">We ontwikkelden een platform waarin Hadders Media alle onderdelen van een livestream bij elkaar heeft. Bij het aanmaken van een uitzending worden de opdrachtgever, het tijdstip en de gewenste mogelijkheden gekozen, zoals ondertiteling, gesproken vertaling en een condoleancemogelijkheid. Het platform zet de benodigde diensten klaar en zorgt dat ze op tijd starten en na afloop stoppen.</p>
+            <p class="alinea">Voor familie en vrienden begint het met een link en een toegangscode. Daarmee openen zij de uitzending op een pagina in de huisstijl van de uitvaartondernemer. Ze zien wanneer de dienst begint, kunnen live meekijken en vinden er na afloop de opname. Wie een persoonlijk bericht wil achterlaten, kan via dezelfde pagina condoleren.</p>
+            <p class="alinea">Ook aanwezigen op locatie kunnen de vertaling gebruiken. Via een QR-code openen zij de live ondertiteling op hun telefoon, in een taal naar keuze. Desgewenst luisteren ze naar een gesproken vertaling. Nederlandse ondertiteling helpt bovendien dove en slechthorende bezoekers om de woorden tijdens het afscheid te volgen.</p>
+            <p class="alinea">De omgeving is ook voorbereid op gebruik door opdrachtgevers zelf, zodat uitvaartondernemers, kerken en uitvaartcentra hun uitzendingen kunnen beheren.</p>
+          </div>
+
+          <div class="stack gap-16">
+            <h2 class="kop2">Wat het oplevert</h2>
+            <p class="alinea">Hadders Media hoeft minder handmatig klaar te zetten en tussen verschillende diensten te schakelen. Uitzendingen, instellingen en condoleances staan overzichtelijk bij elkaar. Dat bespaart werk in de voorbereiding en geeft tijdens de uitvaart meer ruimte voor de zorgvuldige registratie van het afscheid.</p>
+            <p class="alinea">Voor familie en vrienden blijft het gebruik eenvoudig: geen app installeren of account aanmaken, maar de link openen en meekijken. Dichtbij of ver weg, in het Nederlands of in een andere taal. Zo helpt het platform Hadders Media om meer mensen te betrekken bij een afscheid dat ze niet willen missen.</p>
+          </div>
+        </div>
+
+        <aside class="zijbalk">
+          <div class="kort stack gap-16">
+            <p class="eyebrow">In het kort</p>
+            <dl class="feiten">
+              {kort.map((r) => (
+                <div class="feit">
+                  <dt>{r.k}</dt>
+                  <dd>{"href" in r ? <a href={r.href} rel="noopener">{r.v}</a> : r.v}{"v2" in r && <><br />{r.v2}</>}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div class="kaart-navy on-navy stack gap-12">
+            <h2 class="kaart-kop">Ook een app die het werken makkelijker maakt?</h2>
+            <p class="kaart-tekst">Grote kans dat we het snel kunnen bouwen. Begin met een kennismaking.</p>
+            <a href="/advies" class="btn btn-accent btn-klein">Plan een kennismaking</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </article>
+
+  <LetsTalk id="advies" />
+  <FormScript />
+</Base>
+
+<style>
+  .kop { padding: 96px 0 64px; }
+  .h1-sm { font-size: clamp(34px, 4.8vw, 52px); }
+  .crumbs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .crumbs a { color: var(--muted); }
+  .lead { font-size: 20px; }
+
+  .beeld { padding: 0 0 64px; }
+  .bijschrift { font-size: 14px; color: var(--muted); }
+
+  .artikel { padding: 32px 0 96px; }
+  .kolommen {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 64px;
+    align-items: start;
+  }
+  .tekst { max-width: 760px; }
+  .kop2 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .alinea {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  .zijbalk {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 104px;
+  }
+  .kort {
+    padding: 28px;
+    background: var(--mist);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+  }
+  .feiten {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 15px;
+  }
+  .feit { display: flex; flex-direction: column; gap: 2px; }
+  .feit dt { color: var(--muted); }
+  .feit dd { margin: 0; font-weight: 500; }
+  .feit dd a { text-decoration: none; }
+  .feit dd a:hover { text-decoration: underline; text-decoration-color: var(--teal); text-underline-offset: 4px; }
+  .kaart-navy {
+    padding: 28px;
+    background: var(--navy-800);
+    border-radius: var(--r-card);
+  }
+  .kaart-kop {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+  .kaart-tekst { font-size: 15px; color: var(--ink-on-navy); }
+  .btn-klein { min-height: 44px; padding: 0 20px; font-size: 15px; align-self: flex-start; }
+
+  @media (max-width: 1023px) {
+    .kolommen { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+    .zijbalk { position: static; }
+  }
+  @media (max-width: 767px) {
+    .kop { padding: 64px 0 40px; }
+    .beeld { padding-bottom: 48px; }
+    .artikel { padding: 16px 0 64px; }
+    .kop2 { font-size: 28px; }
+    .kort, .kaart-navy { padding: 22px; }
+  }
+</style>

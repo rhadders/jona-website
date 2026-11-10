@@ -1,0 +1,68 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="site-footer on-navy">
+  <div class="wrap stack gap-48">
+    <div class="cols">
+      <div class="stack gap-16">
+        <img src="/logo/jona-logo-wit.svg" alt="Jona · zinvolle technologie" width="200" height="70" class="logo">
+        <p class="tagline">Software voor bedrijven en organisaties met een missie.</p>
+      </div>
+      <div class="col">
+        <span class="eyebrow light">Onze software</span>
+        <a href="/selaread">Selaread</a>
+        <a href="/actuelegegevens">ActueleGegevens.nl</a>
+        <a href="/tirgumai">TirgumAI</a>
+      </div>
+      <div class="col">
+        <span class="eyebrow light">Jona</span>
+        <a href="/over-jona">Over Jona</a>
+        <a href="/ai-scan">AI-scan</a>
+        <a href="/advies">Plan een kennismaking</a>
+      </div>
+      <div class="col">
+        <span class="eyebrow light">Bezoekadres</span>
+        <span>Kazemat 23, Veenendaal</span>
+        <span>T: <a href="tel:+31615943200">06 - 159 432 00</a></span>
+        <span>E: <a href="mailto:info@jonatechnologie.nl">info@jonatechnologie.nl</a></span>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>Een joint venture met <a href="https://echonova.nl" rel="noopener">EchoNova</a>.</span>
+      <span>&copy; {year} Jona · zinvolle technologie</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--navy-900);
+    color: var(--ink-on-navy);
+    padding: 64px 0 40px;
+    margin-top: auto;
+  }
+  .logo { display: block; height: 56px; width: auto; }
+  .tagline { font-size: 15px; max-width: 32ch; }
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+  }
+  .col a { text-decoration: none; }
+  .col a:hover { color: var(--teal-300); }
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 14px;
+  }
+</style>

@@ -1,0 +1,764 @@
+---
+import { pagina } from "../lib/paginas";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import FormScript from "../components/FormScript.astro";
+
+// De zes stappen van het vertaalwerk; de middelste drie krijgen AI-ondersteuning.
+const stappen = [
+  { icon: "book-open", label: "Lezen", ai: false },
+  { icon: "bars", label: "Begrijpen", ai: true },
+  { icon: "sparkles", label: "Vertalen", ai: true },
+  { icon: "circle-check", label: "Controleren", ai: true },
+  { icon: "users", label: "Samenwerken", ai: false },
+  { icon: "upload", label: "Publiceren", ai: false },
+] as const;
+
+const groepen = [
+  { kop: "De grondtekst lezen", ai: false, punten: [
+    "Hebreeuws, Aramees en Grieks woord voor woord, met lemma, vorm, Strong's, transliteratie en uitspraak",
+    "Zinsbouw en de betekenis van een woord in één oogopslag",
+    "Vergelijkingsteksten (o.a. Nestle 1904, Tischendorf en Westcott-Hort)",
+    "Concordantie op Strong's, lemma of grammaticale vorm, in de hele Bijbel of in één passage",
+  ] },
+  { kop: "De achtergrond begrijpen", ai: true, punten: [
+    "Woordenboeken (o.a. Brown-Driver-Briggs, Abbott-Smith en Strong's)",
+    "Tekstvarianten met toelichting bij 4.515 plaatsen in het Oude Testament",
+    "Parallelle passages naast elkaar weergeven",
+    "Personen, plaatsen en namen toegelicht",
+    "Handboeken, commentaren en studienotities",
+  ] },
+  { kop: "Vertalen met hulp van AI", ai: true, punten: [
+    "Richtlijnen voor stijl, register, godsnamen, aanspreekvorm, poëzie en eerbiedshoofdletters",
+    "Een AI-vertaling per vers of de hele Bijbel in één keer",
+    "Een projectglossarium met voorkomens en afwijkingen zichtbaar gemaakt",
+    "Een AI-assistent die je helpt de grondtekst te begrijpen en weloverwogen vertaalkeuzes te maken",
+    "Een AI-controle van jouw vertaling tegen de grondtekst",
+  ] },
+  { kop: "Controleren op consistentie", ai: true, punten: [
+    "Consistentie in twee richtingen: één grondwoord met meer vertalingen, één doelwoord voor meer grondwoorden",
+    "Taalfouten in de doeltaal: spaties, leestekens, open aanhalingstekens en de spelling van eigennamen",
+  ] },
+  { kop: "Vertalen in teamverband", ai: false, punten: [
+    "Ondersteuning voor meerdere projecten",
+    "Overleg met teamleden over de beste vertaling",
+    "Volledige geschiedenis per vers en een logboek per project",
+    "Vier gebruikersrollen: meelezer, vertaler, reviewer en manager",
+  ] },
+  { kop: "Publiceren", ai: false, punten: [
+    "Complete Bijbels en studiebijbels automatisch gezet met kant-en-klare templates, drukklaar met afloop en snijtekens",
+    "Je eigen online studiebijbel, met een leesstand en een studiestand",
+    "Export naar Word, PDF, EPUB, USFM 3.1, USX en USJ",
+    "PTXprint-pakket voor typesetting",
+  ] },
+];
+
+const voordelen = [
+  { icon: "clock", kop: "Minder tijd", tekst: "Een Bijbel telt al snel meer dan duizend pagina's. De software zet de hele tekst in één keer en doet automatisch voorstellen bij problemen." },
+  { icon: "euro", kop: "Lagere kosten", tekst: "Ook een kleine oplage of een eerste uitgave wordt haalbaar. Uitgevers zonder ervaring profiteren van kant-en-klare templates." },
+  { icon: "shield-check", kop: "Geen frustratie", tekst: "Geen verspringende verzen of losgeraakte voetnoten. Elke proef wordt op dezelfde manier gezet: wat goed was, blijft goed." },
+] as const;
+
+const templates = [
+  { naam: "Kerkbijbel", beeld: "tirgumai-template-kerkbijbel", b: 1200, h: 1760, tekst: "Twee kolommen, kruisverwijzingen en duimgrepen in de marge.", alt: "Een pagina uit Johannes 1 in de kerkbijbel-template: twee kolommen, voetnoten en verwijzingen onderaan, duimgreep in de marge" },
+  { naam: "Notitiebijbel", beeld: "tirgumai-template-notitiebijbel", b: 1200, h: 1800, tekst: "Eén kolom, versnummers in de kantlijn en notitieregels.", alt: "Een pagina uit Romeinen 1 in de notitiebijbel-template: één kolom met versnummers in de kantlijn en lege notitieregels ernaast" },
+  { naam: "Eigen ontwerp", beeld: "tirgumai-template-eigen-ontwerp", b: 1200, h: 1800, tekst: "Naar de voorbeeldpagina van een klant: eigen formaat, letter, kop en notenlijst.", alt: "Een pagina uit Mattheüs 1 in een eigen ontwerp: één brede kolom met een eigen letter en voetnoten onderaan" },
+];
+const alleTemplates = ["Leesbijbel", "Handbijbel", "Grote letter", "Kerkbijbel", "Kinderbijbel", "Studiebijbel", "Predikantenbijbel", "Toepassingsbijbel", "Notitiebijbel"];
+
+const drukStappen = [
+  { kop: "Lever je tekst aan", tekst: "Uit Paratext, als USFM of USX, of als Scripture Burrito." },
+  { kop: "Kies de opmaak", tekst: "Een kant-en-klaar template of een ontwerp op maat." },
+  { kop: "Bekijk de proef", tekst: "Download als pdf, inclusief detectie van opmaakproblemen." },
+  { kop: "Drukcase drukt", tekst: "Het drukbestand gaat naar de pers, Drukcase verzorgt de rest." },
+];
+
+const faq = [
+  { v: "Schrijft de AI de vertaling?", a: "Dat is mogelijk, als je dat wilt. Met TirgumAI kun je de Hebreeuwse en Griekse grondteksten met één druk op de knop laten vertalen in tientallen doeltalen, op basis van jouw eigen vertaalrichtlijnen. Maar je kunt de ingebouwde AI ook gebruiken als ondersteuning bij het vertalen of om jouw eigen vertaling te controleren." },
+  { v: "Welke grondteksten gebruikt TirgumAI?", a: "Open edities van het Hebreeuwse Oude Testament en het Griekse Nieuwe Testament, met Strong's-nummers en grammaticale informatie. Daarnaast vergelijkingsteksten zoals Nestle 1904, Tischendorf en Westcott-Hort, en woordenboeken als Brown-Driver-Briggs, Abbott-Smith en Strong's." },
+  { v: "Kunnen we met een team werken?", a: "Ja, een vertaalproject heeft vaak behalve vertalers ook meelezers, reviewers en projectleiders. Zij hebben elk eigen rechten in de software. TirgumAI is echter ook heel goed individueel te gebruiken." },
+  { v: "Hoe komt de vertaling bij de lezer?", a: "Je kunt de vertaling als online bijbel publiceren, in een mooi vormgegeven leesomgeving die geschikt is voor mobiel en desktop." },
+  { v: "We hebben al een vertaling. In welk formaat leveren we die aan?", a: "Rechtstreeks uit Paratext, als USFM of USX, of als Scripture Burrito. Je hoeft dus niet in TirgumAI te vertalen om de software voor het zetten te gebruiken." },
+  { v: "Kunnen we onze Bijbel ook laten drukken?", a: "Ja. TirgumAI zet de complete tekst drukklaar, met afloop en snijtekens, in een kant-en-klaar template of een eigen ontwerp." },
+];
+---
+<Base
+  {...pagina("/tirgumai")}
+  current="software"
+>
+  <section class="hero">
+    <div class="wrap stack gap-56">
+      <nav aria-label="Kruimelpad" class="crumbs">
+        <a href="/#producten">Onze software</a>
+        <Icon name="chevron-right" size={14} />
+        <span>TirgumAI</span>
+      </nav>
+      <div class="narrow stack gap-24">
+        <span class="tag">Beta · voor bijbelvertalers, theologen en uitgevers</span>
+        <h1 class="h1 h1-sm">TirgumAI: vers voor vers de Bijbel vertalen, met hulp van AI</h1>
+        <p class="lead">Vertaal vanuit de Hebreeuwse en Griekse grondtekst, alleen of met een team, met behulp van AI. Verrijk de vertaling met&nbsp;voetnoten, afbeeldingen en commentaren. Publiceer vervolgens je eigen studiebijbel, online of als drukklare pdf, direct vanuit de software.</p>
+        <div class="actions">
+          <a href="#op-de-hoogte" class="btn btn-primary"><span>Houd me op de hoogte</span> <Icon name="arrow-right" /></a>
+          <a href="#leessite" class="btn btn-secondary">Bekijk een voorbeeld van de leessite</a>
+        </div>
+      </div>
+
+      <figure class="browser screen vergelijk" data-vergelijk>
+        <div class="browser-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="url">app.tirgumai.nl</span>
+        </div>
+        <div class="beeld">
+          <picture>
+            <source srcset="/beeld/tirgumai-werkplek-licht.webp" type="image/webp">
+            <img src="/beeld/tirgumai-werkplek-licht.png" width="1800" height="1181" alt="De werkplek van TirgumAI bij Genesis 1:8 in de lichte modus: vertaling en Hebreeuwse grondtekst in het midden, woordpaneel rechts">
+          </picture>
+          <picture class="donker" aria-hidden="true">
+            <source srcset="/beeld/tirgumai-werkplek-donker.webp" type="image/webp">
+            <img src="/beeld/tirgumai-werkplek-donker.png" width="1800" height="1181" alt="" loading="lazy">
+          </picture>
+          <span class="modus links" aria-hidden="true">Licht</span>
+          <span class="modus rechts" aria-hidden="true">Donker</span>
+          <div class="lijn" aria-hidden="true"></div>
+          <div class="greep" aria-hidden="true"><Icon name="chevrons-left-right" size={20} /></div>
+          <input type="range" class="schuif" min="0" max="100" step="0.5" value="50" aria-label="Schuif tussen de lichte en de donkere modus">
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section-mist functies">
+    <div class="wrap stack gap-40">
+      <div class="stack gap-12 midden">
+        <p class="eyebrow">Wat TirgumAI uniek maakt</p>
+        <h2 class="h2">Vertrouwd vertaalgereedschap, <br class="br-breed">gecombineerd met baanbrekende technologie</h2>
+      </div>
+      <ol class="strook" aria-label="De zes stappen van het vertaalwerk">
+        <div class="ai-kader" aria-hidden="true"><span class="ai-label"><span><Icon name="sparkles" size={14} /> Met AI-ondersteuning</span></span></div>
+        {stappen.map((s, i) => (
+          <li class:list={["stap", { ai: s.ai }]} style={`--kolom: ${i + 1}`}>
+            <div class="bol"><Icon name={s.icon} size={22} /></div>
+            <span>{s.label}</span>
+          </li>
+        ))}
+      </ol>
+      <div class="card kolommen">
+        {groepen.map((g) => (
+          <div class="groep stack gap-8">
+            <h3 class="eyebrow groep-kop">{g.ai && <Icon name="sparkles" size={14} />}<span>{g.kop}</span></h3>
+            <ul class="punten">
+              {g.punten.map((p) => <li><Icon name="check" size={16} /><span>{p}</span></li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bijzonder">
+    <div class="wrap stack gap-96">
+
+      <div class="feature">
+        <div class="stack gap-16">
+          <p class="eyebrow">Voor de vertaler</p>
+          <h2 class="h2-sm">Elk woord uitgelegd, op de plek waar je werkt</h2>
+          <p class="muted f-tekst">Onder elk vers staat de grondtekst woord voor woord, met transliteratie, betekenis en Strong's-nummer. Klik op een woord en het paneel toont de grammatica, de herkomst, hoe je het eerder vertaalde en wat het glossarium voorschrijft. Geen woordenboeken ernaast, geen tabbladen.</p>
+        </div>
+        <figure class="figuur">
+          <div class="screen gevoerd">
+            <picture>
+              <source srcset="/beeld/tirgumai-interlineair.webp" type="image/webp">
+              <img src="/beeld/tirgumai-interlineair.png" width="1628" height="340" loading="lazy" alt="De interlineaire strook van Genesis 1:8: tien Hebreeuwse woorden met transliteratie, Nederlandse betekenis en Strong's-nummer, het woord voor gewelf geselecteerd">
+            </picture>
+          </div>
+          <figcaption>De grondtekst per woord onder Genesis 1:8.</figcaption>
+        </figure>
+      </div>
+
+      <div id="leessite" class="feature omgekeerd">
+        <figure class="figuur">
+          <div class="screen">
+            <picture>
+              <source srcset="/beeld/tirgumai-leessite.webp" type="image/webp">
+              <img src="/beeld/tirgumai-leessite.png" width="1800" height="1125" loading="lazy" alt="De leessite van een vertaalproject op Genesis 1: boekinleiding, sectiekoppen, voetnoten, verwijzingen in de kantlijn en een studiepaneel">
+            </picture>
+          </div>
+          <figcaption>De leessite in de studiemodus: inleiding, verwijzingen, voetnoten, grondtekst.</figcaption>
+        </figure>
+        <div class="stack gap-16">
+          <p class="eyebrow">Voor de lezer</p>
+          <h2 class="h2-sm">Van werkvertaling naar studiebijbel, zonder extra werk</h2>
+          <p class="muted f-tekst">Wat het team in de werkplek vastlegt, zoals voetnoten, verwijzingen, inleidingen, studienoten en afbeeldingen, staat op de leessite meteen op zijn plek. De lezer kiest zelf: alleen de tekst, of alles erbij. Bronnen en licenties staan netjes op één pagina.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="stack gap-16">
+          <p class="eyebrow">Voor het team</p>
+          <h2 class="h2-sm">Consequent vertalen, ook met tien mensen</h2>
+          <p class="muted f-tekst">De consistentiecontrole vindt de plekken waar één Nederlands woord voor twee grondwoorden staat, of waar hetzelfde grondwoord verschillend is vertaald. Per knelpunt zie je de verzen, spring je naar de kaart, of markeer je het bewust zo. Rollen voor vertaler, reviewer en beheerder houden het werk op orde.</p>
+        </div>
+        <figure class="figuur">
+          <div class="screen">
+            <picture>
+              <source srcset="/beeld/tirgumai-consistentie.webp" type="image/webp">
+              <img src="/beeld/tirgumai-consistentie.png" width="1800" height="1125" loading="lazy" alt="De consistentiecontrole, tabblad Begrippen: vier Nederlandse woorden die voor meer dan één grondwoord staan, met de verzen per grondwoord">
+            </picture>
+          </div>
+          <figcaption>Consistentie › Begrip 'licht' in Genesis 1.</figcaption>
+        </figure>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="drukwerk" class="drukwerk">
+    <div class="wrap stack gap-56">
+      <div class="narrow stack gap-16">
+        <p class="partners">
+          <img src="/beeld/drukcase-logo.png" srcset="/beeld/drukcase-logo.webp" width="480" height="296" alt="Drukcase" class="partner-drukcase">
+          <Icon name="x" size={14} class="partner-kruis" />
+          <span class="partner-tirgumai"><img src="/logo/jona-mark.svg" alt="" width="230" height="226">TirgumAI</span>
+        </p>
+        <p class="eyebrow">Van vertaling tot gedrukte Bijbel</p>
+        <h2 class="h2">Drukklaar gezet, zonder maanden opmaakwerk</h2>
+        <p class="muted f-tekst">Dezelfde software zet ook complete Bijbels en studiebijbels. Koppen, hoofdstuk- en versnummers, voetnoten en kruisverwijzingen, kolommen in balans, afloop en snijtekens: de hele tekst in één keer. Drukwerkpartner Drukcase, specialist in Bijbels, gebruikt TirgumAI al voor het zetten. Een compleet Bulgaars Nieuw Testament is ermee gemaakt en andere uitgaven zijn in voorbereiding.</p>
+      </div>
+
+      <ul class="voordelen">
+        {voordelen.map((v) => (
+          <li class="stack gap-10">
+            <div class="voordeel-kop"><span class="rondje"><Icon name={v.icon} size={18} /></span><h3>{v.kop}</h3></div>
+            <p class="muted">{v.tekst}</p>
+          </li>
+        ))}
+      </ul>
+
+      <div class="stack gap-24">
+        <div class="card template-groot">
+          <div class="template-beeld">
+            <picture>
+              <source srcset="/beeld/tirgumai-template-studiebijbel.webp" type="image/webp">
+              <img src="/beeld/tirgumai-template-studiebijbel.png" width="2000" height="1500" loading="lazy" alt="Een spread uit Genesis 1 tot 3 in de studiebijbel-template: twee kolommen bijbeltekst met tekstnoten en studienoten onderaan elke pagina">
+            </picture>
+          </div>
+          <div class="stack gap-12">
+            <p class="eyebrow">Template</p>
+            <h3 class="h3 h3-24">Studiebijbel</h3>
+            <p class="muted">Twee kolommen, met tekstnoten en studienoten onderaan elke pagina. De software zet automatisch:</p>
+            <ul class="checks checks-15">
+              <li><Icon name="check" size={16} /><span>koppen, hoofdstuk- en versnummers</span></li>
+              <li><Icon name="check" size={16} /><span>voetnoten en kruisverwijzingen</span></li>
+              <li><Icon name="check" size={16} /><span>studienoten bij het juiste vers</span></li>
+              <li><Icon name="check" size={16} /><span>kolommen in balans, met afbreking</span></li>
+              <li><Icon name="check" size={16} /><span>afloop en snijtekens voor de drukker</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="templates">
+          {templates.map((t) => (
+            <div class="card template stack gap-12">
+              <div class="template-beeld staand">
+                <picture>
+                  <source srcset={`/beeld/${t.beeld}.webp`} type="image/webp">
+                  <img src={`/beeld/${t.beeld}.png`} width={t.b} height={t.h} loading="lazy" alt={t.alt}>
+                </picture>
+              </div>
+              <h3 class="h3-19">{t.naam}</h3>
+              <p class="muted template-tekst">{t.tekst}</p>
+            </div>
+          ))}
+        </div>
+        <p class="alle"><span class="muted">Alle templates:</span> {alleTemplates.map((n) => <span class="pil">{n}</span>)}</p>
+      </div>
+
+      <div class="druk-onder">
+        <ol class="drukstappen">
+          {drukStappen.map((st, i) => (
+            <li class="stack gap-6">
+              <div class="drukstap-kop"><span class="num">{i + 1}</span><h3>{st.kop}</h3></div>
+              <p class="muted">{st.tekst}</p>
+            </li>
+          ))}
+        </ol>
+        <div class="card sheet stack gap-12">
+          <p class="eyebrow">Informatiesheet</p>
+          <p class="sheet-tekst">Alles over drukken met TirgumAI en Drukcase op twee pagina's, om door te sturen binnen je organisatie.</p>
+          <div class="sheet-links">
+            <a href="/downloads/tirgumai-informatiesheet-drukcase.pdf" class="btn btn-secondary" download><Icon name="download" size={16} /> Nederlands (pdf)</a>
+            <a href="/downloads/tirgumai-information-sheet-drukcase-en.pdf" class="btn btn-secondary" download hreflang="en"><Icon name="download" size={16} /> English (pdf)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="op-de-hoogte" class="hoogte">
+    <div class="wrap">
+      <div class="kaart-navy on-navy">
+        <img src="/logo/jona-mark.svg" alt="" aria-hidden="true" class="watermark" width="480" height="480">
+        <div class="stack gap-16 kaart-tekst">
+          <p class="eyebrow">Op de hoogte blijven</p>
+          <h2 class="kaart-kop">Als eerste horen wanneer TirgumAI beschikbaar komt?</h2>
+          <p class="kaart-lead">TirgumAI is in ontwikkeling en wordt op dit moment getest met een kleine groep vertalers. Laat je e-mailadres achter en we mailen je bij de belangrijke stappen: nieuwe functies, de start van de open beta en de lancering. Niet vaker dan nodig, en afmelden kan altijd.</p>
+        </div>
+        <form id="aanvraag" class="form kaart-form" method="post" action="/api/nieuwsbrief-tirgumai" data-form="nieuwsbrief-tirgumai" novalidate>
+          <ul class="checks checks-navy">
+            <li><Icon name="check" /><span>Nieuws over nieuwe functies</span></li>
+            <li><Icon name="check" /><span>Een uitnodiging voor de open beta</span></li>
+            <li><Icon name="check" /><span>Bericht bij de lancering</span></li>
+          </ul>
+          <input type="hidden" name="_bron" value="">
+          <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <div class="field">
+            <label for="nb-email">E-mailadres</label>
+            <input id="nb-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+            <span class="err" data-error-for="email"></span>
+          </div>
+          <p class="form-status" role="status" aria-live="polite"></p>
+          <button type="submit" class="btn btn-accent btn-block btn-52">Houd me op de hoogte <Icon name="arrow-right" /></button>
+          <p class="note">We gebruiken je adres alleen voor nieuws over TirgumAI. Liever mailen? <a href="mailto:ruben@jonacommunicatie.nl">ruben@jonacommunicatie.nl</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap narrow stack gap-32">
+      <h2 class="faq-kop">Veelgestelde vragen</h2>
+      <div class="faq">
+        {faq.map((f) => (
+          <div class="vraag stack gap-6">
+            <h3>{f.v}</h3>
+            <p class="muted">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FormScript />
+</Base>
+
+<script>
+  // De schuif tussen de lichte en de donkere modus in het eerste scherm.
+  for (const fig of document.querySelectorAll<HTMLElement>("[data-vergelijk]")) {
+    const input = fig.querySelector<HTMLInputElement>("input[type=range]");
+    if (!input) continue;
+    const zet = () => fig.style.setProperty("--pos", `${input.value}%`);
+    input.addEventListener("input", zet);
+    zet();
+  }
+</script>
+
+<style>
+  .hero { padding: 96px 0 64px; }
+  .h1-sm { font-size: clamp(34px, 4.8vw, 52px); }
+  .crumbs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .crumbs a { color: var(--muted); }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; padding-top: 4px; }
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--mist);
+  }
+  .dot { width: 10px; height: 10px; border-radius: var(--r-pill); background: var(--border); }
+  .url {
+    margin-left: 12px;
+    flex: 1;
+    min-height: 28px;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* licht/donker-schuif */
+  .vergelijk { --pos: 50%; margin: 0; }
+  .beeld { position: relative; overflow: hidden; background: var(--mist); }
+  .beeld picture { display: block; }
+  .beeld .donker {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(0 0 0 var(--pos));
+  }
+  .beeld .donker img { height: 100%; object-fit: cover; }
+  .modus {
+    position: absolute;
+    top: 14px;
+    padding: 4px 12px;
+    border-radius: var(--r-pill);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  .modus.links { left: 14px; background: rgba(255, 255, 255, 0.92); border: 1px solid var(--border); color: var(--navy); }
+  .modus.rechts { right: 14px; background: rgba(4, 32, 47, 0.85); border: 1px solid var(--navy-800); color: var(--ink-on-navy); }
+  .lijn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 4px;
+    margin-left: -2px;
+    background: var(--teal);
+    pointer-events: none;
+  }
+  .greep {
+    position: absolute;
+    top: 50%;
+    left: var(--pos);
+    width: 44px;
+    height: 44px;
+    margin: -22px 0 0 -22px;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    border: 2px solid var(--teal);
+    box-shadow: var(--shadow-small);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--teal-700);
+    pointer-events: none;
+  }
+  .schuif {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+  }
+  .schuif:focus-visible + .greep,
+  .beeld:has(.schuif:focus-visible) .greep { box-shadow: 0 0 0 4px rgba(43, 188, 192, 0.35); }
+
+  /* functies */
+  .functies { padding: 80px 0; }
+  .midden { text-align: center; align-items: center; }
+  .midden .eyebrow { text-align: center; }
+  .strook {
+    list-style: none;
+    margin: 44px 0 0;
+    padding: 0 40px;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .strook::before {
+    content: "";
+    position: absolute;
+    left: calc(8.33% + 40px);
+    right: calc(8.33% + 40px);
+    top: 28px;
+    height: 2px;
+    background: var(--teal);
+    opacity: 0.45;
+  }
+  .ai-kader {
+    grid-column: 2 / 5;
+    grid-row: 1;
+    position: relative;
+    margin: -44px -12px -14px;
+    border: 2px dashed var(--teal);
+    border-radius: var(--r-card);
+  }
+  .ai-label {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-800);
+  }
+  .ai-label span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 10px;
+    background: var(--mist);
+  }
+  .stap {
+    position: relative;
+    grid-row: 1;
+    grid-column: var(--kolom);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .bol {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    border: 2px solid var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--teal-700);
+    box-shadow: 0 0 0 6px var(--mist);
+  }
+  .stap.ai .bol { background: var(--teal); color: var(--navy-900); }
+  .stap.ai .bol svg { stroke-width: 2.2; }
+  .kolommen {
+    column-count: 2;
+    column-gap: 48px;
+    padding: 36px 40px 14px;
+  }
+  .groep { break-inside: avoid; padding-bottom: 22px; }
+  .gap-8 { gap: 8px; }
+  .groep-kop { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+  .punten {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .punten li { display: flex; gap: 10px; align-items: flex-start; }
+  .punten svg { flex-shrink: 0; margin-top: 4px; color: var(--teal-700); stroke-width: 2.2; }
+
+  /* uitgelichte functies */
+  .bijzonder { padding: 96px 0; }
+  .gap-96 { gap: 96px; }
+  .feature {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 56px;
+    align-items: center;
+  }
+  .f-tekst { font-size: 18px; }
+  .figuur { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .figuur figcaption { font-size: 14px; color: var(--muted); }
+  .gevoerd { padding: 8px; }
+  .gevoerd img { border-radius: 12px; }
+
+  /* drukwerk */
+  .drukwerk { padding: 96px 0; border-top: 1px solid var(--border); }
+  .partners {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 8px;
+  }
+  .partner-drukcase { display: block; height: 30px; width: auto; }
+  .partner-kruis { color: var(--muted); flex-shrink: 0; }
+  .partner-tirgumai {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 19px;
+    letter-spacing: -0.015em;
+    line-height: 1;
+  }
+  .partner-tirgumai img { display: block; height: 28px; width: auto; }
+  .voordelen {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+  }
+  .voordelen p { font-size: 16px; }
+  .voordeel-kop { display: flex; align-items: center; gap: 12px; }
+  .voordeel-kop h3 { font-size: 19px; font-weight: 500; }
+  .rondje {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: var(--r-pill);
+    border: 2px solid var(--teal);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--teal-700);
+  }
+  .template-groot {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+    padding: 28px;
+    background: var(--mist);
+  }
+  .template-beeld { border-radius: 10px; overflow: hidden; background: var(--white); box-shadow: var(--shadow-small); }
+  .template-beeld img { display: block; width: 100%; height: auto; }
+  .template-beeld.staand { width: 68%; margin: 0 auto; }
+  .h3-24 { font-size: 24px; }
+  .h3-19 { font-size: 19px; font-weight: 500; }
+  .checks-15 { font-size: 15px; gap: 8px; }
+  .templates {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .template { padding: 24px; background: var(--mist); }
+  .template-tekst { font-size: 15px; }
+  .alle { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; }
+  .pil {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    color: var(--navy);
+  }
+  .druk-onder {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 48px;
+    align-items: start;
+  }
+  .drukstappen {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 32px;
+  }
+  .drukstappen p { font-size: 16px; }
+  .drukstap-kop { display: flex; align-items: center; gap: 12px; }
+  .drukstap-kop h3 { font-size: 18px; font-weight: 500; }
+  .num {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: var(--r-pill);
+    background: var(--navy);
+    color: var(--white);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .sheet { padding: 24px; }
+  .sheet-tekst { font-size: 15px; color: var(--muted); }
+  .sheet-links { display: flex; flex-direction: column; gap: 8px; }
+  .sheet-links .btn { justify-content: center; gap: 8px; min-height: 44px; }
+
+  /* op de hoogte: navy kaart met het formulier */
+  .hoogte { padding: 96px 0 0; }
+  .kaart-navy {
+    position: relative;
+    overflow: hidden;
+    background: var(--navy-800);
+    border-radius: 28px;
+    padding: 56px 64px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 48px;
+    align-items: center;
+  }
+  .watermark {
+    position: absolute;
+    bottom: -140px;
+    right: -110px;
+    width: 440px;
+    height: 440px;
+    opacity: 0.1;
+    filter: brightness(0) invert(1);
+    pointer-events: none;
+  }
+  .kaart-tekst, .kaart-form { position: relative; }
+  .kaart-tekst { max-width: 48ch; }
+  .kaart-kop {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .kaart-lead { font-size: 18px; color: var(--ink-on-navy); }
+  .checks-navy { font-size: 16px; }
+  .checks-navy svg { color: var(--teal-300); }
+  .btn-52 { min-height: 52px; }
+  .err { font-size: 13px; color: var(--warn-ink); }
+  .err:empty { display: none; }
+
+  /* veelgestelde vragen */
+  .faq-kop {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 31px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .faq { display: flex; flex-direction: column; }
+  .vraag { padding: 24px 0; border-top: 1px solid var(--border); }
+  .vraag:last-child { border-bottom: 1px solid var(--border); }
+  .vraag h3 { font-size: 19px; font-weight: 500; }
+
+  @media (max-width: 1023px) {
+    .kolommen { padding: 28px 28px 6px; }
+    .druk-onder { grid-template-columns: minmax(0, 1fr); }
+    .sheet-links { flex-direction: row; flex-wrap: wrap; }
+    .sheet-links .btn { flex: 1 1 200px; }
+  }
+  @media (max-width: 767px) {
+    .hero { padding: 64px 0 48px; }
+    .functies { padding: 64px 0; }
+    .br-breed { display: none; }
+    .strook { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 12px; padding: 0; margin-top: 0; }
+    .strook::before, .ai-kader { display: none; }
+    .stap { grid-row: auto; grid-column: auto; }
+    .kolommen { column-count: 1; padding: 24px 20px 2px; }
+    .bijzonder { padding: 64px 0; }
+    .gap-96 { gap: 64px; }
+    .omgekeerd .figuur { order: 1; }
+    .drukwerk { padding: 64px 0; }
+    .voordelen { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .template-groot { grid-template-columns: minmax(0, 1fr); padding: 20px; gap: 24px; }
+    .templates { grid-template-columns: minmax(0, 1fr); }
+    .template { display: grid; grid-template-columns: 96px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 20px; row-gap: 6px; padding: 20px; }
+    .template .template-beeld.staand { grid-row: 1 / 3; width: 100%; margin: 0; }
+    .drukstappen { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .hoogte { padding-top: 64px; }
+    .kaart-navy { padding: 36px 24px; border-radius: 22px; gap: 32px; }
+    .kaart-kop { font-size: 26px; }
+    .partners { gap: 12px; }
+    .partner-drukcase { height: 26px; }
+    .partner-tirgumai { font-size: 17px; }
+    .partner-tirgumai img { height: 24px; }
+    .greep { width: 36px; height: 36px; margin: -18px 0 0 -18px; }
+  }
+  @media (max-width: 479px) {
+    .feature { grid-template-columns: minmax(0, 1fr); }
+    .actions .btn { width: 100%; }
+    .kaart-navy { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

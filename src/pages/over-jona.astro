@@ -1,0 +1,148 @@
+---
+import { pagina } from "../lib/paginas";
+import Base from "../layouts/Base.astro";
+import LetsTalk from "../components/LetsTalk.astro";
+import FormScript from "../components/FormScript.astro";
+
+const team = [
+  { rol: "Voor de ideeën", naam: "Ruben Hadders", beeld: "team-ruben-hadders", b: 900, h: 816, tekst: "Helpt al meer dan twintig jaar non-profits aan ideeën om te groeien op het gebied van marketing, communicatie en ict.", mail: "ruben@jonacommunicatie.nl" },
+  { rol: "Voor de uitvoering", naam: "Gijsbert Legemaat", beeld: "team-gijsbert-legemaat", b: 900, h: 787, tekst: "Bouwt niet alleen apps, maar ook digitale ondernemingen. Nuchter en met een groot gevoel voor uitstraling.", mail: "gijsbert@echonova.nl" },
+  { rol: "Voor de techniek", naam: "Jelle Pals", beeld: "team-jelle-pals", b: 900, h: 928, tekst: "Programmeur in hart en nieren. Analyseert bedrijfsprocessen en weet dit om te zetten naar gebruiksvriendelijke automatiseringen.", mail: "jelle@echonova.nl" },
+];
+---
+<Base
+  {...pagina("/over-jona")}
+  current="over-jona"
+>
+  <section class="hero">
+    <div class="wrap narrow stack gap-24">
+      <p class="eyebrow">Over Jona</p>
+      <h1 class="h1 h1-sm">Softwareoplossingen die bedrijven en organisaties helpen het goede te doen.</h1>
+      <p class="lead">Jona zinvolle technologie, zoals wij voluit heten, is een sociaal bewogen tech-startup uit Veenendaal. Sinds 2026 bouwen wij aan gebruiksvriendelijke software en AI-oplossingen voor kleine bedrijven, stichtingen en verenigingen. Zodat zij kunnen uitblinken in hun werk en het verschil kunnen maken voor anderen.</p>
+    </div>
+  </section>
+
+  <section class="waarom-doen">
+    <div class="wrap narrow stack gap-48">
+      <div class="rule"></div>
+      <div class="stack gap-16">
+        <h2 class="h2 h2-32">Waarom doen we dit?</h2>
+        <p class="tekst">Nederland kent heel veel kleine bedrijven, stichtingen, en verenigingen. De meeste daarvan hebben weinig technische kennis in huis om goed te beoordelen welke software nodig en passend is. Zij werken vaak met software die niet goed aansluit bij de organisatie. Te uitgebreid, te complex en meestal ook te duur. Maar ja, maatwerk is onbetaalbaar. Toch?</p>
+        <p class="tekst">AI heeft daar verandering in gebracht. Wat vroeger alleen grote organisaties zich konden veroorloven, bouwen wij nu voor een zzp'er of een stichting met slechts drie vrijwilligers en een handjevol donateurs. Want dankzij AI kan software vele malen sneller en goedkoper gebouwd worden. Wij vinden dat juist kleine bedrijven en missiegedreven organisaties daarvan moeten profiteren. Zodat ze beter in staat zijn om te groeien en nog meer het verschil kunnen maken.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="wrap stack gap-48">
+      <div class="narrow stack gap-12">
+        <p class="eyebrow">Wie we zijn</p>
+        <h2 class="h2">Drie vrienden die niets liever doen dan organisaties helpen vliegen.</h2>
+        <p class="intro muted">We zijn klein en dat heeft zo zijn voordelen. Je spreekt altijd iemand die de software kent en jullie organisatie begrijpt. Persoonlijk contact maakt het werk beter en leuker. Met de hulp van AI verzetten we ondertussen in één dag net zoveel werk als eerder in een hele maand.</p>
+      </div>
+      <div class="team">
+        {team.map((p) => (
+          <div class="lid stack gap-16">
+            <div class="foto">
+              <picture>
+                <source srcset={`/beeld/${p.beeld}.webp`} type="image/webp">
+                <img src={`/beeld/${p.beeld}.png`} width={p.b} height={p.h} loading="lazy" alt={`Getekend portret van ${p.naam}`}>
+              </picture>
+            </div>
+            <div class="stack gap-6">
+              <p class="eyebrow">{p.rol}</p>
+              <h3 class="h3">{p.naam}</h3>
+              <p class="lid-tekst muted">{p.tekst}</p>
+              <a href={`mailto:${p.mail}`} class="link mail">{p.mail}</a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="bellen">Bel ons rechtstreeks, op werkdagen van 9-17 uur: <a href="tel:+31332301737" class="link">033 - 230 17 37</a></p>
+    </div>
+  </section>
+
+  <section class="waarom-jona">
+    <div class="wrap grid">
+      <div class="stack gap-20">
+        <p class="eyebrow">Waarom Jona</p>
+        <h2 class="h2">Waarom wij een duif als beeldmerk hebben.</h2>
+        <p class="tekst-lg">Jona is Hebreeuws voor duif. In het verhaal van Noach is de duif de vogel die na de zondvloed terugkeert met een olijftak in haar snavel: er is vruchtbaar land gevonden, er is weer toekomst. Sindsdien is de duif het symbool voor vrede en hoop.</p>
+        <p class="tekst-lg">Dat gunnen we elke organisatie: nieuwe grond vinden. Werk dat lichter wordt, tijd die terugkomt voor de mensen om wie het gaat, en technologie die rustig haar werk doet in plaats van aandacht op te eisen.</p>
+        <p class="tekst-lg">Jona is ook de naam van een profeet die een belangrijke boodschap moest brengen aan mensen die hij niet kende. Dat verhaal gaat over communicatie en verbinding maken. Precies waar missiegedreven organisaties zich elke dag voor inzetten.</p>
+        <p class="tekst-lg">In het Nabije Oosten is de witte duif ook een beeld van schoonheid. Dat past goed bij onze doelstelling om niet alleen zinvolle maar ook mooie software te maken, die aantrekkelijk is om te gebruiken.</p>
+        <p class="tekst-lg"><em>It's all in the name.</em></p>
+      </div>
+      <div class="duif">
+        <img src="/logo/jona-mark.svg" alt="Het beeldmerk van Jona: een witte duif" width="232" height="232">
+      </div>
+    </div>
+  </section>
+
+  <LetsTalk id="advies" />
+  <FormScript />
+</Base>
+
+<style>
+  .hero { padding: 112px 0 64px; }
+  .h1-sm { font-size: clamp(34px, 4.8vw, 52px); }
+  .waarom-doen { padding: 0 0 96px; }
+  .rule { height: 1px; background: var(--border); }
+  .h2-32 { font-size: 32px; }
+  .tekst { font-size: 19px; line-height: 1.65; }
+  .intro { font-size: 18px; }
+  .team {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+  }
+  /* gelijke hoogte per kolom, de tekening tegen de onderrand, geen achtergrond */
+  .foto { position: relative; aspect-ratio: 10 / 9; }
+  .foto picture { position: absolute; inset: 0; display: block; }
+  .foto img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+  .lid-tekst { font-size: 16px; }
+  .mail { font-size: 15px; align-self: flex-start; margin-top: 4px; }
+  .bellen {
+    font-size: 19px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .bellen .link { font-size: 19px; }
+  .waarom-jona { padding: 112px 0 96px; }
+  .waarom-jona .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 72px;
+    align-items: start;
+  }
+  .tekst-lg { font-size: 19px; line-height: 1.6; }
+  .duif {
+    position: sticky;
+    top: 120px;
+    display: flex;
+    justify-content: center;
+    padding-top: 64px;
+  }
+  .duif img { width: 260px; height: auto; }
+
+  @media (max-width: 1023px) {
+    .team { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 767px) {
+    .hero { padding: 72px 0 48px; }
+    .waarom-doen { padding-bottom: 64px; }
+    .waarom-jona { padding: 64px 0; }
+    .waarom-jona .grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .duif { position: static; padding-top: 0; order: -1; justify-content: flex-start; }
+    .duif img { width: 160px; }
+  }
+  @media (max-width: 479px) {
+    .team { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

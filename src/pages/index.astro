@@ -1,0 +1,332 @@
+---
+import { pagina } from "../lib/paginas";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import LetsTalk from "../components/LetsTalk.astro";
+import FormScript from "../components/FormScript.astro";
+---
+<Base
+  {...pagina("/")}
+>
+  <section id="top" class="hero">
+    <img src="/logo/jona-mark.svg" alt="" aria-hidden="true" class="hero-mark" width="520" height="520">
+    <div class="wrap narrow stack gap-28 hero-inner">
+      <p class="eyebrow">Missiegedreven software &amp; AI</p>
+      <h1 class="h1">Zinvolle technologie voor bedrijven en organisaties <br class="br-wide">met een missie</h1>
+      <p class="lead">Wij bouwen gebruiksvriendelijke software voor complexe processen. Vanuit onze jarenlange ervaring met techniek binnen missiegedreven organisaties, weten we wat er nodig is om software écht fijn te laten werken.</p>
+      <div class="actions">
+        <a href="#producten" class="btn btn-primary"><span>Bekijk onze software</span> <Icon name="arrow-right" /></a>
+        <a href="/advies" class="btn btn-secondary">Plan een kennismaking</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="producten" class="section section-mist">
+    <div class="wrap stack gap-56">
+      <div class="stack gap-12 narrow">
+        <p class="eyebrow">Onze eigen software</p>
+        <h2 class="h2">Oogstrelende apps waarmee we de harten van gebruikers stelen.</h2>
+      </div>
+
+      <article class="product">
+        <div class="screen">
+          <picture>
+            <source srcset="/beeld/selaread-ontdek.webp" type="image/webp">
+            <img src="/beeld/selaread-ontdek.png" width="1800" height="1177" loading="lazy" alt="De pagina Ontdek in Selaread: een zoekveld, rubrieken als Israël, Kerkbladen en Kinderen, en een overzicht van magazines met hun omslagen">
+          </picture>
+        </div>
+        <div class="stack gap-16">
+          <span class="tag">Lancering voorjaar 2027</span>
+          <h3 class="h2-sm">Selaread</h3>
+          <p class="product-text">Lees onbeperkt christelijke tijdschriften, op mobiel, tablet of desktop. Selaread is een moderne kioskapp. Ook voor uitgevers die op zoek zijn naar een leesapp voor hun eigen abonnees.</p>
+          <div class="actions">
+            <a href="/selaread#beta" class="btn btn-primary"><span>Meld je aan voor de beta-test</span> <Icon name="arrow-right" /></a>
+            <a href="/selaread" class="link">Meer over Selaread</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="screen">
+          <picture>
+            <source srcset="/beeld/actuelegegevens-site.webp" type="image/webp">
+            <img src="/beeld/actuelegegevens-site.png" width="1800" height="1145" loading="lazy" alt="De website van ActueleGegevens.nl: laat je relaties hun gegevens zelf controleren, met een campagneoverzicht ernaast">
+          </picture>
+        </div>
+        <div class="stack gap-16">
+          <span class="tag">Live vanaf 1 december</span>
+          <h3 class="h2-sm">ActueleGegevens.nl</h3>
+          <p class="product-text">De worsteling van elke organisatie: hoe houd je je relatiebestand actueel? Verouderde of onjuiste gegevens kosten geld. Met deze online tool zet je binnen 10 minuten een campagne op en laat je jouw relaties zelf hun gegevens controleren en aanvullen.</p>
+          <div class="actions">
+            <a href="/actuelegegevens#testgebruiker" class="btn btn-primary"><span>Meld je aan voor de beta-test</span> <Icon name="arrow-right" /></a>
+            <a href="/actuelegegevens" class="link">Meer over ActueleGegevens.nl</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="screen">
+          <picture>
+            <source srcset="/beeld/tirgumai-start.webp" type="image/webp">
+            <img src="/beeld/tirgumai-start.png" width="1800" height="1125" loading="lazy" alt="Het startscherm van TirgumAI: Genesis 1:1 in het Hebreeuws met de eigen vertaling eronder, knoppen Verder vertalen en Hoofdstuk lezen, en de projecten">
+          </picture>
+        </div>
+        <div class="stack gap-16">
+          <span class="tag">Wordt verwacht in 2027</span>
+          <h3 class="h2-sm">TirgumAI</h3>
+          <p class="product-text">De nieuwste generatie bijbelsoftware. Vertaal vanuit de grondtekst met behulp van AI, verrijk de bijbeltekst met commentaar en publiceer een volledige studiebijbel. Geschikt voor zowel professionele vertalers als amateur-theologen.</p>
+          <div class="actions">
+            <a href="/tirgumai#op-de-hoogte" class="btn btn-outline"><span>Houd me op de hoogte</span> <Icon name="arrow-right" /></a>
+            <a href="/tirgumai" class="link">Meer over TirgumAI</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="maatwerk" class="maatwerk">
+    <div class="wrap narrow stack gap-24">
+      <p class="eyebrow">Maatwerk software</p>
+      <h2 class="h2">Wat er niet is, kan gemaakt worden</h2>
+      <p class="maatwerk-lead">Onder de indruk van de software die wij bouwen? Loop je zelf rond met een idee voor jouw bedrijf of organisatie? Wij bouwen ook software en AI op maat, via ons zusterbedrijf <a href="https://echonova.nl" rel="noopener">EchoNova</a>. Altijd vanuit twee eenvoudige principes:</p>
+      <div class="principes">
+        <div class="principe">
+          <span class="cijfer">1</span>
+          <div class="stack gap-6">
+            <h3>Wij maken software betaalbaar en duurzaam</h3>
+            <p class="muted">Dankzij AI kan met een klein budget zeer geavanceerde software gebouwd worden, die in kwaliteit niet onderdoet ten opzichte van grote ontwikkelstudio's. Maar we gaan niet zomaar bouwen: we denken eerst mee in wat écht nodig is en wat ook op de lange termijn van belang kan zijn. Zodat software ook een duurzame keuze is.</p>
+          </div>
+        </div>
+        <div class="principe">
+          <span class="cijfer">2</span>
+          <div class="stack gap-6">
+            <h3>Wij maken software eenvoudig en aantrekkelijk</h3>
+            <p class="muted">Software waarbij een consultant of cursus nodig is voor je ermee kunt werken, is in onze ogen niet goed ontworpen. Ook al zijn processen nog zo complex, wij doen er alles aan om ze eenvoudig, duidelijk en gebruiksvriendelijk te maken. In een ontwerp dat aantrekkelijk oogt. Zodat je met plezier naar je beeldscherm kijkt.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="verhaal" class="verhaal">
+    <div class="wrap">
+      <div class="carrousel" data-carrousel aria-roledescription="carrousel" aria-label="Gemaakt voor een klant">
+        <div class="slides" data-slides>
+          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="1 van 2">
+            <div class="screen">
+              <picture>
+                <source srcset="/beeld/medezeggenschapsmonitor-dashboard.webp" type="image/webp">
+                <img src="/beeld/medezeggenschapsmonitor-dashboard.png" width="1800" height="1177" loading="lazy" alt="Het dashboard van de Medezeggenschapsmonitor voor een school: het cijfer zoals de MR het ziet naast het cijfer van de schoolleiding, de trend over vijf jaar en het verschil per thema">
+              </picture>
+            </div>
+            <div class="stack gap-20">
+              <p class="eyebrow">Gemaakt voor een klant</p>
+              <h2 class="h2-sm">Hoe VOO met een unieke onderzoekstool bestuur en medezeggenschap dichter bij elkaar brengt.</h2>
+              <p class="muted">Vanaf 2027 controleert de Onderwijsinspectie hoe de medezeggenschap in een schoolorganisatie functioneert. Maar hoe breng je dat in beeld, als bestuur, schoolleiding en MR er vaak elk een ander beeld bij hebben? Voor de Vereniging voor Openbaar Onderwijs (VOO) bouwden wij de Medezeggenschapsmonitor: een webomgeving waarin alle geledingen dezelfde korte vragenlijst invullen, zodat zichtbaar wordt waar het goed gaat, waar de beelden uiteenlopen en waar actie is vereist.</p>
+              <a href="/advies" class="link self-start">Ook zoiets nodig? Plan een kennismaking <Icon name="arrow-right" size={16} /></a>
+            </div>
+          </article>
+
+          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="2 van 2">
+            <div class="screen">
+              <picture>
+                <source srcset="/beeld/hadders-media-beheer.webp" type="image/webp">
+                <img src="/beeld/hadders-media-beheer.png" width="1800" height="1416" loading="lazy" alt="Het beheer van het livestreamplatform van Hadders Media: de livestreams van vandaag met per uitzending de opdrachtgever, de status (terugkijken, live of gepland), de toegangscode en het aantal reacties, en daaronder de komende uitzendingen">
+              </picture>
+            </div>
+            <div class="stack gap-20">
+              <p class="eyebrow">Gemaakt voor een klant</p>
+              <h2 class="h2-sm">Een afscheid volgen, waar je ook bent en welke taal je ook spreekt.</h2>
+              <p class="muted">Hadders Media maakt het mogelijk om op afstand bij een afscheid te zijn en biedt als eerste in Nederland live ondertiteling en nasynchronisatie aan bij uitvaarten. Wij bouwden een eigen platform dat livestreams, vertalingen en condoleances samenbrengt. Eenvoudig te beheren voor Hadders Media en toegankelijk voor familie en vrienden, overal ter wereld.</p>
+              <a href="/klantverhaal/hadders-media" class="link self-start">Lees het klantverhaal <Icon name="arrow-right" size={16} /></a>
+            </div>
+          </article>
+        </div>
+
+        <div class="carrousel-nav" data-nav hidden>
+          <button type="button" class="pijl" data-prev aria-label="Vorige klant"><Icon name="chevron-left" size={20} /></button>
+          <div class="dots">
+            <button type="button" class="dot" data-dot aria-label="Ga naar VOO" aria-current="true"></button>
+            <button type="button" class="dot" data-dot aria-label="Ga naar Hadders Media" aria-current="false"></button>
+          </div>
+          <button type="button" class="pijl" data-next aria-label="Volgende klant"><Icon name="chevron-right" size={20} /></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <LetsTalk id="advies" />
+  <FormScript />
+</Base>
+
+<script>
+  // Carrousel "Gemaakt voor een klant": een scrollende baan met snappunten.
+  // Zonder JavaScript blijft de baan gewoon te vegen; de knoppen komen er met JavaScript bij.
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  for (const root of document.querySelectorAll<HTMLElement>("[data-carrousel]")) {
+    const track = root.querySelector<HTMLElement>("[data-slides]");
+    const slides = Array.from(root.querySelectorAll<HTMLElement>(".slide"));
+    const nav = root.querySelector<HTMLElement>("[data-nav]");
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-dot]"));
+    const prev = root.querySelector<HTMLButtonElement>("[data-prev]");
+    const next = root.querySelector<HTMLButtonElement>("[data-next]");
+    if (!track || !nav || slides.length < 2) continue;
+
+    nav.hidden = false;
+    root.classList.add("is-js");
+    let index = 0;
+
+    const offset = (i: number) => slides[i].offsetLeft - slides[0].offsetLeft;
+    const update = () => {
+      const step = offset(1) || 1;
+      index = Math.max(0, Math.min(slides.length - 1, Math.round(track.scrollLeft / step)));
+      dots.forEach((d, n) => d.setAttribute("aria-current", String(n === index)));
+      if (prev) prev.disabled = index === 0;
+      if (next) next.disabled = index === slides.length - 1;
+    };
+    const goTo = (i: number) => {
+      const n = Math.max(0, Math.min(slides.length - 1, i));
+      track.scrollTo({ left: offset(n), behavior: reduced ? "auto" : "smooth" });
+    };
+
+    prev?.addEventListener("click", () => goTo(index - 1));
+    next?.addEventListener("click", () => goTo(index + 1));
+    dots.forEach((d, n) => d.addEventListener("click", () => goTo(n)));
+    track.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+    window.addEventListener("resize", () => goTo(index));
+    update();
+  }
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 128px 0 112px;
+  }
+  .hero-mark {
+    position: absolute;
+    top: 48px;
+    right: 64px;
+    width: 520px;
+    height: 520px;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; }
+  .lead { max-width: 62ch; }
+  .actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 8px;
+  }
+  .product {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 48px;
+    align-items: center;
+  }
+  .product-text { font-size: 18px; }
+  .maatwerk { padding: 112px 0 0; }
+  .maatwerk-lead { font-size: 19px; line-height: 1.6; }
+  .principes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px 40px;
+    padding-top: 8px;
+  }
+  .principe { display: flex; gap: 16px; align-items: flex-start; }
+  .principe h3 { font-size: 17px; font-weight: 500; }
+  .principe p { font-size: 16px; }
+  .cijfer {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--teal);
+    flex-shrink: 0;
+    min-width: 20px;
+    padding-top: 2px;
+  }
+  .verhaal { padding: 144px 0; }
+  .self-start { align-self: flex-start; }
+
+  /* carrousel: de baan bloedt de goot in, zodat de schaduw van het scherm niet wordt afgesneden */
+  .slides {
+    position: relative;
+    display: flex;
+    gap: calc(var(--gutter) * 2);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    margin: -24px calc(-1 * var(--gutter)) -40px;
+    padding: 24px var(--gutter) 64px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .is-js .slides { scrollbar-width: none; }
+  .is-js .slides::-webkit-scrollbar { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .slides { scroll-behavior: smooth; }
+  }
+  .slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+  .carrousel-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-top: 32px;
+  }
+  .dots { display: flex; gap: 10px; }
+  .dot {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border-radius: var(--r-pill);
+    border: 2px solid var(--teal);
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  .dot:hover,
+  .dot[aria-current="true"] { background: var(--teal); }
+  .pijl {
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--navy);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+  }
+  .pijl:hover { border-color: var(--navy); }
+  .pijl:disabled { opacity: 0.35; cursor: default; border-color: var(--border); }
+
+  @media (max-width: 1023px) {
+    .hero-mark { width: 380px; height: 380px; right: -40px; top: 40px; }
+  }
+  @media (max-width: 767px) {
+    .hero { padding: 72px 0 64px; }
+    .hero-mark { width: 260px; height: 260px; right: -60px; top: 20px; opacity: 0.06; }
+    .br-wide { display: none; }
+    .maatwerk { padding-top: 64px; }
+    .verhaal { padding: 80px 0; }
+    .carrousel-nav { padding-top: 24px; }
+    .product { gap: 28px; }
+  }
+  @media (max-width: 479px) {
+    .product { grid-template-columns: minmax(0, 1fr); }
+    .actions .btn { width: 100%; }
+  }
+</style>
