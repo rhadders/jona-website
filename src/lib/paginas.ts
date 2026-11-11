@@ -65,7 +65,7 @@ export const PAGINAS: Pagina[] = [
     pad: "/over-jona",
     title: "Over Jona",
     description:
-      "Jona zinvolle technologie is een sociaal bewogen tech-startup uit Veenendaal. Drie vrienden die software en AI bouwen voor kleine bedrijven, stichtingen en verenigingen.",
+      "Jona zinvolle technologie is een sociaal bewogen tech-startup uit Veenendaal. Drie bevlogen ondernemers die software en AI bouwen voor kleine bedrijven, stichtingen en verenigingen.",
     soort: "over",
   },
   {
