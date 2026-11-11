@@ -9,7 +9,10 @@ import FormScript from "../components/FormScript.astro";
   {...pagina("/")}
 >
   <section id="top" class="hero">
-    <img src="/logo/jona-mark.svg" alt="" aria-hidden="true" class="hero-mark" width="520" height="520">
+    <a href="/over-jona#waarom-jona" class="duif" aria-label="Het verhaal achter de duif: lees waarom Jona een duif als beeldmerk heeft">
+      <img src="/logo/jona-mark.svg" alt="" class="hero-mark" width="520" height="520">
+      <span class="duif-label" aria-hidden="true">Het verhaal achter de duif? <strong>Klik hier <Icon name="arrow-right" size={16} /></strong></span>
+    </a>
     <div class="wrap narrow stack gap-28 hero-inner">
       <p class="eyebrow">Missiegedreven software &amp; AI</p>
       <h1 class="h1">Zinvolle technologie voor bedrijven en organisaties <br class="br-wide">met een missie</h1>
@@ -137,14 +140,65 @@ import FormScript from "../components/FormScript.astro";
     overflow: hidden;
     padding: 128px 0 112px;
   }
-  .hero-mark {
+  /* De duif is een link naar "Waarom Jona". Alleen met een muis reageert het vlak; op touch blijft het een rustig decor. */
+  .duif {
     position: absolute;
     top: 48px;
     right: 64px;
     width: 520px;
     height: 520px;
-    opacity: 0.08;
+    display: block;
+    z-index: 1;
     pointer-events: none;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .hero-mark {
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0.08;
+    transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .duif-label {
+    position: absolute;
+    left: 62%;
+    bottom: 8%;
+    transform: translate(-50%, 10px);
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    white-space: nowrap;
+    padding: 12px 20px;
+    border-radius: var(--r-pill);
+    background: var(--navy);
+    color: var(--white);
+    font-size: 15px;
+    box-shadow: var(--shadow-card);
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .duif-label strong {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    font-weight: 500;
+    color: var(--teal-300);
+  }
+  @media (hover: hover) {
+    .duif { pointer-events: auto; }
+    .duif:hover .hero-mark { opacity: 0.2; transform: translateY(-6px) rotate(-2deg); }
+  }
+  .duif:hover .duif-label,
+  .duif:focus-visible .duif-label {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  .duif:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; border-radius: var(--r-card); }
+  .duif:focus-visible .hero-mark { opacity: 0.2; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-mark, .duif-label { transition: none; }
+    .duif:hover .hero-mark { transform: none; }
   }
   .hero-inner { position: relative; }
   .lead { max-width: 62ch; }
@@ -188,11 +242,12 @@ import FormScript from "../components/FormScript.astro";
   .product-text + .link { align-self: flex-start; }
 
   @media (max-width: 1023px) {
-    .hero-mark { width: 380px; height: 380px; right: -40px; top: 40px; }
+    .duif { width: 380px; height: 380px; right: -40px; top: 40px; }
   }
   @media (max-width: 767px) {
     .hero { padding: 72px 0 64px; }
-    .hero-mark { width: 260px; height: 260px; right: -60px; top: 20px; opacity: 0.06; }
+    .duif { width: 260px; height: 260px; right: -60px; top: 20px; }
+    .hero-mark { opacity: 0.06; }
     .br-wide { display: none; }
     .maatwerk { padding-top: 64px; }
     .verhaal { padding: 80px 0; }
