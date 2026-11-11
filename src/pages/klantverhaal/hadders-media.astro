@@ -63,6 +63,13 @@ const kort = [
             <p class="alinea">De omgeving is ook voorbereid op gebruik door opdrachtgevers zelf, zodat uitvaartondernemers, kerken en uitvaartcentra hun uitzendingen kunnen beheren.</p>
           </div>
 
+          <figure class="citaat">
+            <blockquote>
+              <p>Dankzij één overzichtelijke en intuïtieve app hebben we nu veel meer controle en overzicht, zonder voortdurend tussen verschillende websites en apps te hoeven schakelen.</p>
+            </blockquote>
+            <figcaption><strong>Otto Hadders</strong>, eigenaar Hadders Media</figcaption>
+          </figure>
+
           <div class="stack gap-16">
             <h2 class="kop2">Wat het oplevert</h2>
             <p class="alinea">Hadders Media hoeft minder handmatig klaar te zetten en tussen verschillende diensten te schakelen. Uitzendingen, instellingen en condoleances staan overzichtelijk bij elkaar. Dat bespaart werk in de voorbereiding en geeft tijdens de uitvaart meer ruimte voor de zorgvuldige registratie van het afscheid.</p>
@@ -134,6 +141,47 @@ const kort = [
     color: var(--muted);
   }
 
+  .citaat {
+    position: relative;
+    margin: 0;
+    padding-top: 56px;
+  }
+  .citaat::before {
+    content: "\201C";
+    position: absolute;
+    top: -8px;
+    left: -4px;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 120px;
+    line-height: 1;
+    color: var(--teal);
+  }
+  .citaat blockquote { margin: 0; }
+  .citaat blockquote p {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(21px, 2.4vw, 26px);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--navy);
+    text-wrap: balance;
+  }
+  .citaat figcaption {
+    margin-top: 24px;
+    font-size: 16px;
+    color: var(--muted);
+  }
+  .citaat figcaption strong { color: var(--navy); font-weight: 500; }
+  .citaat figcaption::before {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 2px;
+    margin-bottom: 20px;
+    background: var(--teal);
+  }
+
   .zijbalk {
     display: flex;
     flex-direction: column;
@@ -182,6 +230,8 @@ const kort = [
     .beeld { padding-bottom: 48px; }
     .artikel { padding: 16px 0 64px; }
     .kop2 { font-size: 28px; }
+    .citaat { padding-top: 48px; }
+    .citaat::before { font-size: 96px; }
     .kort, .kaart-navy { padding: 22px; }
   }
 </style>
