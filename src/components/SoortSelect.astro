@@ -1,8 +1,8 @@
 ---
-interface Props { id: string; name?: string }
-const { id, name = "soort" } = Astro.props;
+interface Props { id: string; name?: string; standaard?: string }
+const { id, name = "soort", standaard } = Astro.props;
 const opties = ["Kerk", "Goed doel", "Ledenvereniging", "Zorgorganisatie", "Bedrijf", "Anders"];
 ---
 <select id={id} name={name}>
-  {opties.map((o) => <option value={o}>{o}</option>)}
+  {opties.map((o) => <option value={o} selected={o === standaard}>{o}</option>)}
 </select>
