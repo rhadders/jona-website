@@ -17,7 +17,7 @@ export const GET: APIRoute = ({ site }) => {
 
 > ${zoekPagina("/")!.description}
 
-Jona zinvolle technologie, zoals wij voluit heten, is een sociaal bewogen tech-startup uit Veenendaal. Sinds 2026 bouwen wij aan gebruiksvriendelijke software en AI-oplossingen voor kleine bedrijven, stichtingen en verenigingen. Zodat zij kunnen uitblinken in hun werk en het verschil kunnen maken voor anderen.
+Jona zinvolle technologie, zoals wij voluit heten, is een sociaal bewogen tech-startup uit Veenendaal. We bouwen aan gebruiksvriendelijke software en AI-oplossingen voor kleine bedrijven, stichtingen en verenigingen. Zodat zij kunnen uitblinken in hun werk en het verschil kunnen maken voor anderen.
 
 Wij bouwen ook software en AI op maat, via ons zusterbedrijf EchoNova (https://echonova.nl).
 
