@@ -304,9 +304,9 @@ const faq = [
         </div>
         <form id="aanvraag" class="form kaart-form" method="post" action="/api/nieuwsbrief-tirgumai" data-form="nieuwsbrief-tirgumai" novalidate>
           <ul class="checks checks-navy">
-            <li><Icon name="check" /><span>Nieuws over nieuwe functies</span></li>
-            <li><Icon name="check" /><span>Een uitnodiging voor de open beta</span></li>
-            <li><Icon name="check" /><span>Bericht bij de lancering</span></li>
+            <li><Icon name="check" size={16} /><span>Nieuws over nieuwe functies</span></li>
+            <li><Icon name="check" size={16} /><span>Een uitnodiging voor de open beta</span></li>
+            <li><Icon name="check" size={16} /><span>Bericht bij de lancering</span></li>
           </ul>
           <input type="hidden" name="_bron" value="">
           <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
@@ -619,6 +619,7 @@ const faq = [
   .h3-24 { font-size: 24px; }
   .h3-19 { font-size: 19px; font-weight: 500; }
   .checks-15 { font-size: 15px; gap: 8px; }
+  .checks svg { stroke-width: 2.2; }
   .templates {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));

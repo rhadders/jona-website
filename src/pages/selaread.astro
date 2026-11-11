@@ -213,9 +213,9 @@ const faq = [
           <h2 class="kaart-kop">Als eerste lezen, of als eerste uitgever aan boord?</h2>
           <p class="kaart-lead">Voor de lancering in het voorjaar van 2027 testen we Selaread met een groep lezers en uitgevers. Meld je aan en we nodigen je uit zodra de beta-test start.</p>
           <ul class="checks checks-navy">
-            <li><Icon name="check" /><span>Lezers: gratis toegang tijdens de beta-test</span></li>
-            <li><Icon name="check" /><span>Uitgevers: persoonlijke begeleiding bij het aanleveren</span></li>
-            <li><Icon name="check" /><span>Jouw feedback bepaalt mee wat we bouwen</span></li>
+            <li><Icon name="check" size={16} /><span>Lezers: gratis toegang tijdens de beta-test</span></li>
+            <li><Icon name="check" size={16} /><span>Uitgevers: persoonlijke begeleiding bij het aanleveren</span></li>
+            <li><Icon name="check" size={16} /><span>Jouw feedback bepaalt mee wat we bouwen</span></li>
           </ul>
         </div>
         <form id="aanvraag" class="form kaart-form" method="post" action="/api/beta-selaread" data-form="beta-selaread" novalidate>
@@ -545,7 +545,7 @@ const faq = [
   }
   .kaart-lead { font-size: 18px; color: var(--ink-on-navy); }
   .checks-navy { font-size: 16px; }
-  .checks-navy svg { color: var(--teal-300); }
+  .checks-navy svg { color: var(--teal-300); stroke-width: 2.2; }
   .optioneel { font-weight: 400; opacity: 0.75; }
   .btn-52 { min-height: 52px; }
   .err { font-size: 13px; color: var(--warn-ink); }
