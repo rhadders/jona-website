@@ -23,9 +23,9 @@ Kopieer `.env.example` naar `.env` voor de formulieren. Zonder die variabelen
 werkt de site, maar krijgt een inzender een nette foutmelding met het
 e-mailadres als alternatief.
 
-## Toegangscode (zolang de site nog niet openbaar is)
+## Toegangscode (optioneel, standaard uit)
 
-De hele site staat achter een code, net als de wachtcode van
+De site is openbaar. Met `TOEGANG=aan` komt de hele site achter een code, net als de wachtcode van
 ActueleGegevens.nl. `src/middleware.ts` laat zonder geldige cookie op elk
 adres de codepagina zien (`src/pages/toegang.astro`, status 401) en zet
 `X-Robots-Tag: noindex`. Wie de juiste code invult op `/api/toegang`, krijgt
@@ -33,8 +33,8 @@ een getekende cookie van dertig dagen (`src/lib/toegang.ts`); de code zelf
 staat nooit in de cookie en een nieuwe code maakt oude cookies ongeldig.
 Maximaal tien pogingen per tien minuten per adres.
 
+- `TOEGANG=aan` zet de beveiliging aan; zonder deze variabele is de site openbaar.
 - `TOEGANGSCODE` is de code (standaard `555555`).
-- `TOEGANG=uit` haalt de beveiliging weg; de site is dan openbaar.
 - Bestanden in `public/` (beelden, pdf's) zijn ook zonder code bereikbaar;
   dat is een bewuste keuze, het is een drempel en geen kluis.
 
@@ -89,8 +89,8 @@ Vooraf `dist/` weggooien, want de map wordt meegestuurd zoals hij is
    `.env.example`. Na een wijziging herstart de app vanzelf.
 2. Draai `supabase/schema.sql` één keer in de SQL Editor van het
    Supabase-project.
-3. Site openbaar maken: `TOEGANG=uit` zetten (of de variabele weghalen en
-   de middleware verwijderen).
+3. De site is openbaar. Tijdelijk achter de code zetten kan met
+   `TOEGANG=aan`.
 
 De `Dockerfile` blijft bruikbaar voor een VPS met Dokploy: bouwmethode
 Dockerfile, poort `4321`.

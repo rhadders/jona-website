@@ -1,10 +1,10 @@
-// Toegangscode voor de hele site zolang die nog niet openbaar is.
+// Optionele toegangscode voor de hele site. Staat standaard UIT: de site is openbaar.
 // Zelfde opzet als de wachtcode van ActueleGegevens.nl: wie de code weet,
 // krijgt een getekende cookie (30 dagen); de code zelf staat nooit in de cookie.
 //
 // Omgevingsvariabelen:
+//   TOEGANG=aan     zet de beveiliging aan (zonder deze variabele is de site openbaar)
 //   TOEGANGSCODE    de code (standaard 555555)
-//   TOEGANG=uit     zet de beveiliging uit, de site is dan openbaar
 //   TOEGANG_GEHEIM  optioneel: eigen sleutel voor de handtekening
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 
@@ -21,7 +21,7 @@ export function code(): string {
 }
 
 export function gateAan(): boolean {
-  return (env("TOEGANG") ?? "").toLowerCase() !== "uit";
+  return (env("TOEGANG") ?? "").toLowerCase() === "aan";
 }
 
 function sha(s: string): string {
