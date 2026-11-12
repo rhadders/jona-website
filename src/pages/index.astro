@@ -130,7 +130,7 @@ import FormScript from "../components/FormScript.astro";
             </div>
           </article>
 
-          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="2 van 4">
+          <article class="slide slide-mockup grid-2" role="group" aria-roledescription="slide" aria-label="2 van 4">
             <div class="mockup">
               <picture>
                 <source srcset="/beeld/holy-moly-ipad.webp" type="image/webp">
@@ -160,11 +160,11 @@ import FormScript from "../components/FormScript.astro";
             </div>
           </article>
 
-          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="4 van 4">
-            <div class="screen">
+          <article class="slide slide-mockup grid-2" role="group" aria-roledescription="slide" aria-label="4 van 4">
+            <div class="mockup">
               <picture>
-                <source srcset="/beeld/bc-app.webp" type="image/webp">
-                <img src="/beeld/bc-app.png" width="1600" height="900" loading="lazy" alt="De BC app op een telefoon, naast de titel De Zin der Dingen: het welkomstscherm met de zegelring als uitgelicht voorwerp en daaronder de categorieën met voorwerpen">
+                <source srcset="/beeld/bc-app-iphone.webp" type="image/webp">
+                <img src="/beeld/bc-app-iphone.png" width="992" height="1490" loading="lazy" alt="Een iPhone, schuin in beeld, met het welkomstscherm van de BC app: de zegelring als uitgelicht voorwerp en daaronder de categorieën met voorwerpen">
               </picture>
             </div>
             <div class="stack gap-20">
@@ -395,8 +395,10 @@ import FormScript from "../components/FormScript.astro";
   .is-js .slides::-webkit-scrollbar { display: none; }
   /* mockup zonder kader: de afbeelding heeft zelf een witte achtergrond en schaduw */
   .mockup { display: flex; justify-content: center; }
-  /* naast de tekst: tegen de tekstkolom aan, zodat de ruimte ertussen kleiner is */
-  @media (min-width: 768px) { .mockup { justify-content: flex-end; } }
+  /* naast de tekst: de kolom is zo breed als de mockup zelf, en beeld en tekst staan samen in het midden */
+  @media (min-width: 768px) {
+    .slide-mockup { grid-template-columns: auto minmax(0, 520px); justify-content: center; }
+  }
   .mockup img { display: block; width: auto; max-width: 100%; height: auto; max-height: 560px; }
   .slide {
     flex: 0 0 100%;
