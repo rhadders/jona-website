@@ -379,7 +379,9 @@ import FormScript from "../components/FormScript.astro";
   .is-js .slides::-webkit-scrollbar { display: none; }
   /* mockup zonder kader: de afbeelding heeft zelf een witte achtergrond en schaduw */
   .mockup { display: flex; justify-content: center; }
-  .mockup img { display: block; width: auto; max-width: 100%; height: auto; max-height: 640px; }
+  /* naast de tekst: tegen de tekstkolom aan, zodat de ruimte ertussen kleiner is */
+  @media (min-width: 768px) { .mockup { justify-content: flex-end; } }
+  .mockup img { display: block; width: auto; max-width: 100%; height: auto; max-height: 560px; }
   .slide {
     flex: 0 0 100%;
     min-width: 0;
@@ -387,11 +389,14 @@ import FormScript from "../components/FormScript.astro";
     scroll-snap-stop: always;
   }
   .carrousel-nav {
+    /* boven de baan, die onderaan doorloopt voor de schaduw van het scherm */
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    padding-top: 32px;
+    padding-top: 8px;
   }
   .dots { display: flex; gap: 10px; }
   .dot {
@@ -432,7 +437,7 @@ import FormScript from "../components/FormScript.astro";
     .br-wide { display: none; }
     .maatwerk { padding-top: 64px; }
     .verhaal { padding: 80px 0; }
-    .carrousel-nav { padding-top: 24px; }
+    .carrousel-nav { padding-top: 4px; }
     .product { gap: 28px; }
   }
   @media (max-width: 479px) {
