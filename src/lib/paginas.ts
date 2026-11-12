@@ -14,6 +14,9 @@ export interface Pagina {
   extern?: string;
   /** Prijs in euro excl. btw, alleen als die op de pagina staat. */
   prijs?: number;
+  /** Klantverhaal: naam van de klant en het beeld bij het verhaal. */
+  klant?: string;
+  beeld?: string;
 }
 
 export const PAGINAS: Pagina[] = [
@@ -74,6 +77,17 @@ export const PAGINAS: Pagina[] = [
     description:
       "Hadders Media biedt als eerste in Nederland live ondertiteling en nasynchronisatie bij uitvaarten. Wij bouwden een platform dat livestreams, vertalingen en condoleances samenbrengt, eenvoudig te beheren en overal ter wereld te volgen.",
     soort: "verhaal",
+    klant: "Hadders Media",
+    beeld: "/beeld/hadders-media-beheer.png",
+  },
+  {
+    pad: "/klantverhaal/vbgg",
+    title: "Klantverhaal: een administratieportal voor de Vakantieweken VBGG",
+    description:
+      "De Vakantieweken van de Vrouwenbond Gereformeerde Gemeenten werkten grotendeels op papier. Wij bouwden één portal voor de aanmelding van gasten en stafleden, VOG-aanvragen en de financiële afhandeling, gekoppeld aan de website.",
+    soort: "verhaal",
+    klant: "Commissie Vakantieweken VBGG",
+    beeld: "/beeld/vbgg-website.png",
   },
 ];
 

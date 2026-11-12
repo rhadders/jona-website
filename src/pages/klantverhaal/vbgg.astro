@@ -1,0 +1,260 @@
+---
+import { pagina } from "../../lib/paginas";
+// Klantverhaal, zelfde opzet als hadders-media.astro.
+import Base from "../../layouts/Base.astro";
+import Icon from "../../components/Icon.astro";
+import LetsTalk from "../../components/LetsTalk.astro";
+import FormScript from "../../components/FormScript.astro";
+
+const kort = [
+  { k: "Organisatie", v: "Commissie Vakantieweken", v2: "Vrouwenbond Gereformeerde Gemeenten" },
+  { k: "Sector", v: "Vakantieweken met zorg", v2: "Vrijwilligersorganisatie" },
+  { k: "Wat we bouwden", v: "Administratieportal", v2: "Gekoppeld aan de website" },
+  { k: "Omvang", v: "Ruim 600 gasten per jaar", v2: "Ruim 450 vrijwilligers en zorgprofessionals" },
+  { k: "Website", v: "vakantiewekenvbgg.nl", href: "https://vakantiewekenvbgg.nl" },
+];
+
+const onderdelen = [
+  { kop: "Digitaal aanmelden, voor staf en gasten", tekst: "Stafleden en gasten melden zich aan via het portal. Alle benodigde gegevens vragen we gestructureerd uit, zodat ze daarna automatisch verwerkt kunnen worden. Papier is niet meer nodig." },
+  { kop: "Een systeem dat zich aanpast", tekst: "De processen verschillen sterk per doelgroep. Daarom past het systeem zich aan de situatie aan: iedere doelgroep krijgt de juiste vragen, stappen en afhandeling." },
+  { kop: "Workflows die meedenken", tekst: "Het systeem bewaakt zelf wat eerder handmatig bijgehouden moest worden. Het zorgt er bijvoorbeeld voor dat stafleden op tijd een VOG aanvragen." },
+  { kop: "Financiële afhandeling in hetzelfde systeem", tekst: "Ook de financiële verwerking verloopt via het portal. Aanmelding, gegevens en betaling komen zo op één plek samen." },
+  { kop: "De website gekoppeld aan het portal", tekst: "De openbare website en het portal vormen één geheel. Wie op de website kiest voor meegaan als staflid of gast, komt direct in de juiste aanmelding terecht." },
+];
+---
+<Base
+  {...pagina("/klantverhaal/vbgg")}
+>
+  <article class="verhaal">
+    <section class="kop">
+      <div class="wrap narrow stack gap-24">
+        <nav aria-label="Kruimelpad" class="crumbs">
+          <a href="/#verhaal">Gemaakt voor een klant</a>
+          <Icon name="chevron-right" size={14} />
+          <span>Vakantieweken VBGG</span>
+        </nav>
+        <p class="eyebrow">Verhaal · in opdracht gebouwd</p>
+        <h1 class="h1 h1-sm">Van papieren administratie naar één portal dat zich aanpast aan elke doelgroep</h1>
+        <p class="lead">De Vakantieweken van de Vrouwenbond Gereformeerde Gemeenten geven ieder jaar meer dan 600 gasten een week vakantie, met hulp van ruim 450 vrijwilligers en zorgprofessionals. Wij brachten alle aanmeldingen en de administratie eromheen samen in één systeem, gekoppeld aan de website.</p>
+      </div>
+    </section>
+
+    <section class="beeld">
+      <div class="wrap">
+        <figure class="stack gap-12">
+          <div class="screen">
+            <picture>
+              <source srcset="/beeld/vbgg-website.webp" type="image/webp">
+              <img src="/beeld/vbgg-website.png" width="1800" height="1416" alt="De homepage van vakantiewekenvbgg.nl: bovenaan de knoppen Meegaan als staflid en Meegaan als gast, daaronder een foto van twee mannen op een duofiets met de tekst Samen uit, samen één, en een korte uitleg over de vakantieweken">
+            </picture>
+          </div>
+          <figcaption class="bijschrift">De website van de Vakantieweken. Via de knoppen bovenaan melden stafleden en gasten zich direct aan in het portal.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="artikel">
+      <div class="wrap kolommen">
+        <div class="tekst stack gap-48">
+          <div class="stack gap-16">
+            <h2 class="kop2">De vraag</h2>
+            <p class="alinea">De Commissie Vakantieweken, uitgaande van de Vrouwenbond Gereformeerde Gemeenten, organiseert al sinds 1972 vakantieweken voor mensen met een lichamelijke, verstandelijke of meervoudige beperking, voor jongeren die gedragsbegeleiding nodig hebben en voor ouderen die zorg nodig hebben. Iedere doelgroep heeft eigen wensen en stelt eigen eisen.</p>
+            <p class="alinea">Een organisatie van deze omvang vraagt om een strakke administratie. Stafleden en gasten melden zich aan, er zijn veel gegevens nodig, de financiën moeten worden afgehandeld en vrijwilligers hebben onder meer een VOG nodig. Veel van dat werk liep nog op papier. Dat kostte tijd, was foutgevoelig en lastig te overzien, zeker omdat de werkwijze per doelgroep sterk verschilt.</p>
+            <p class="alinea">De commissie vroeg ons om alle aanmeldingen en administratieve stromen onder te brengen in één systeem, gekoppeld aan de website, dat recht doet aan de verschillen tussen de doelgroepen.</p>
+          </div>
+
+          <div class="stack gap-16">
+            <h2 class="kop2">Wat we bouwden</h2>
+            <p class="alinea">We begonnen bij de processen zelf. In gesprekken met de mensen die het werk doen, brachten we de werkwijzen, de uitzonderingen en de verschillen per doelgroep in kaart. Op basis daarvan bouwden we een administratieportal dat past bij hoe de organisatie werkt.</p>
+            <ul class="punten">
+              {onderdelen.map((o) => (
+                <li>
+                  <Icon name="check" size={16} />
+                  <div class="stack gap-6">
+                    <h3>{o.kop}</h3>
+                    <p>{o.tekst}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <p class="alinea">Tot slot verzorgden we een training, zodat de organisatie zelfstandig en met vertrouwen met het nieuwe systeem aan de slag kon.</p>
+          </div>
+
+          <div class="stack gap-16">
+            <h2 class="kop2">Wat het oplevert</h2>
+            <p class="alinea">Wat eerst grotendeels op papier ging, verloopt nu digitaal en op één plek. De aanmeldingen van vrijwilligers en gasten, hun gegevens, de VOG-aanvragen en de financiële afhandeling komen samen in een systeem dat is afgestemd op de eigen processen van de organisatie.</p>
+            <p class="alinea">Dat scheelt handwerk, voorkomt fouten en geeft overzicht. Zo kan de commissie haar energie richten op waar het echt om gaat: de vakantieweken mogelijk maken.</p>
+          </div>
+        </div>
+
+        <aside class="zijbalk">
+          <div class="kort stack gap-16">
+            <p class="eyebrow">In het kort</p>
+            <dl class="feiten">
+              {kort.map((r) => (
+                <div class="feit">
+                  <dt>{r.k}</dt>
+                  <dd>{"href" in r ? <a href={r.href} rel="noopener">{r.v}</a> : r.v}{"v2" in r && <><br />{r.v2}</>}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div class="kaart-navy on-navy stack gap-12">
+            <h2 class="kaart-kop">Ook een administratie die eenvoudiger kan?</h2>
+            <p class="kaart-tekst">Grote kans dat we daarbij kunnen helpen. Begin met een kennismaking.</p>
+            <a href="/advies" class="btn btn-accent btn-klein">Plan een kennismaking</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </article>
+
+  <LetsTalk id="advies" />
+  <FormScript />
+</Base>
+
+<style>
+  .kop { padding: 96px 0 64px; }
+  .h1-sm { font-size: clamp(34px, 4.8vw, 52px); }
+  .crumbs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .crumbs a { color: var(--muted); }
+  .lead { font-size: 20px; }
+
+  .beeld { padding: 0 0 64px; }
+  .bijschrift { font-size: 14px; color: var(--muted); }
+
+  .artikel { padding: 32px 0 96px; }
+  .kolommen {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 64px;
+    align-items: start;
+  }
+  .tekst { max-width: 760px; }
+  .kop2 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .alinea {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  .punten {
+    list-style: none;
+    margin: 8px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .punten li { display: flex; gap: 14px; align-items: flex-start; }
+  .punten li :global(svg) { flex-shrink: 0; margin-top: 6px; color: var(--teal); stroke-width: 2.2; }
+  .punten h3 { font-size: 19px; font-weight: 500; line-height: 1.35; color: var(--navy); }
+  .punten p { font-size: 17px; line-height: 1.6; color: var(--muted); }
+
+  .citaat {
+    position: relative;
+    margin: 0;
+    padding-top: 56px;
+  }
+  .citaat::before {
+    content: "\201C";
+    position: absolute;
+    top: -8px;
+    left: -4px;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 120px;
+    line-height: 1;
+    color: var(--teal);
+  }
+  .citaat blockquote { margin: 0; }
+  .citaat blockquote p {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(21px, 2.4vw, 26px);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--navy);
+    text-wrap: balance;
+  }
+  .citaat figcaption {
+    margin-top: 24px;
+    font-size: 16px;
+    color: var(--muted);
+  }
+  .citaat figcaption strong { color: var(--navy); font-weight: 500; }
+  .citaat figcaption::before {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 2px;
+    margin-bottom: 20px;
+    background: var(--teal);
+  }
+
+  .zijbalk {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 104px;
+  }
+  .kort {
+    padding: 28px;
+    background: var(--mist);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+  }
+  .feiten {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 15px;
+  }
+  .feit { display: flex; flex-direction: column; gap: 2px; }
+  .feit dt { color: var(--muted); }
+  .feit dd { margin: 0; font-weight: 500; }
+  .feit dd a { text-decoration: none; }
+  .feit dd a:hover { text-decoration: underline; text-decoration-color: var(--teal); text-underline-offset: 4px; }
+  .kaart-navy {
+    padding: 28px;
+    background: var(--navy-800);
+    border-radius: var(--r-card);
+  }
+  .kaart-kop {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+  .kaart-tekst { font-size: 15px; color: var(--ink-on-navy); }
+  .btn-klein { min-height: 44px; padding: 0 20px; font-size: 15px; align-self: flex-start; }
+
+  @media (max-width: 1023px) {
+    .kolommen { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+    .zijbalk { position: static; }
+  }
+  @media (max-width: 767px) {
+    .kop { padding: 64px 0 40px; }
+    .beeld { padding-bottom: 48px; }
+    .artikel { padding: 16px 0 64px; }
+    .kop2 { font-size: 28px; }
+    .citaat { padding-top: 48px; }
+    .citaat::before { font-size: 96px; }
+    .kort, .kaart-navy { padding: 22px; }
+  }
+</style>

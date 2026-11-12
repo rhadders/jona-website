@@ -127,6 +127,20 @@ import FormScript from "../components/FormScript.astro";
         <a href="/klantverhaal/hadders-media" class="link self-start">Lees het klantverhaal <Icon name="arrow-right" size={16} /></a>
       </div>
     </article>
+    <article class="grid-2">
+      <div class="screen">
+        <picture>
+          <source srcset="/beeld/vbgg-website.webp" type="image/webp">
+          <img src="/beeld/vbgg-website.png" width="1800" height="1416" loading="lazy" alt="De homepage van vakantiewekenvbgg.nl: bovenaan de knoppen Meegaan als staflid en Meegaan als gast, daaronder een foto van twee mannen op een duofiets met de tekst Samen uit, samen één">
+        </picture>
+      </div>
+      <div class="stack gap-20">
+        <p class="eyebrow">Gemaakt voor een klant</p>
+        <h2 class="h2-sm">Van papieren administratie naar één portal dat zich aanpast aan elke doelgroep.</h2>
+        <p class="muted">De Vakantieweken van de Vrouwenbond Gereformeerde Gemeenten geven ieder jaar meer dan 600 gasten een week vakantie, met hulp van ruim 450 vrijwilligers en zorgprofessionals. Wij brachten alle aanmeldingen en de administratie eromheen samen in één systeem, gekoppeld aan de website.</p>
+        <a href="/klantverhaal/vbgg" class="link self-start">Lees het klantverhaal <Icon name="arrow-right" size={16} /></a>
+      </div>
+    </article>
     </div>
   </section>
 
@@ -238,6 +252,7 @@ import FormScript from "../components/FormScript.astro";
     padding-top: 2px;
   }
   .verhaal { padding: 144px 0; }
+  .verhaal article + article { margin-top: 112px; }
   .self-start { align-self: flex-start; }
   .product-text + .link { align-self: flex-start; }
 
@@ -251,6 +266,7 @@ import FormScript from "../components/FormScript.astro";
     .br-wide { display: none; }
     .maatwerk { padding-top: 64px; }
     .verhaal { padding: 80px 0; }
+    .verhaal article + article { margin-top: 72px; }
     .product { gap: 28px; }
   }
   @media (max-width: 479px) {

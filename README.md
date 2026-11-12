@@ -2,7 +2,7 @@
 
 De website van Jona (jonatechnologie.nl), eerste versie: homepage, Over Jona,
 Plan een kennismaking, de productpagina's van ActueleGegevens.nl, TirgumAI en
-Selaread, de AI-scan en het klantverhaal van Hadders Media.
+Selaread, de AI-scan en de klantverhalen van Hadders Media en de Vakantieweken VBGG.
 
 Gebouwd met [Astro](https://astro.build) met de node-adapter: de pagina's
 worden op de server gerenderd, zodat de toegangscode (zie hieronder) elke
@@ -103,7 +103,7 @@ src/
   components/               Header, Footer, LetsTalk (navy blok), Icon, FormScript
   middleware.ts             toegangscode: zonder cookie overal de codepagina
   pages/                    index, over-jona, advies, ai-scan, actuelegegevens, tirgumai, selaread, toegang, bedankt, 404
-  pages/klantverhaal/       klantverhalen, nu alleen hadders-media
+  pages/klantverhaal/       klantverhalen: hadders-media en vbgg
   pages/api/                de vijf formulier-endpoints en /api/toegang
   lib/forms.ts              validatie, opslag, mail
   lib/toegang.ts            code vergelijken, cookie tekenen en controleren
