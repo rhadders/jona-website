@@ -28,7 +28,7 @@ const KAARTEN = [
   { slug: "selaread", eyebrow: "Selaread", kop: "De leeskiosk voor christelijk Nederland", beeld: { soort: "los", src: "beeld/selaread-apparaten.png" } },
   { slug: "actuelegegevens", eyebrow: "ActueleGegevens.nl", kop: "Je relatiebestand opschonen was nog nooit zó simpel", beeld: { soort: "scherm", src: "beeld/actuelegegevens-site.png" } },
   { slug: "tirgumai", eyebrow: "TirgumAI", kop: "Vers voor vers de Bijbel vertalen, met hulp van AI", beeld: { soort: "scherm", src: "beeld/tirgumai-werkplek-licht.png" } },
-  { slug: "ai-scan", eyebrow: "De AI-scan", kop: "Eén dag meekijken, één plan waar je mee verder kunt", beeld: { soort: "duif", vlak: "teal" }, label: "€ 795 excl. btw en reiskosten" },
+  { slug: "ai-scan", eyebrow: "De AI-scan", kop: "Eén dag meekijken, één plan waar je mee verder kunt", beeld: { soort: "duif", vlak: "teal" }, label: "€ 925 excl. btw en reiskosten" },
   { slug: "advies", eyebrow: "Kennismaken", kop: "Een half uur over hoe software jullie werk leuker kan maken", beeld: { soort: "duif", vlak: "navy" }, label: "Gratis · online of bij jullie aan tafel" },
   { slug: "over-jona", eyebrow: "Over Jona", kop: "Softwareoplossingen die bedrijven en organisaties helpen het goede te doen", beeld: { soort: "team" } },
   { slug: "klantverhaal-hadders-media", eyebrow: "Klantverhaal · Hadders Media", kop: "Een afscheid volgen, waar je ook bent en welke taal je ook spreekt", beeld: { soort: "scherm", src: "beeld/hadders-media-beheer.png" } },

@@ -124,12 +124,7 @@ const faq = [
         </div>
       </div>
 
-      <div class="feature">
-        <div class="stack gap-16">
-          <p class="eyebrow">Whitelabel</p>
-          <h2 class="h2-sm">Een uitnodiging in je eigen stijl, vanaf je eigen domein</h2>
-          <p class="muted f-tekst">Relaties zien de naam en huisstijl van jullie organisatie, niet die van ons. Logo, kleuren en afzender stel je één keer in. Wil je de link op je eigen domein, dan kan dat ook, zodat niemand twijfelt of de uitnodiging echt van jullie komt.</p>
-        </div>
+      <div class="feature omgekeerd">
         <div class="illu" aria-hidden="true">
           <div class="mini site">
             <div class="site-bar"><span class="dots"><i></i><i></i><i></i></span><span class="site-url"><Icon name="lock" size={11} />mijngegevens.groeneweide.nl</span></div>
@@ -149,6 +144,11 @@ const faq = [
               </div>
             </div>
           </div>
+        </div>
+        <div class="stack gap-16">
+          <p class="eyebrow">Eigen huisstijl</p>
+          <h2 class="h2-sm">Een uitnodiging in je eigen stijl, vanaf je eigen domein</h2>
+          <p class="muted f-tekst">Relaties zien de naam en huisstijl van jullie organisatie, niet die van ons. Logo, kleuren en afzender stel je één keer in. Wil je de link op je eigen domein, dan kan dat ook, zodat niemand twijfelt of de uitnodiging echt van jullie komt.</p>
         </div>
       </div>
 
@@ -175,7 +175,7 @@ const faq = [
       </div>
 
       <form id="aanvraag" class="form formcard" method="post" action="/api/testgebruiker" data-form="testgebruiker" novalidate>
-        <h3 class="h3">Meld je aan voor de gesloten beta</h3>
+        <h3 class="h3">Meld je aan voor de publieke beta</h3>
         <input type="hidden" name="_bron" value="">
         <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
         <div class="field">

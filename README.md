@@ -125,7 +125,7 @@ Alles loopt via de tokens in `src/styles/global.css`: navy als inkt, teal als
 enige accent, knoppen zijn pillen, focus is een teal rand met zachte ring,
 stralen 8/12/18/28. Geen harde kleuren in pagina's, geen unicode als icoon
 (Lucide-glyphs in `Icon.astro`). De enige uitzondering is de fictieve
-huisstijl van "De Groene Weide" in de whitelabel-illustratie op de
+huisstijl van "De Groene Weide" in de huisstijl-illustratie op de
 productpagina.
 
 ## Carrousel "Gemaakt voor een klant"
