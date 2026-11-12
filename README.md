@@ -74,7 +74,9 @@ Hostinger, website `jonatechnologie.nl` (account `u261928307`). Hostinger
 bouwt de app zelf: `npm install`, `npm run build`, en start daarna
 `dist/server/entry.mjs` (framework Astro, Node 22). Een nieuwe versie
 uitrollen kan met de Hostinger-MCP (`hosting_deploy`, map van dit project,
-type `nodejs`) of met de Hostinger CLI:
+type `nodejs`, appType `astro`, outputDirectory `dist`, buildScript `build`
+en entryFile `server/entry.mjs`; laat je het startbestand weg, dan start de
+app niet en geeft de site een 503) of met de Hostinger CLI:
 
 ```bash
 hostinger up . --domain jonatechnologie.nl --yes
