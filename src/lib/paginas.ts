@@ -88,6 +88,15 @@ export const PAGINAS: Pagina[] = [
     soort: "verhaal",
     beeld: "/beeld/holy-moly-showcase.png",
   },
+  {
+    pad: "/klantverhaal/vbgg",
+    title: "Klantverhaal: een administratieportal voor de Vakantieweken VBGG",
+    description:
+      "De Vakantieweken van de Vrouwenbond Gereformeerde Gemeenten werkten grotendeels op papier. Wij bouwden één portal voor de aanmelding van gasten en stafleden, VOG-aanvragen en de financiële afhandeling, gekoppeld aan de website.",
+    soort: "verhaal",
+    klant: "Commissie Vakantieweken VBGG",
+    beeld: "/beeld/vbgg-website.png",
+  },
 ];
 
 export function zoekPagina(pad: string): Pagina | undefined {

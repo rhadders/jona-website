@@ -115,7 +115,7 @@ import FormScript from "../components/FormScript.astro";
     <div class="wrap">
       <div class="carrousel" data-carrousel aria-roledescription="carrousel" aria-label="Gemaakt voor een klant">
         <div class="slides" data-slides>
-          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="1 van 2">
+          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="1 van 3">
             <div class="screen">
               <picture>
                 <source srcset="/beeld/hadders-media-beheer.webp" type="image/webp">
@@ -130,7 +130,7 @@ import FormScript from "../components/FormScript.astro";
             </div>
           </article>
 
-          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="2 van 2">
+          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="2 van 3">
             <div class="mockup">
               <picture>
                 <source srcset="/beeld/holy-moly-ipad.webp" type="image/webp">
@@ -144,6 +144,21 @@ import FormScript from "../components/FormScript.astro";
               <a href="/klantverhaal/holy-moly" class="link self-start">Lees het klantverhaal <Icon name="arrow-right" size={16} /></a>
             </div>
           </article>
+
+          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="3 van 3">
+            <div class="screen">
+              <picture>
+                <source srcset="/beeld/vbgg-website.webp" type="image/webp">
+                <img src="/beeld/vbgg-website.png" width="1800" height="1416" loading="lazy" alt="De homepage van vakantiewekenvbgg.nl: bovenaan de knoppen Meegaan als staflid en Meegaan als gast, daaronder een foto van twee mannen op een duofiets met de tekst Samen uit, samen één">
+              </picture>
+            </div>
+            <div class="stack gap-20">
+              <p class="eyebrow">Gemaakt voor een klant</p>
+              <h2 class="h2-sm">Van papieren administratie naar één portal dat zich aanpast aan elke doelgroep.</h2>
+              <p class="muted">De Vakantieweken van de Vrouwenbond Gereformeerde Gemeenten geven ieder jaar meer dan 600 gasten een week vakantie, met hulp van ruim 450 vrijwilligers en zorgprofessionals. Wij brachten alle aanmeldingen en de administratie eromheen samen in één systeem, gekoppeld aan de website.</p>
+              <a href="/klantverhaal/vbgg" class="link self-start">Lees het klantverhaal <Icon name="arrow-right" size={16} /></a>
+            </div>
+          </article>
         </div>
 
         <div class="carrousel-nav" data-nav hidden>
@@ -151,6 +166,7 @@ import FormScript from "../components/FormScript.astro";
           <div class="dots">
             <button type="button" class="dot" data-dot aria-label="Ga naar Hadders Media" aria-current="true"></button>
             <button type="button" class="dot" data-dot aria-label="Ga naar Holy Moly!" aria-current="false"></button>
+            <button type="button" class="dot" data-dot aria-label="Ga naar Vakantieweken VBGG" aria-current="false"></button>
           </div>
           <button type="button" class="pijl" data-next aria-label="Volgende klant"><Icon name="chevron-right" size={20} /></button>
         </div>
@@ -363,7 +379,9 @@ import FormScript from "../components/FormScript.astro";
   .is-js .slides::-webkit-scrollbar { display: none; }
   /* mockup zonder kader: de afbeelding heeft zelf een witte achtergrond en schaduw */
   .mockup { display: flex; justify-content: center; }
-  .mockup img { display: block; width: auto; max-width: 100%; height: auto; max-height: 640px; }
+  /* naast de tekst: tegen de tekstkolom aan, zodat de ruimte ertussen kleiner is */
+  @media (min-width: 768px) { .mockup { justify-content: flex-end; } }
+  .mockup img { display: block; width: auto; max-width: 100%; height: auto; max-height: 560px; }
   .slide {
     flex: 0 0 100%;
     min-width: 0;
@@ -371,11 +389,14 @@ import FormScript from "../components/FormScript.astro";
     scroll-snap-stop: always;
   }
   .carrousel-nav {
+    /* boven de baan, die onderaan doorloopt voor de schaduw van het scherm */
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    padding-top: 32px;
+    padding-top: 8px;
   }
   .dots { display: flex; gap: 10px; }
   .dot {
@@ -416,7 +437,7 @@ import FormScript from "../components/FormScript.astro";
     .br-wide { display: none; }
     .maatwerk { padding-top: 64px; }
     .verhaal { padding: 80px 0; }
-    .carrousel-nav { padding-top: 24px; }
+    .carrousel-nav { padding-top: 4px; }
     .product { gap: 28px; }
   }
   @media (max-width: 479px) {
