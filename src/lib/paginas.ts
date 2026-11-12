@@ -14,9 +14,9 @@ export interface Pagina {
   extern?: string;
   /** Prijs in euro excl. btw, alleen als die op de pagina staat. */
   prijs?: number;
-  /** Klantverhaal: naam van de klant en het beeld bij het verhaal. */
-  klant?: string;
+  /** Klantverhaal: het beeld en de opdrachtgever voor de gestructureerde data. */
   beeld?: string;
+  klant?: string;
 }
 
 export const PAGINAS: Pagina[] = [
@@ -77,8 +77,16 @@ export const PAGINAS: Pagina[] = [
     description:
       "Hadders Media biedt als eerste in Nederland live ondertiteling en nasynchronisatie bij uitvaarten. Wij bouwden een platform dat livestreams, vertalingen en condoleances samenbrengt, eenvoudig te beheren en overal ter wereld te volgen.",
     soort: "verhaal",
-    klant: "Hadders Media",
     beeld: "/beeld/hadders-media-beheer.png",
+    klant: "Hadders Media",
+  },
+  {
+    pad: "/klantverhaal/holy-moly",
+    title: "Klantverhaal: de app bij het kaartspel Holy Moly!",
+    description:
+      "Holy Moly! is een kaartspel dat medio 2027 verschijnt. Wij bouwden een app voor iOS en Android, waarin je het spel kunt spelen tegen de computer. Strategisch, geestig en een tikkeltje zondig.",
+    soort: "verhaal",
+    beeld: "/beeld/holy-moly-showcase.png",
   },
   {
     pad: "/klantverhaal/vbgg",

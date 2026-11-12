@@ -103,7 +103,7 @@ src/
   components/               Header, Footer, LetsTalk (navy blok), Icon, FormScript
   middleware.ts             toegangscode: zonder cookie overal de codepagina
   pages/                    index, over-jona, advies, ai-scan, actuelegegevens, tirgumai, selaread, toegang, bedankt, 404
-  pages/klantverhaal/       klantverhalen: hadders-media en vbgg
+  pages/klantverhaal/       klantverhalen: hadders-media, holy-moly en vbgg
   pages/api/                de vijf formulier-endpoints en /api/toegang
   lib/forms.ts              validatie, opslag, mail
   lib/toegang.ts            code vergelijken, cookie tekenen en controleren
@@ -132,7 +132,8 @@ Op de homepage staan de klantverhalen in een carrousel: een horizontale baan
 met snappunten (`.slides` in `index.astro`), zodat vegen op een telefoon
 zonder JavaScript werkt. Met JavaScript komen de bolletjes en de pijlen erbij.
 Een klant toevoegen: een `<article class="slide …">` erbij in de baan en een
-bolletje erbij in `.dots`; de rest volgt vanzelf.
+bolletje erbij in `.dots`; de rest volgt vanzelf. De carrousel loopt rond: het
+script zet een kopie van de laatste slide vooraan en van de eerste achteraan.
 
 ## Nog in te vullen
 
