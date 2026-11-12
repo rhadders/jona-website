@@ -115,7 +115,7 @@ import FormScript from "../components/FormScript.astro";
     <div class="wrap">
       <div class="carrousel" data-carrousel aria-roledescription="carrousel" aria-label="Gemaakt voor een klant">
         <div class="slides" data-slides>
-          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="1 van 3">
+          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="1 van 4">
             <div class="screen">
               <picture>
                 <source srcset="/beeld/hadders-media-beheer.webp" type="image/webp">
@@ -130,7 +130,7 @@ import FormScript from "../components/FormScript.astro";
             </div>
           </article>
 
-          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="2 van 3">
+          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="2 van 4">
             <div class="mockup">
               <picture>
                 <source srcset="/beeld/holy-moly-ipad.webp" type="image/webp">
@@ -145,7 +145,7 @@ import FormScript from "../components/FormScript.astro";
             </div>
           </article>
 
-          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="3 van 3">
+          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="3 van 4">
             <div class="screen">
               <picture>
                 <source srcset="/beeld/vbgg-website.webp" type="image/webp">
@@ -159,6 +159,21 @@ import FormScript from "../components/FormScript.astro";
               <a href="/klantverhaal/vbgg" class="link self-start">Lees het klantverhaal <Icon name="arrow-right" size={16} /></a>
             </div>
           </article>
+
+          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="4 van 4">
+            <div class="screen">
+              <picture>
+                <source srcset="/beeld/bc-app.webp" type="image/webp">
+                <img src="/beeld/bc-app.png" width="1600" height="900" loading="lazy" alt="De BC app op een telefoon, naast de titel De Zin der Dingen: het welkomstscherm met de zegelring als uitgelicht voorwerp en daaronder de categorieën met voorwerpen">
+              </picture>
+            </div>
+            <div class="stack gap-20">
+              <p class="eyebrow">Gemaakt voor een klant</p>
+              <h2 class="h2-sm">Een app die de voorwerpen uit de Bijbel laat spreken.</h2>
+              <p class="muted">Bij het boek De Zin der Dingen van Jaap Bönker en Ruben Hadders bouwden wij voor de Bijbelse Cultuur Stichting een app voor iOS en Android. Met beschrijvingen van meer dan 125 gebruiksvoorwerpen uit de Bijbel en hun symbolische betekenis, om te lezen of te luisteren.</p>
+              <a href="/klantverhaal/bc-app" class="link self-start">Lees het klantverhaal <Icon name="arrow-right" size={16} /></a>
+            </div>
+          </article>
         </div>
 
         <div class="carrousel-nav" data-nav hidden>
@@ -167,6 +182,7 @@ import FormScript from "../components/FormScript.astro";
             <button type="button" class="dot" data-dot aria-label="Ga naar Hadders Media" aria-current="true"></button>
             <button type="button" class="dot" data-dot aria-label="Ga naar Holy Moly!" aria-current="false"></button>
             <button type="button" class="dot" data-dot aria-label="Ga naar Vakantieweken VBGG" aria-current="false"></button>
+            <button type="button" class="dot" data-dot aria-label="Ga naar de BC app" aria-current="false"></button>
           </div>
           <button type="button" class="pijl" data-next aria-label="Volgende klant"><Icon name="chevron-right" size={20} /></button>
         </div>
