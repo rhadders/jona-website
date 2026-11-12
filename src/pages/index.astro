@@ -131,10 +131,10 @@ import FormScript from "../components/FormScript.astro";
           </article>
 
           <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="2 van 2">
-            <div class="screen">
+            <div class="mockup">
               <picture>
-                <source srcset="/beeld/holy-moly-showcase.webp" type="image/webp">
-                <img src="/beeld/holy-moly-showcase.png" width="1600" height="900" loading="lazy" alt="De Holy Moly!-app op een iPad naast het logo van het spel, met op de voorgrond geïllustreerde kaarten van bijbelse personages">
+                <source srcset="/beeld/holy-moly-ipad.webp" type="image/webp">
+                <img src="/beeld/holy-moly-ipad.png" width="1200" height="1490" loading="lazy" alt="Een iPad, schuin in beeld, met een lopend potje van de Holy Moly!-app: een rij bijbelse personages voor de stadspoort en daaronder de handkaarten van de speler">
               </picture>
             </div>
             <div class="stack gap-20">
@@ -361,6 +361,9 @@ import FormScript from "../components/FormScript.astro";
   }
   .is-js .slides { scrollbar-width: none; }
   .is-js .slides::-webkit-scrollbar { display: none; }
+  /* mockup zonder kader: de afbeelding heeft zelf een witte achtergrond en schaduw */
+  .mockup { display: flex; justify-content: center; }
+  .mockup img { display: block; width: auto; max-width: 100%; height: auto; max-height: 640px; }
   .slide {
     flex: 0 0 100%;
     min-width: 0;
