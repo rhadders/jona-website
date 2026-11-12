@@ -1,0 +1,225 @@
+---
+import { pagina } from "../../lib/paginas";
+// Klantverhaal Holy Moly!, zelfde opzet als hadders-media.astro, met de showcase-video in plaats van een schermafbeelding.
+import Base from "../../layouts/Base.astro";
+import Icon from "../../components/Icon.astro";
+import LetsTalk from "../../components/LetsTalk.astro";
+import FormScript from "../../components/FormScript.astro";
+
+const kort = [
+  { k: "Opdrachtgever", v: "Ruben Hadders &", v2: "Ronald-Jan de Bruin" },
+  { k: "Wat we bouwden", v: "iOS / Android game app" },
+  { k: "Status", v: "Eerste demoversie", v2: "Kaartspel verschijnt medio 2027" },
+  { k: "Jaar", v: "2026" },
+];
+---
+<Base
+  {...pagina("/klantverhaal/holy-moly")}
+>
+  <article class="verhaal">
+    <section class="kop">
+      <div class="wrap narrow stack gap-24">
+        <nav aria-label="Kruimelpad" class="crumbs">
+          <a href="/#verhaal">Gemaakt voor een klant</a>
+          <Icon name="chevron-right" size={14} />
+          <span>Holy Moly!</span>
+        </nav>
+        <p class="eyebrow">Verhaal · in opdracht gebouwd</p>
+        <h1 class="h1 h1-sm">Een game app voor een kaartspel van bijbelse proporties</h1>
+        <p class="lead">Holy Moly! is een kaartspel dat medio 2027 verschijnt. Wij bouwden een app voor iOS en Android, waarin je het spel kunt spelen tegen de computer. Strategisch, geestig en een tikkeltje zondig.</p>
+      </div>
+    </section>
+
+    <section class="beeld">
+      <div class="wrap">
+        <figure class="stack gap-12">
+          <div class="screen">
+            <video controls autoplay muted loop playsinline preload="metadata" width="1280" height="720" poster="/beeld/holy-moly-showcase.webp" aria-label="Video van de Holy Moly!-app op een iPad: je kiest een tegenstander, een rij bijbelse personages schuift naar de stadspoort, je speelt actiekaarten om de rij te veranderen en na drie dagen volgt de volkstelling">
+              <source src="/video/holy-moly-showcase.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="bijschrift">De app in veertig seconden: kies je tegenstander, manipuleer de rij voor de poort en claim de meest prestigieuze heiligen.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="artikel">
+      <div class="wrap kolommen">
+        <div class="tekst stack gap-48">
+          <div class="stack gap-16">
+            <h2 class="kop2">Het spel</h2>
+            <p class="alinea">Het is dringen geblazen voor de poorten van het Heilige Land. Een eindeloze rij profeten, krijgers en handelaren staat te trappelen om jouw stad binnen te gaan. Maar pas op: niet iedereen die aanklopt is een zegen!</p>
+            <p class="alinea">Manipuleer de rij, verban zondaars naar je buren en claim de meest prestigieuze heiligen. Na drie dagen vindt een volkstelling plaats en wordt duidelijk wie zich de heilige stad mag noemen. De stad met de meeste punten wordt heilig verklaard.</p>
+            <p class="alinea">Holy Moly! is een eenvoudig kaartspel vol humor, bedacht door de Bijbelse Cultuur Stichting. De gedrukte versie verschijnt medio 2027.</p>
+          </div>
+
+          <div class="stack gap-16">
+            <h2 class="kop2">Wat we bouwden</h2>
+            <p class="alinea">We maakten een game-app voor iOS en Android waarin het hele spel zit: de ruim honderdvijftig geïllustreerde kaarten, de rij voor de stadspoort, de actiekaarten waarmee je die rij naar je hand zet en de volkstelling na drie dagen. De app kent de spelregels en bewaakt ze, zodat je alleen nog hoeft te bedenken wie je binnenlaat en wie je doorschuift naar de buren.</p>
+            <p class="alinea">Je speelt tegen de computer en kiest zelf hoe sluw die is: makkelijk, normaal of lastig. Wat je tegenstander doet, zie je op het scherm gebeuren, zodat je kunt volgen waarom die ene heilige net voor je neus wordt weggekaapt. Wie het spel nog niet kent, kiest voor een potje met uitleg en leert de regels al spelend.</p>
+          </div>
+
+          <p class="noot">De video toont de eerste demo-versie. De afbeeldingen en het logo wijken af van de uiteindelijke versie.</p>
+        </div>
+
+        <aside class="zijbalk">
+          <div class="kort stack gap-16">
+            <p class="eyebrow">In het kort</p>
+            <dl class="feiten">
+              {kort.map((r) => (
+                <div class="feit">
+                  <dt>{r.k}</dt>
+                  <dd>{"href" in r ? <a href={r.href} rel="noopener">{r.v}</a> : r.v}{"v2" in r && <><br />{r.v2}</>}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div class="kaart-navy on-navy stack gap-12">
+            <h2 class="kaart-kop">Ook een idee dat je eerst wilt uitproberen?</h2>
+            <p class="kaart-tekst">Grote kans dat we het snel kunnen bouwen. Begin met een kennismaking.</p>
+            <a href="/advies" class="btn btn-accent btn-klein">Plan een kennismaking</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </article>
+
+  <LetsTalk id="advies" />
+  <FormScript />
+</Base>
+
+<style>
+  .kop { padding: 96px 0 64px; }
+  .h1-sm { font-size: clamp(34px, 4.8vw, 52px); }
+  .crumbs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .crumbs a { color: var(--muted); }
+  .lead { font-size: 20px; }
+
+  .beeld { padding: 0 0 64px; }
+  .screen video { display: block; width: 100%; height: auto; }
+  .bijschrift { font-size: 14px; color: var(--muted); }
+
+  .artikel { padding: 32px 0 96px; }
+  .kolommen {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 64px;
+    align-items: start;
+  }
+  .tekst { max-width: 760px; }
+  .kop2 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .alinea {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  .noot { font-size: 15px; color: var(--muted); font-style: italic; }
+
+  .citaat {
+    position: relative;
+    margin: 0;
+    padding-top: 56px;
+  }
+  .citaat::before {
+    content: "\201C";
+    position: absolute;
+    top: -8px;
+    left: -4px;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 120px;
+    line-height: 1;
+    color: var(--teal);
+  }
+  .citaat blockquote { margin: 0; }
+  .citaat blockquote p {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(21px, 2.4vw, 26px);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--navy);
+    text-wrap: balance;
+  }
+  .citaat figcaption {
+    margin-top: 24px;
+    font-size: 16px;
+    color: var(--muted);
+  }
+  .citaat figcaption strong { color: var(--navy); font-weight: 500; }
+  .citaat figcaption::before {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 2px;
+    margin-bottom: 20px;
+    background: var(--teal);
+  }
+
+  .zijbalk {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 104px;
+  }
+  .kort {
+    padding: 28px;
+    background: var(--mist);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+  }
+  .feiten {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 15px;
+  }
+  .feit { display: flex; flex-direction: column; gap: 2px; }
+  .feit dt { color: var(--muted); }
+  .feit dd { margin: 0; font-weight: 500; }
+  .feit dd a { text-decoration: none; }
+  .feit dd a:hover { text-decoration: underline; text-decoration-color: var(--teal); text-underline-offset: 4px; }
+  .kaart-navy {
+    padding: 28px;
+    background: var(--navy-800);
+    border-radius: var(--r-card);
+  }
+  .kaart-kop {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+  .kaart-tekst { font-size: 15px; color: var(--ink-on-navy); }
+  .btn-klein { min-height: 44px; padding: 0 20px; font-size: 15px; align-self: flex-start; }
+
+  @media (max-width: 1023px) {
+    .kolommen { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+    .zijbalk { position: static; }
+  }
+  @media (max-width: 767px) {
+    .kop { padding: 64px 0 40px; }
+    .beeld { padding-bottom: 48px; }
+    .artikel { padding: 16px 0 64px; }
+    .kop2 { font-size: 28px; }
+    .citaat { padding-top: 48px; }
+    .citaat::before { font-size: 96px; }
+    .kort, .kaart-navy { padding: 22px; }
+  }
+</style>

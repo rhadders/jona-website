@@ -109,8 +109,8 @@ function hoofdonderwerp(p: Pagina): Record<string, unknown> | null {
         inLanguage: "nl",
         author: { "@id": ORG },
         publisher: { "@id": ORG },
-        image: abs("/beeld/hadders-media-beheer.png"),
-        about: { "@type": "Organization", name: "Hadders Media" },
+        ...(p.beeld ? { image: abs(p.beeld) } : {}),
+        ...(p.klant ? { about: { "@type": "Organization", name: p.klant } } : {}),
       };
     default:
       return null;

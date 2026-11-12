@@ -74,7 +74,9 @@ Hostinger, website `jonatechnologie.nl` (account `u261928307`). Hostinger
 bouwt de app zelf: `npm install`, `npm run build`, en start daarna
 `dist/server/entry.mjs` (framework Astro, Node 22). Een nieuwe versie
 uitrollen kan met de Hostinger-MCP (`hosting_deploy`, map van dit project,
-type `nodejs`) of met de Hostinger CLI:
+type `nodejs`, appType `astro`, outputDirectory `dist`, buildScript `build`
+en entryFile `server/entry.mjs`; laat je het startbestand weg, dan start de
+app niet en geeft de site een 503) of met de Hostinger CLI:
 
 ```bash
 hostinger up . --domain jonatechnologie.nl --yes
@@ -103,7 +105,7 @@ src/
   components/               Header, Footer, LetsTalk (navy blok), Icon, FormScript
   middleware.ts             toegangscode: zonder cookie overal de codepagina
   pages/                    index, over-jona, advies, ai-scan, actuelegegevens, tirgumai, selaread, toegang, bedankt, 404
-  pages/klantverhaal/       klantverhalen, nu alleen hadders-media
+  pages/klantverhaal/       klantverhalen: hadders-media en holy-moly
   pages/api/                de vijf formulier-endpoints en /api/toegang
   lib/forms.ts              validatie, opslag, mail
   lib/toegang.ts            code vergelijken, cookie tekenen en controleren
@@ -132,7 +134,8 @@ Op de homepage staan de klantverhalen in een carrousel: een horizontale baan
 met snappunten (`.slides` in `index.astro`), zodat vegen op een telefoon
 zonder JavaScript werkt. Met JavaScript komen de bolletjes en de pijlen erbij.
 Een klant toevoegen: een `<article class="slide …">` erbij in de baan en een
-bolletje erbij in `.dots`; de rest volgt vanzelf.
+bolletje erbij in `.dots`; de rest volgt vanzelf. De carrousel loopt rond: het
+script zet een kopie van de laatste slide vooraan en van de eerste achteraan.
 
 ## Nog in te vullen
 

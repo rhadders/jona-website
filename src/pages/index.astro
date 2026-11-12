@@ -113,26 +113,131 @@ import FormScript from "../components/FormScript.astro";
 
   <section id="verhaal" class="verhaal">
     <div class="wrap">
-    <article class="grid-2">
-      <div class="screen">
-        <picture>
-          <source srcset="/beeld/hadders-media-beheer.webp" type="image/webp">
-          <img src="/beeld/hadders-media-beheer.png" width="1800" height="1416" loading="lazy" alt="Het beheer van het livestreamplatform van Hadders Media: de livestreams van vandaag met per uitzending de opdrachtgever, de status (terugkijken, live of gepland), de toegangscode en het aantal reacties, en daaronder de komende uitzendingen">
-        </picture>
+      <div class="carrousel" data-carrousel aria-roledescription="carrousel" aria-label="Gemaakt voor een klant">
+        <div class="slides" data-slides>
+          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="1 van 2">
+            <div class="screen">
+              <picture>
+                <source srcset="/beeld/hadders-media-beheer.webp" type="image/webp">
+                <img src="/beeld/hadders-media-beheer.png" width="1800" height="1416" loading="lazy" alt="Het beheer van het livestreamplatform van Hadders Media: de livestreams van vandaag met per uitzending de opdrachtgever, de status (terugkijken, live of gepland), de toegangscode en het aantal reacties, en daaronder de komende uitzendingen">
+              </picture>
+            </div>
+            <div class="stack gap-20">
+              <p class="eyebrow">Gemaakt voor een klant</p>
+              <h2 class="h2-sm">Een afscheid volgen, waar je ook bent en welke taal je ook spreekt.</h2>
+              <p class="muted">Hadders Media maakt het mogelijk om op afstand bij een afscheid te zijn en biedt als eerste in Nederland live ondertiteling en nasynchronisatie aan bij uitvaarten. Wij bouwden een eigen platform dat livestreams, vertalingen en condoleances samenbrengt. Eenvoudig te beheren voor Hadders Media en toegankelijk voor familie en vrienden, overal ter wereld.</p>
+              <a href="/klantverhaal/hadders-media" class="link self-start">Lees het klantverhaal <Icon name="arrow-right" size={16} /></a>
+            </div>
+          </article>
+
+          <article class="slide grid-2" role="group" aria-roledescription="slide" aria-label="2 van 2">
+            <div class="screen">
+              <picture>
+                <source srcset="/beeld/holy-moly-showcase.webp" type="image/webp">
+                <img src="/beeld/holy-moly-showcase.png" width="1600" height="900" loading="lazy" alt="De Holy Moly!-app op een iPad naast het logo van het spel, met op de voorgrond geïllustreerde kaarten van bijbelse personages">
+              </picture>
+            </div>
+            <div class="stack gap-20">
+              <p class="eyebrow">Gemaakt voor een klant</p>
+              <h2 class="h2-sm">Een game app voor een kaartspel van bijbelse proporties.</h2>
+              <p class="muted">Holy Moly! is een kaartspel dat medio 2027 verschijnt. Wij bouwden een app voor iOS en Android, waarin je het spel kunt spelen tegen de computer. Strategisch, geestig en een tikkeltje zondig.</p>
+              <a href="/klantverhaal/holy-moly" class="link self-start">Lees het klantverhaal <Icon name="arrow-right" size={16} /></a>
+            </div>
+          </article>
+        </div>
+
+        <div class="carrousel-nav" data-nav hidden>
+          <button type="button" class="pijl" data-prev aria-label="Vorige klant"><Icon name="chevron-left" size={20} /></button>
+          <div class="dots">
+            <button type="button" class="dot" data-dot aria-label="Ga naar Hadders Media" aria-current="true"></button>
+            <button type="button" class="dot" data-dot aria-label="Ga naar Holy Moly!" aria-current="false"></button>
+          </div>
+          <button type="button" class="pijl" data-next aria-label="Volgende klant"><Icon name="chevron-right" size={20} /></button>
+        </div>
       </div>
-      <div class="stack gap-20">
-        <p class="eyebrow">Gemaakt voor een klant</p>
-        <h2 class="h2-sm">Een afscheid volgen, waar je ook bent en welke taal je ook spreekt.</h2>
-        <p class="muted">Hadders Media maakt het mogelijk om op afstand bij een afscheid te zijn en biedt als eerste in Nederland live ondertiteling en nasynchronisatie aan bij uitvaarten. Wij bouwden een eigen platform dat livestreams, vertalingen en condoleances samenbrengt. Eenvoudig te beheren voor Hadders Media en toegankelijk voor familie en vrienden, overal ter wereld.</p>
-        <a href="/klantverhaal/hadders-media" class="link self-start">Lees het klantverhaal <Icon name="arrow-right" size={16} /></a>
-      </div>
-    </article>
     </div>
   </section>
 
   <LetsTalk id="advies" />
   <FormScript />
 </Base>
+
+<script>
+  // Carrousel "Gemaakt voor een klant": een scrollende baan met snappunten.
+  // Zonder JavaScript blijft de baan gewoon te vegen; de knoppen komen er met JavaScript bij.
+  // De baan loopt rond: vóór de eerste slide staat een kopie van de laatste en na de laatste
+  // een kopie van de eerste. Komt de baan op een kopie tot stilstand, dan springt hij
+  // ongemerkt naar het origineel, zodat je eindeloos door kunt klikken of vegen.
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  for (const root of document.querySelectorAll<HTMLElement>("[data-carrousel]")) {
+    const track = root.querySelector<HTMLElement>("[data-slides]");
+    const echt = Array.from(root.querySelectorAll<HTMLElement>(".slide"));
+    const nav = root.querySelector<HTMLElement>("[data-nav]");
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-dot]"));
+    const prev = root.querySelector<HTMLButtonElement>("[data-prev]");
+    const next = root.querySelector<HTMLButtonElement>("[data-next]");
+    const n = echt.length;
+    if (!track || !nav || n < 2) continue;
+
+    const kopie = (el: HTMLElement) => {
+      const k = el.cloneNode(true) as HTMLElement;
+      k.setAttribute("aria-hidden", "true");
+      k.inert = true;
+      k.querySelectorAll("img").forEach((img) => (img.loading = "eager"));
+      return k;
+    };
+    track.prepend(kopie(echt[n - 1]));
+    track.append(kopie(echt[0]));
+    const alle = Array.from(track.children) as HTMLElement[]; // posities 0..n+1, de echte slides op 1..n
+
+    nav.hidden = false;
+    root.classList.add("is-js");
+    let pos = 1;
+    let doel = 1;
+    let rust = 0;
+
+    const offset = (p: number) => alle[p].offsetLeft - alle[0].offsetLeft;
+    const spring = (p: number) => {
+      pos = p;
+      track.scrollTo({ left: offset(p), behavior: "instant" });
+    };
+    const lees = () => {
+      const stap = offset(1) || 1;
+      pos = Math.max(0, Math.min(n + 1, Math.round(track.scrollLeft / stap)));
+      const i = (pos - 1 + n) % n;
+      dots.forEach((d, k) => d.setAttribute("aria-current", String(k === i)));
+    };
+    // Op een kopie tot stilstand gekomen: naar het origineel.
+    const herstel = () => {
+      if (pos === 0) spring(n);
+      else if (pos === n + 1) spring(1);
+      doel = pos;
+    };
+    // doel is waar de baan naartoe onderweg is, zodat snel achter elkaar klikken geen klik verliest.
+    const goTo = (p: number) => {
+      doel = p;
+      track.scrollTo({ left: offset(p), behavior: reduced ? "instant" : "smooth" });
+    };
+    const stap = (d: number) => {
+      if (doel === 0) spring(n);
+      else if (doel === n + 1) spring(1);
+      else pos = doel;
+      goTo(pos + d);
+    };
+
+    prev?.addEventListener("click", () => stap(-1));
+    next?.addEventListener("click", () => stap(1));
+    dots.forEach((d, k) => d.addEventListener("click", () => goTo(k + 1)));
+    track.addEventListener("scroll", () => {
+      lees();
+      clearTimeout(rust);
+      rust = window.setTimeout(herstel, 140);
+    }, { passive: true });
+    window.addEventListener("resize", () => { spring(pos === 0 ? n : pos === n + 1 ? 1 : pos); doel = pos; });
+    spring(1);
+    lees();
+  }
+</script>
 
 <style>
   .hero {
@@ -239,6 +344,63 @@ import FormScript from "../components/FormScript.astro";
   }
   .verhaal { padding: 144px 0; }
   .self-start { align-self: flex-start; }
+
+  /* carrousel: de baan bloedt de goot in, zodat de schaduw van het scherm niet wordt afgesneden */
+  .slides {
+    position: relative;
+    display: flex;
+    gap: calc(var(--gutter) * 2);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    margin: -24px calc(-1 * var(--gutter)) -40px;
+    padding: 24px var(--gutter) 64px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .is-js .slides { scrollbar-width: none; }
+  .is-js .slides::-webkit-scrollbar { display: none; }
+  .slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .carrousel-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-top: 32px;
+  }
+  .dots { display: flex; gap: 10px; }
+  .dot {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border-radius: var(--r-pill);
+    border: 2px solid var(--teal);
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  .dot:hover,
+  .dot[aria-current="true"] { background: var(--teal); }
+  .pijl {
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--navy);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .pijl:hover { border-color: var(--navy); }
   .product-text + .link { align-self: flex-start; }
 
   @media (max-width: 1023px) {
@@ -251,6 +413,7 @@ import FormScript from "../components/FormScript.astro";
     .br-wide { display: none; }
     .maatwerk { padding-top: 64px; }
     .verhaal { padding: 80px 0; }
+    .carrousel-nav { padding-top: 24px; }
     .product { gap: 28px; }
   }
   @media (max-width: 479px) {
