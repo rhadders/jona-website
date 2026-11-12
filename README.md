@@ -2,7 +2,8 @@
 
 De website van Jona (jonatechnologie.nl), eerste versie: homepage, Over Jona,
 Plan een kennismaking, de productpagina's van ActueleGegevens.nl, TirgumAI en
-Selaread, de AI-scan en de klantverhalen van Hadders Media en de Vakantieweken VBGG.
+Selaread, de AI-scan en de klantverhalen van Hadders Media, Holy Moly!, de Vakantieweken VBGG en
+de BC app van de Bijbelse Cultuur Stichting.
 
 Gebouwd met [Astro](https://astro.build) met de node-adapter: de pagina's
 worden op de server gerenderd, zodat de toegangscode (zie hieronder) elke
@@ -105,7 +106,7 @@ src/
   components/               Header, Footer, LetsTalk (navy blok), Icon, FormScript
   middleware.ts             toegangscode: zonder cookie overal de codepagina
   pages/                    index, over-jona, advies, ai-scan, actuelegegevens, tirgumai, selaread, toegang, bedankt, 404
-  pages/klantverhaal/       klantverhalen: hadders-media, holy-moly en vbgg
+  pages/klantverhaal/       klantverhalen: hadders-media, holy-moly, vbgg en bc-app
   pages/api/                de vijf formulier-endpoints en /api/toegang
   lib/forms.ts              validatie, opslag, mail
   lib/toegang.ts            code vergelijken, cookie tekenen en controleren
@@ -114,7 +115,7 @@ public/
   logo/                     jona-logo.svg, jona-logo-wit.svg, jona-mark.svg (+ gelaagd)
   beeld/                    schermafbeeldingen (png + webp), og.png
   downloads/                informatiesheets (pdf), nu de Drukcase-sheet van TirgumAI in NL en EN
-  video/                    duif (voor een latere animatie bij Waarom Jona)
+  video/                    duif (voor een latere animatie bij Waarom Jona), video's bij klantverhalen
   fonts/                    Lora 500, Jost 400/500/600
 supabase/schema.sql         tabel voor de formulieren
 ```

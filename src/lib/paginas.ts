@@ -97,6 +97,15 @@ export const PAGINAS: Pagina[] = [
     klant: "Commissie Vakantieweken VBGG",
     beeld: "/beeld/vbgg-website.png",
   },
+  {
+    pad: "/klantverhaal/bc-app",
+    title: "Klantverhaal: de BC app bij het boek De Zin der Dingen",
+    description:
+      "Bij het boek De Zin der Dingen van Jaap Bönker en Ruben Hadders bouwden wij voor de Bijbelse Cultuur Stichting een app voor iOS en Android, met meer dan 125 gebruiksvoorwerpen uit de Bijbel en hun symbolische betekenis.",
+    soort: "verhaal",
+    klant: "Bijbelse Cultuur Stichting",
+    beeld: "/beeld/bc-app.png",
+  },
 ];
 
 export function zoekPagina(pad: string): Pagina | undefined {

@@ -34,6 +34,7 @@ const KAARTEN = [
   { slug: "klantverhaal-hadders-media", eyebrow: "Klantverhaal · Hadders Media", kop: "Een afscheid volgen, waar je ook bent en welke taal je ook spreekt", beeld: { soort: "scherm", src: "beeld/hadders-media-beheer.png" } },
   { slug: "klantverhaal-holy-moly", eyebrow: "Klantverhaal · Holy Moly!", kop: "Een game app voor een kaartspel van bijbelse proporties", beeld: { soort: "scherm", src: "beeld/holy-moly-showcase.png" } },
   { slug: "klantverhaal-vbgg", eyebrow: "Klantverhaal · Vakantieweken VBGG", kop: "Van papieren administratie naar één portal voor elke doelgroep", beeld: { soort: "scherm", src: "beeld/vbgg-website.png" } },
+  { slug: "klantverhaal-bc-app", eyebrow: "Klantverhaal · Bijbelse Cultuur Stichting", kop: "Een app die de voorwerpen uit de Bijbel laat spreken", beeld: { soort: "scherm", src: "beeld/bc-app.png" } },
 ];
 
 function beeldHtml(b) {
