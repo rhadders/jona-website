@@ -55,7 +55,7 @@ export const PAGINAS: Pagina[] = [
     description:
       "Eén dag meekijken in jullie organisatie, binnen een week een plan in gewone taal: welk werk kan slimmer met software of AI, wat levert het op en wat kost het.",
     soort: "dienst",
-    prijs: 795,
+    prijs: 925,
   },
   {
     pad: "/advies",
