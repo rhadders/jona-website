@@ -24,8 +24,16 @@ export const PAGINAS: Pagina[] = [
     pad: "/",
     title: "Jona · zinvolle technologie",
     description:
-      "Wij bouwen gebruiksvriendelijke software en AI voor bedrijven en organisaties met een missie. Selaread, ActueleGegevens.nl en TirgumAI, en maatwerk via EchoNova.",
+      "Wij bouwen gebruiksvriendelijke software en AI voor bedrijven en organisaties met een missie. Jona Giften, Selaread, ActueleGegevens.nl en TirgumAI, en maatwerk via EchoNova.",
     soort: "home",
+  },
+  {
+    pad: "/jonagiften",
+    title: "Jona Giften",
+    description:
+      "Jona Giften is de giftenadministratie voor kleine stichtingen: donateurs, giften, machtigingen, donatiepagina's en jaaroverzichten op één plek. Eenvoudig genoeg voor elke penningmeester. Probeer het 14 dagen gratis.",
+    soort: "software",
+    extern: "https://jonagiften.nl",
   },
   {
     pad: "/selaread",
