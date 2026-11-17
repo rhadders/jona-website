@@ -3,7 +3,7 @@
 // gestructureerde data (JSON-LD in Base.astro) lezen allemaal hieruit,
 // zodat ze nooit uit elkaar lopen. Nieuwe pagina? Voeg hem hier toe.
 
-export type Soort = "home" | "software" | "dienst" | "contact" | "over" | "verhaal";
+export type Soort = "home" | "overzicht" | "software" | "dienst" | "contact" | "over" | "verhaal";
 
 export interface Pagina {
   pad: string;
@@ -26,6 +26,13 @@ export const PAGINAS: Pagina[] = [
     description:
       "Wij bouwen gebruiksvriendelijke software en AI voor bedrijven en organisaties met een missie. Jona Giften, Selaread, ActueleGegevens.nl en TirgumAI, en maatwerk via EchoNova.",
     soort: "home",
+  },
+  {
+    pad: "/software",
+    title: "Onze software",
+    description:
+      "Alle software die Jona zelf bouwt: Jona Giften en ActueleGegevens.nl kun je vandaag gebruiken, Selaread en TirgumAI komen eraan. Apps voor organisaties met een missie.",
+    soort: "overzicht",
   },
   {
     pad: "/jonagiften",

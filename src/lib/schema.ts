@@ -44,6 +44,7 @@ const website = {
 
 function kruimelpad(p: Pagina) {
   const items = [{ name: "Home", item: `${SITE}/` }];
+  if (p.soort === "software") items.push({ name: "Onze software", item: abs("/software") });
   items.push({ name: p.title, item: abs(p.pad) });
   return {
     "@type": "BreadcrumbList",
@@ -53,6 +54,7 @@ function kruimelpad(p: Pagina) {
 
 const PAGINATYPE: Record<Pagina["soort"], string> = {
   home: "WebPage",
+  overzicht: "CollectionPage",
   software: "WebPage",
   dienst: "WebPage",
   contact: "ContactPage",
@@ -136,7 +138,7 @@ export function schemaVoor(pad: string): Record<string, unknown> | null {
   };
   const graaf: Record<string, unknown>[] = [organisatie, website, pagina];
   if (onderwerp) graaf.push(onderwerp);
-  if (p.soort === "home") {
+  if (p.soort === "home" || p.soort === "overzicht") {
     graaf.push({
       "@type": "ItemList",
       name: "Software van Jona",
