@@ -1,7 +1,7 @@
 # Jona · zinvolle technologie — website
 
 De website van Jona (jonatechnologie.nl), eerste versie: homepage, Over Jona,
-Plan een kennismaking, de productpagina's van ActueleGegevens.nl, TirgumAI en
+Plan een kennismaking, de productpagina's van Jona Giften, ActueleGegevens.nl, TirgumAI en
 Selaread, de AI-scan en de klantverhalen van Hadders Media, Holy Moly!, de Vakantieweken VBGG en
 de BC app van de Bijbelse Cultuur Stichting.
 

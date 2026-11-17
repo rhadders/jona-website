@@ -25,6 +25,7 @@ const VLAK = { mist: ["#f5f8fa", "#073A56"], teal: ["#dff5f6", "#073A56"], navy:
 
 const KAARTEN = [
   { slug: "home", eyebrow: "Missiegedreven software & AI", kop: "Zinvolle technologie voor bedrijven en organisaties met een missie", beeld: { soort: "duif", vlak: "mist" } },
+  { slug: "jonagiften", eyebrow: "Jona Giften", kop: "Een giftenadministratie die elke penningmeester snapt", beeld: { soort: "scherm", src: "beeld/jonagiften-jaar.png" } },
   { slug: "selaread", eyebrow: "Selaread", kop: "De leeskiosk voor christelijk Nederland", beeld: { soort: "los", src: "beeld/selaread-apparaten.png" } },
   { slug: "actuelegegevens", eyebrow: "ActueleGegevens.nl", kop: "Je relatiebestand opschonen was nog nooit zó simpel", beeld: { soort: "scherm", src: "beeld/actuelegegevens-site.png" } },
   { slug: "tirgumai", eyebrow: "TirgumAI", kop: "Vers voor vers de Bijbel vertalen, met hulp van AI", beeld: { soort: "scherm", src: "beeld/tirgumai-werkplek-licht.png" } },

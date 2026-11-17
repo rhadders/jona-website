@@ -1,0 +1,481 @@
+---
+import { pagina } from "../lib/paginas";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+
+const AANMELDEN = "https://jonagiften.nl/aanmelden";
+
+const stappen = [
+  { icon: "users", titel: "Donateurs toevoegen", tekst: "Zet je donateurs erin, één voor één of in één keer vanuit je bestaande lijst. Naam en woonplaats is genoeg om te beginnen." },
+  { icon: "circle-plus", titel: "Giften boeken", tekst: "Wie gaf, hoeveel en voor welk project. Meer hoef je niet in te vullen. Op de computer, of even snel op je telefoon." },
+  { icon: "heart", titel: "Online laten geven", tekst: "Elk project krijgt een eigen donatiepagina. Een donateur betaalt met iDEAL en de gift staat vanzelf in je overzicht." },
+  { icon: "file-text", titel: "Jaaroverzichten sturen", tekst: "Voor de belastingaangifte willen donateurs weten wat ze gaven. Met één klik krijgt iedereen een eigen overzicht." },
+] as const;
+
+const meer = [
+  { icon: "pen", titel: "Machtigingen", tekst: "Donateurs tekenen een machtiging gewoon op hun telefoon." },
+  { icon: "repeat", titel: "Incasso", tekst: "Incasseren via je eigen bank, of via Mollie." },
+  { icon: "calendar", titel: "Periodieke giften", tekst: "Leg periodieke giften vast, zodat je weet wat er is afgesproken." },
+  { icon: "chart", titel: "Rapport voor het bestuur", tekst: "Giften per project, naast vorig jaar. Te downloaden als Excel of pdf." },
+  { icon: "palette", titel: "Jullie eigen huisstijl", tekst: "Logo, kleuren en aanspreekvorm (u of je) stel je één keer in." },
+  { icon: "monitor", titel: "Niets te installeren", tekst: "Werkt in de browser, op computer, tablet en telefoon." },
+] as const;
+
+const faq = [
+  { v: "Voor wie is Jona Giften bedoeld?", a: "Voor kleine stichtingen en goede doelen die met vrijwilligers werken. Een stichting voor een project in het buitenland, een voedselhulp in je eigen dorp, een fonds van de kerk. Heb je donateurs en giften bij te houden, dan is het voor jou gemaakt." },
+  { v: "Moet ik verstand hebben van boekhouden?", a: "Nee. Jona Giften is gemaakt voor penningmeesters die dit naast hun werk doen. Een gift boek je in een paar seconden, en de overzichten voor donateurs en bestuur maakt het programma zelf." },
+  { v: "Moet ik iets installeren?", a: "Nee. Je logt in via jonagiften.nl, op je computer, tablet of telefoon. Er is niets te downloaden of bij te werken." },
+  { v: "Kan ik mijn huidige donateurslijst overzetten?", a: "Ja. Je importeert je donateurs in één keer vanuit je bestaande lijst, zodat je niet alles opnieuw hoeft in te typen." },
+  { v: "Hoe gaan jullie om met de gegevens van onze donateurs?", a: "Veilig en zorgvuldig. Alle gegevens worden verwerkt op een server in Nederland, in lijn met de AVG. De gegevens van jullie donateurs zijn alleen van jullie stichting en worden nergens anders voor gebruikt." },
+];
+---
+<Base
+  {...pagina("/jonagiften")}
+  current="software"
+>
+  <section class="hero">
+    <div class="wrap stack gap-56">
+      <nav aria-label="Kruimelpad" class="crumbs">
+        <a href="/#producten">Onze software</a>
+        <Icon name="chevron-right" size={14} />
+        <span>Jona Giften</span>
+      </nav>
+      <div class="narrow stack gap-24">
+        <span class="tag">Nu beschikbaar · 14 dagen gratis proberen</span>
+        <h1 class="h1 h1-sm">Jona Giften: een giftenadministratie die elke penningmeester snapt.</h1>
+        <p class="lead">Bij de meeste kleine stichtingen doet de penningmeester de administratie naast werk en gezin. Dan moet het bijhouden van donateurs en giften niet in de weg zitten. Jona Giften zet alles op één plek: wie er gaf, voor welk project, en wie nog een jaaroverzicht moet krijgen. Zo eenvoudig dat je er geen handleiding voor nodig hebt.</p>
+        <div class="actions">
+          <a href={AANMELDEN} rel="noopener" class="btn btn-primary"><span>Probeer 14 dagen gratis</span> <Icon name="arrow-right" /></a>
+          <a href="https://jonagiften.nl" rel="noopener" class="btn btn-secondary">Naar jonagiften.nl</a>
+        </div>
+      </div>
+      <div class="apparaten">
+        <figure class="browser screen">
+          <div class="browser-bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="url">jonagiften.nl</span>
+          </div>
+          <picture>
+            <source srcset="/beeld/jonagiften-jaar.webp" type="image/webp">
+            <img src="/beeld/jonagiften-jaar.png" width="1600" height="1000" alt="Het jaaroverzicht in Jona Giften: € 48.320 opgehaald in 2026, een staafje per maand en alle giften van november">
+          </picture>
+        </figure>
+        <div class="telefoon">
+          <picture>
+            <source srcset="/beeld/jonagiften-mobiel-gift.webp" type="image/webp">
+            <img src="/beeld/jonagiften-mobiel-gift.png" width="780" height="1688" alt="Een gift boeken op de telefoon: donateur, bedrag, datum, project en hoe het geld binnenkwam">
+          </picture>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-mist stappen-sectie">
+    <div class="wrap stack gap-40">
+      <div class="narrow stack gap-12">
+        <p class="eyebrow">Van gift tot jaaroverzicht</p>
+        <h2 class="h2">Alles wat een penningmeester doet, op één plek</h2>
+      </div>
+      <ol class="tijdlijn">
+        {stappen.map((s, i) => (
+          <li>
+            <div class="bol"><Icon name={s.icon} size={22} /></div>
+            <p class="eyebrow">Stap {i + 1}</p>
+            <h3>{s.titel}</h3>
+            <p class="muted">{s.tekst}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="bijzonder">
+    <div class="wrap stack gap-80">
+
+      <div class="feature">
+        <div class="stack gap-16">
+          <p class="eyebrow">Ook op je telefoon</p>
+          <h2 class="h2-sm">Een gift boek je gewoon even tussendoor</h2>
+          <p class="muted f-tekst">Na de collecte of op een verjaardag geld aangenomen? Dan boek je het meteen, zonder dat je eerst achter de laptop hoeft. Op je telefoon zie je ook in één oogopslag wat er dit jaar binnenkwam en wie je donateurs zijn.</p>
+        </div>
+        <div class="illu">
+          <div class="telefoon">
+            <picture>
+              <source srcset="/beeld/jonagiften-mobiel-jaar.webp" type="image/webp">
+              <img src="/beeld/jonagiften-mobiel-jaar.png" width="780" height="1688" loading="lazy" alt="Het jaaroverzicht op de telefoon">
+            </picture>
+          </div>
+          <div class="telefoon laag">
+            <picture>
+              <source srcset="/beeld/jonagiften-mobiel-donateurs.webp" type="image/webp">
+              <img src="/beeld/jonagiften-mobiel-donateurs.png" width="780" height="1688" loading="lazy" alt="De lijst met donateurs op de telefoon, met wat ieder dit jaar gaf">
+            </picture>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature omgekeerd">
+        <div class="illu met-melding">
+          <div class="telefoon">
+            <picture>
+              <source srcset="/beeld/jonagiften-mobiel-geefpagina.webp" type="image/webp">
+              <img src="/beeld/jonagiften-mobiel-geefpagina.png" width="780" height="1688" loading="lazy" alt="De donatiepagina voor het project Voedselhulp: eenmalig of maandelijks, een bedrag kiezen en geven">
+            </picture>
+          </div>
+          <Icon name="arrow-right" size={28} class="pijl" />
+          <div class="melding" aria-hidden="true">
+            <div class="m-kop"><span>Nieuwe gift</span><span>vandaag</span></div>
+            <div class="m-regel"><span>Fam. Dekker</span><span class="m-bedrag">€ 25</span></div>
+            <div class="m-regel muted"><span>Voedselhulp</span><span class="m-ideal">iDEAL</span></div>
+          </div>
+        </div>
+        <div class="stack gap-16">
+          <p class="eyebrow">Donatiepagina per project</p>
+          <h2 class="h2-sm">Een eigen geefpagina, in de kleuren van je stichting</h2>
+          <p class="muted f-tekst">Voedselhulp, een schoolproject of een nieuw buurthuis: elk project krijgt een eigen pagina met jullie logo en kleuren. Mensen geven eenmalig of maandelijks, met iDEAL. De gift komt vanzelf in je administratie terecht.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="stack gap-16">
+          <p class="eyebrow">Giftenoverzicht</p>
+          <h2 class="h2-sm">Elke donateur een eigen jaaroverzicht, met één klik</h2>
+          <p class="muted f-tekst">Begin van het jaar vragen donateurs om een overzicht voor de belastingaangifte. Kies het jaar, kies wie het krijgt, en Jona Giften maakt voor iedereen een net overzicht met de giften per project. Per e-mail of als printbestand.</p>
+        </div>
+        <figure class="screen">
+          <picture>
+            <source srcset="/beeld/jonagiften-giftenoverzicht.webp" type="image/webp">
+            <img src="/beeld/jonagiften-giftenoverzicht.png" width="1600" height="1000" loading="lazy" alt="Het giftenoverzicht 2025 voor een donateur, met het totaal per project en het RSIN van de stichting">
+          </picture>
+        </figure>
+      </div>
+
+      <div class="stack gap-32">
+        <div class="narrow stack gap-12">
+          <p class="eyebrow">En meer, als het nodig is</p>
+          <h2 class="h2-sm">Het zit er allemaal in, en het staat niet in de weg</h2>
+        </div>
+        <ul class="meer">
+          {meer.map((m) => (
+            <li class="card">
+              <span class="ico"><Icon name={m.icon} size={20} /></span>
+              <h3>{m.titel}</h3>
+              <p class="muted">{m.tekst}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="proberen" class="section section-mist">
+    <div class="wrap grid">
+      <div class="stack gap-28">
+        <div class="stack gap-12">
+          <p class="eyebrow">Wat het kost</p>
+          <h2 class="h2">Eerst 14 dagen gratis proberen</h2>
+          <p class="muted f-tekst">Je kunt Jona Giften eerst rustig uitproberen met je eigen donateurs en giften. Bevalt het, dan kies je of je per jaar of per maand betaalt. Alle functies zitten er altijd in, er zijn geen pakketten of extra kosten per donateur.</p>
+        </div>
+        <div class="card persoonlijk">
+          <picture>
+            <source srcset="/beeld/jonagiften-ruben.webp" type="image/webp">
+            <img src="/beeld/jonagiften-ruben.png" width="900" height="816" loading="lazy" alt="Getekend portret van Ruben Hadders">
+          </picture>
+          <div class="stack gap-6">
+            <p>Twijfel je of het past bij jullie stichting? Bel of mail me gerust, ik denk graag met je mee.</p>
+            <p class="muted p-naam">Ruben Hadders, ontwikkelaar van Jona Giften</p>
+            <div class="contact"><a href="tel:+31332301737">033 230 17 37</a><a href="mailto:ruben@jonacommunicatie.nl">ruben@jonacommunicatie.nl</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card prijskaart">
+        <h3 class="h3 h3-22">Jona Giften voor jullie stichting</h3>
+        <div class="opties">
+          <div class="optie uitgelicht">
+            <span class="wat">Per jaar betalen</span>
+            <span class="hoeveel">€ 9,95 <small>per maand</small></span>
+            <span class="extra">€ 119,40 per jaar</span>
+          </div>
+          <div class="optie">
+            <span class="wat">Per maand betalen</span>
+            <span class="hoeveel">€ 12,95 <small>per maand</small></span>
+            <span class="extra muted">per maand afgerekend</span>
+          </div>
+        </div>
+        <ul class="checks">
+          <li><Icon name="check" /><span>14 dagen gratis, met al je eigen gegevens</span></li>
+          <li><Icon name="check" /><span>Alle functies, ook donatiepagina's en jaaroverzichten</span></li>
+          <li><Icon name="check" /><span>Persoonlijke hulp als je ergens niet uitkomt</span></li>
+          <li><Icon name="check" /><span>Prijzen inclusief btw</span></li>
+        </ul>
+        <a href={AANMELDEN} rel="noopener" class="btn btn-primary btn-52"><span>Start je gratis proefperiode</span> <Icon name="arrow-right" /></a>
+        <p class="note">Aanmelden duurt twee minuten en gaat via <a href="https://jonagiften.nl" rel="noopener">jonagiften.nl</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap narrow stack gap-32">
+      <h2 class="faq-kop">Veelgestelde vragen</h2>
+      <div class="faq">
+        {faq.map((f) => (
+          <div class="vraag stack gap-6">
+            <h3>{f.v}</h3>
+            <p class="muted">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding: 96px 0 72px; overflow: hidden; }
+  .h1-sm { font-size: clamp(34px, 4.8vw, 52px); }
+  .crumbs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .crumbs a { color: var(--muted); }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; padding-top: 4px; }
+
+  /* laptop met telefoon ervoor */
+  .apparaten { position: relative; padding-right: 9%; padding-bottom: 40px; }
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--mist);
+  }
+  .dot { width: 10px; height: 10px; border-radius: var(--r-pill); background: var(--border); }
+  .url {
+    margin-left: 12px;
+    flex: 1;
+    min-height: 28px;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .telefoon {
+    background: var(--navy-900);
+    padding: 9px;
+    border-radius: 38px;
+    box-shadow: 0 30px 60px -20px rgba(4, 32, 47, 0.45);
+  }
+  .telefoon img { display: block; width: 100%; height: auto; border-radius: 30px; }
+  .apparaten .telefoon { position: absolute; right: 0; bottom: 0; width: 23%; min-width: 150px; }
+
+  /* tijdlijn */
+  .stappen-sectie { padding: 80px 0; }
+  .tijdlijn {
+    list-style: none;
+    padding: 0;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .tijdlijn::before {
+    content: "";
+    position: absolute;
+    left: 28px;
+    right: calc(25% + 28px);
+    top: 28px;
+    height: 2px;
+    background: var(--teal);
+    opacity: 0.45;
+  }
+  .tijdlijn li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding-right: 24px;
+  }
+  .tijdlijn h3 { font-size: 20px; font-weight: 500; line-height: 1.3; }
+  .tijdlijn p.muted { font-size: 16px; }
+  .bol {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    border: 2px solid var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--teal-700);
+    box-shadow: 0 0 0 6px var(--mist);
+  }
+
+  /* uitgelichte functies */
+  .bijzonder { padding: 88px 0 72px; }
+  .gap-80 { gap: 80px; }
+  .gap-32 { gap: 32px; }
+  .feature {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 56px;
+    align-items: center;
+  }
+  .feature > * { min-width: 0; }
+  .f-tekst { font-size: 18px; }
+  .illu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    min-height: 360px;
+  }
+  .illu .telefoon { width: 200px; }
+  .illu .telefoon.laag { margin-top: 70px; }
+  .pijl { color: var(--teal); flex-shrink: 0; }
+  .melding {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow-small);
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 13px;
+    width: 220px;
+  }
+  .m-kop { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
+  .m-regel { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .m-bedrag { font-family: var(--font-serif); font-size: 22px; }
+  .m-ideal {
+    padding: 1px 8px;
+    border-radius: var(--r-pill);
+    background: var(--teal-100);
+    color: var(--teal-800);
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  /* en meer */
+  .meer {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .meer li { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .ico {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--r-pill);
+    background: var(--teal-100);
+    color: var(--teal-800);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .meer h3 { font-size: 18px; font-weight: 500; line-height: 1.3; }
+  .meer p { font-size: 15.5px; }
+
+  /* prijs */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 56px;
+    align-items: start;
+  }
+  .grid > * { min-width: 0; }
+  .h3-22 { font-size: 22px; }
+  .prijskaart { padding: 32px; box-shadow: var(--shadow-card); display: flex; flex-direction: column; gap: 22px; }
+  .opties { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .optie { border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 2px; }
+  .optie.uitgelicht { border-color: var(--teal); background: var(--teal-100); }
+  .wat { font-size: 13px; color: var(--muted); }
+  .hoeveel { font-family: var(--font-serif); font-size: 30px; line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .hoeveel small { font-family: var(--font-sans); font-size: 14px; color: var(--muted); }
+  .extra { font-size: 13px; color: var(--teal-800); }
+  .extra.muted { color: var(--muted); }
+  .btn-52 { min-height: 52px; }
+  .note { font-size: 13px; color: var(--muted); }
+  .persoonlijk { padding: 24px; display: flex; gap: 20px; align-items: center; }
+  .persoonlijk img {
+    display: block;
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: var(--r-pill);
+    background: var(--mist);
+    flex-shrink: 0;
+  }
+  .p-naam { font-size: 15px; }
+  .contact { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 15px; }
+
+  /* faq */
+  .faq-kop {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 31px;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    color: var(--teal-700);
+  }
+  .faq { display: flex; flex-direction: column; }
+  .vraag { padding: 24px 0; border-top: 1px solid var(--border); }
+  .vraag:last-child { border-bottom: 1px solid var(--border); }
+  .vraag h3 { font-size: 19px; font-weight: 500; }
+
+  @media (max-width: 1023px) {
+    .tijdlijn { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 24px; }
+    .tijdlijn::before { display: none; }
+    .meer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 767px) {
+    .hero { padding: 64px 0 48px; }
+    .stappen-sectie { padding: 64px 0; }
+    .bijzonder { padding: 64px 0 40px; }
+    .gap-80 { gap: 56px; }
+    .feature { gap: 28px; }
+    .omgekeerd .illu { order: 1; }
+    .illu { min-height: 0; }
+    .illu .telefoon { width: 46%; max-width: 200px; }
+    .illu .telefoon.laag { margin-top: 40px; }
+    .prijskaart { padding: 24px 20px; }
+  }
+  @media (max-width: 560px) {
+    .tijdlijn { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .tijdlijn::before {
+      display: block;
+      left: 27px;
+      right: auto;
+      top: 28px;
+      bottom: 28px;
+      width: 2px;
+      height: auto;
+    }
+    .tijdlijn li { padding: 0 0 36px 76px; }
+    .tijdlijn li:last-child { padding-bottom: 0; }
+    .tijdlijn .bol { position: absolute; left: 0; top: 0; }
+    .meer { grid-template-columns: minmax(0, 1fr); }
+    .opties { grid-template-columns: minmax(0, 1fr); }
+    .apparaten { padding-right: 0; padding-bottom: 0; }
+    .apparaten .telefoon { position: relative; width: 52%; min-width: 0; margin: -60px 0 0 auto; }
+    .met-melding { flex-direction: column; }
+    .met-melding .pijl { transform: rotate(90deg); }
+    .persoonlijk { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 479px) {
+    .actions .btn { width: 100%; }
+  }
+</style>
