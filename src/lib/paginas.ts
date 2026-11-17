@@ -24,14 +24,14 @@ export const PAGINAS: Pagina[] = [
     pad: "/",
     title: "Jona · zinvolle technologie",
     description:
-      "Wij bouwen gebruiksvriendelijke software en AI voor bedrijven en organisaties met een missie. Jona Giften, Selaread, ActueleGegevens.nl en TirgumAI, en maatwerk via EchoNova.",
+      "Wij bouwen gebruiksvriendelijke software en AI voor bedrijven en organisaties met een missie. Jona Giften, Jona Bestuur, Selaread, ActueleGegevens.nl en TirgumAI, en maatwerk via EchoNova.",
     soort: "home",
   },
   {
     pad: "/software",
     title: "Onze software",
     description:
-      "Alle software die Jona zelf bouwt: Jona Giften en ActueleGegevens.nl kun je vandaag gebruiken, Selaread en TirgumAI komen eraan. Apps voor organisaties met een missie.",
+      "Alle software die Jona zelf bouwt: Jona Giften, Jona Bestuur en ActueleGegevens.nl kun je vandaag gebruiken, Selaread en TirgumAI komen eraan. Apps voor organisaties met een missie.",
     soort: "overzicht",
   },
   {
@@ -41,6 +41,14 @@ export const PAGINAS: Pagina[] = [
       "Jona Giften is de giftenadministratie voor kleine stichtingen: donateurs, giften, machtigingen, donatiepagina's en jaaroverzichten op één plek. Eenvoudig genoeg voor elke penningmeester. Probeer het 14 dagen gratis.",
     soort: "software",
     extern: "https://jonagiften.nl",
+  },
+  {
+    pad: "/jonabestuur",
+    title: "Jona Bestuur",
+    description:
+      "Jona Bestuur zet de agenda, de notulen, de besluiten en de acties van een klein bestuur op één plek. Vergader punt voor punt en de conceptnotulen staan klaar na het laatste agendapunt. Eenvoudig genoeg voor elke secretaris. Probeer het 14 dagen gratis.",
+    soort: "software",
+    extern: "https://jonabestuur.nl",
   },
   {
     pad: "/selaread",

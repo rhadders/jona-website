@@ -1,0 +1,417 @@
+---
+import { pagina } from "../lib/paginas";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+
+const AANMELDEN = "https://jonabestuur.nl/aanmelden";
+
+// Eén vergadering van begin tot eind. Elk moment heeft een scherm of de drie vragen.
+const vragen = [
+  { label: "Besproken", vraag: "Wat is er besproken?", tekst: "Een paar zinnen is genoeg." },
+  { label: "Besloten", vraag: "Wat is besloten?", tekst: "Het besluit krijgt meteen een nummer." },
+  { label: "Wie doet wat", vraag: "Wie doet wat?", tekst: "Een actie, met een naam en een datum." },
+];
+
+const meer = [
+  { icon: "mail", titel: "Herinneringen bij acties", tekst: "Een e-mail als de datum van een actie nadert." },
+  { icon: "lock", titel: "Vertrouwelijke punten", tekst: "Alleen zichtbaar voor wie ze mag zien." },
+  { icon: "circle-plus", titel: "Punt voorstellen", tekst: "Bestuursleden zetten zelf een punt op de agenda." },
+  { icon: "search", titel: "Doorzoekbaar archief", tekst: "Alle vergaderingen en stukken, terug te vinden op één woord." },
+  { icon: "download", titel: "Excel en pdf", tekst: "Het register en de acties als Excel, de notulen als pdf." },
+  { icon: "monitor", titel: "Niets te installeren", tekst: "Werkt in de browser, op computer, tablet en telefoon." },
+] as const;
+
+const veilig = [
+  { icon: "key", titel: "Inloggen in twee stappen", tekst: "Inloggen gaat altijd met een tweede stap op je telefoon." },
+  { icon: "shield-check", titel: "Strikt gescheiden", tekst: "De gegevens van jullie bestuur staan los van die van anderen. Bijlagen worden versleuteld bewaard, en elke nacht wordt er een back-up gemaakt." },
+  { icon: "file-text", titel: "Vast is vast", tekst: "Vastgestelde notulen en besluiten kan niemand stilletjes wijzigen. En je kunt alles van jullie bestuur in één keer exporteren." },
+] as const;
+
+const faq = [
+  { v: "Voor wie is Jona Bestuur bedoeld?", a: "Voor kleine besturen, zoals van een stichting of vereniging, waar de secretaris het werk naast een baan doet. Vergadert jullie bestuur een paar keer per jaar en wil je terug kunnen vinden wat er besloten is, dan is het voor jou gemaakt." },
+  { v: "Moet de rest van het bestuur er ook mee werken?", a: "Dat kan, maar het hoeft niet. Bestuursleden lezen de agenda en de notulen mee, stellen zelf een punt voor en zien hun eigen acties. Een bestuurslid ziet alleen wat met hem of haar gedeeld is." },
+  { v: "Moet ik iets installeren?", a: "Nee. Je logt in via jonabestuur.nl, op je computer, tablet of telefoon. Er is niets te downloaden of bij te werken." },
+  { v: "Wat kost het?", a: "Je probeert Jona Bestuur eerst 14 dagen gratis. Daarna betaal je € 9,95 per maand als je per jaar betaalt (€ 119,40), of € 12,95 als je per maand betaalt. Dat is voor het hele bestuur samen, inclusief btw, en alles zit erin." },
+];
+---
+<Base
+  {...pagina("/jonabestuur")}
+  current="software"
+>
+  <section class="kop on-navy">
+    <div class="wrap stack gap-24 kop-tekst">
+      <nav aria-label="Kruimelpad" class="crumbs">
+        <a href="/software">Onze software</a>
+        <Icon name="chevron-right" size={14} />
+        <span>Jona Bestuur</span>
+      </nav>
+      <p class="eyebrow">Jona Bestuur · nu beschikbaar</p>
+      <h1 class="h1 kop-titel">Na het laatste agendapunt staan de notulen al klaar.</h1>
+      <p class="lead kop-lead">Jona Bestuur begeleidt jullie vergadering punt voor punt. Wat er besproken en besloten is, en wie wat doet, komt vanzelf in de notulen en het besluitenregister. Gemaakt voor de secretaris van een klein bestuur, die dit 's avonds naast het werk doet.</p>
+      <div class="actions">
+        <a href={AANMELDEN} rel="noopener" class="btn btn-accent"><span>Probeer 14 dagen gratis</span> <Icon name="arrow-right" /></a>
+        <a href="https://jonabestuur.nl" rel="noopener" class="btn btn-licht">Naar jonabestuur.nl</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap kop-scherm">
+    <figure class="screen">
+      <picture>
+        <source srcset="/beeld/jonabestuur-vergadermodus.webp" type="image/webp">
+        <img src="/beeld/jonabestuur-vergadermodus.png" width="1600" height="1000" alt="De vergadermodus van Jona Bestuur: links de agenda, rechts agendapunt 6, Begroting 2027, met drie vragen: wat is er besproken, wat is besloten en wie doet wat">
+      </picture>
+    </figure>
+  </div>
+
+  <section class="avond">
+    <div class="wrap stack gap-80">
+      <div class="narrow stack gap-12 midden">
+        <p class="eyebrow">Zo gaat een vergadering met Jona Bestuur</p>
+        <h2 class="h2">Eén bestuursvergadering, van begin tot eind</h2>
+      </div>
+
+      <div class="moment">
+        <div class="tijd"><span class="tijd-wanneer">Een week ervoor</span><span class="eyebrow">De agenda</span></div>
+        <div class="split">
+          <figure class="screen">
+            <picture>
+              <source srcset="/beeld/jonabestuur-agenda.webp" type="image/webp">
+              <img src="/beeld/jonabestuur-agenda.png" width="1600" height="1000" loading="lazy" alt="De agenda voor 2 december met acht punten en rechts een voorstel van een bestuurslid">
+            </picture>
+          </figure>
+          <div class="stack gap-12">
+            <h3 class="h3">De agenda maakt zich half zelf</h3>
+            <p class="muted">De opening, de notulen van vorige keer en de rondvraag staan er al. Bestuursleden stellen zelf een punt voor, en acties die nog openstaan komen vanzelf terug. Ben je klaar, dan deel je de agenda met de stukken erbij.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="moment">
+        <div class="tijd"><span class="tijd-wanneer">19.30 uur</span><span class="eyebrow">De vergadering</span></div>
+        <div class="stack gap-24">
+          <div class="stack gap-12 smal">
+            <h3 class="h3">Bij elk punt maar drie vragen</h3>
+            <p class="muted">Je vult in wat nodig is en gaat door naar het volgende punt. Alles wordt meteen bewaard, ook op een tablet of telefoon.</p>
+          </div>
+          <ul class="vragen">
+            {vragen.map((v) => (
+              <li>
+                <p class="eyebrow">{v.label}</p>
+                <p class="vraag-kop">{v.vraag}</p>
+                <p class="muted">{v.tekst}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div class="moment">
+        <div class="tijd"><span class="tijd-wanneer">21.15 uur</span><span class="eyebrow">De notulen</span></div>
+        <div class="split tekst-eerst">
+          <div class="stack gap-12">
+            <h3 class="h3">De conceptnotulen staan klaar</h3>
+            <p class="muted">Met de besluiten en acties erin. Jij leest ze na, deelt ze ter controle met het bestuur en stelt ze de volgende keer vast. Daarna liggen ze vast, ook als pdf.</p>
+          </div>
+          <figure class="screen">
+            <picture>
+              <source srcset="/beeld/jonabestuur-notulen.webp" type="image/webp">
+              <img src="/beeld/jonabestuur-notulen.png" width="1600" height="1000" loading="lazy" alt="Notulen van 9 november, ter controle gedeeld, met een besluit en een actie bij het punt Begroting 2027">
+            </picture>
+          </figure>
+        </div>
+      </div>
+
+      <div class="moment">
+        <div class="tijd"><span class="tijd-wanneer">Maanden later</span><span class="eyebrow">Het besluitenregister</span></div>
+        <div class="split">
+          <figure class="screen">
+            <picture>
+              <source srcset="/beeld/jonabestuur-besluiten.webp" type="image/webp">
+              <img src="/beeld/jonabestuur-besluiten.png" width="1600" height="1000" loading="lazy" alt="Het besluitenregister met vier besluiten en het spoor van besluit 2026-004">
+            </picture>
+          </figure>
+          <div class="stack gap-12">
+            <h3 class="h3">“Wat hadden we nou afgesproken over de huur?”</h3>
+            <p class="muted">Elk besluit staat in het besluitenregister, met een nummer en het agendapunt waar het vandaan komt. Je typt een woord en je hebt het.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="stack gap-16">
+          <p class="eyebrow">Ook op je telefoon</p>
+          <h2 class="h2-sm">Vergaderen kan ook met alleen een tablet of telefoon</h2>
+          <p class="muted f-tekst">Geen laptop bij de hand? De agenda, de vergadermodus en het besluitenregister werken net zo goed op een klein scherm. Alles wat je invult, wordt meteen bewaard.</p>
+        </div>
+        <div class="illu">
+          <div class="telefoon">
+            <picture>
+              <source srcset="/beeld/jonabestuur-mobiel-agenda.webp" type="image/webp">
+              <img src="/beeld/jonabestuur-mobiel-agenda.png" width="780" height="1688" loading="lazy" alt="De agenda op de telefoon">
+            </picture>
+          </div>
+          <div class="telefoon laag">
+            <picture>
+              <source srcset="/beeld/jonabestuur-mobiel-punt.webp" type="image/webp">
+              <img src="/beeld/jonabestuur-mobiel-punt.png" width="780" height="1688" loading="lazy" alt="Een agendapunt in de vergadermodus op de telefoon">
+            </picture>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack gap-32">
+        <div class="narrow stack gap-12">
+          <p class="eyebrow">En meer, als het nodig is</p>
+          <h2 class="h2-sm">Het zit er allemaal in, en het staat niet in de weg</h2>
+        </div>
+        <ul class="meer">
+          {meer.map((m) => (
+            <li class="card">
+              <span class="ico"><Icon name={m.icon} size={20} /></span>
+              <h3>{m.titel}</h3>
+              <p class="muted">{m.tekst}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="wrap stack gap-40">
+      <div class="narrow stack gap-12">
+        <p class="eyebrow">Veilig</p>
+        <h2 class="h2-sm">Bestuursstukken zijn vertrouwelijk. Daar is Jona Bestuur op gebouwd.</h2>
+      </div>
+      <ul class="meer">
+        {veilig.map((m) => (
+          <li class="card">
+            <span class="ico"><Icon name={m.icon} size={20} /></span>
+            <h3>{m.titel}</h3>
+            <p class="muted">{m.tekst}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="proberen" class="section">
+    <div class="wrap">
+      <div class="prijsband on-navy">
+        <div class="stack gap-12 prijs-tekst">
+          <p class="eyebrow">Wat het kost</p>
+          <h2 class="h2-sm prijs-kop">€ 9,95 per maand, voor het hele bestuur</h2>
+          <p>Als je per jaar betaalt (€ 119,40), of € 12,95 als je liever per maand betaalt. Inclusief btw, en alles zit erin. Je probeert het eerst 14 dagen gratis, met je eigen bestuur en je eigen vergaderingen.</p>
+        </div>
+        <div class="stack gap-16 prijs-actie">
+          <a href={AANMELDEN} rel="noopener" class="btn btn-accent btn-52"><span>Start je gratis proefperiode</span> <Icon name="arrow-right" /></a>
+          <div class="persoonlijk">
+            <picture>
+              <source srcset="/beeld/jonagiften-ruben.webp" type="image/webp">
+              <img src="/beeld/jonagiften-ruben.png" width="900" height="816" loading="lazy" alt="Getekend portret van Ruben Hadders">
+            </picture>
+            <p>Eerst een vraag? Bel of mail Ruben, de ontwikkelaar: <a href="tel:+31332301737">033 230 17 37</a> of <a href="mailto:ruben@jonacommunicatie.nl">ruben@jonacommunicatie.nl</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section faq-sectie">
+    <div class="wrap narrow stack gap-32">
+      <h2 class="faq-kop">Veelgestelde vragen</h2>
+      <div class="faq">
+        {faq.map((f) => (
+          <div class="vraag stack gap-6">
+            <h3>{f.v}</h3>
+            <p class="muted">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* donkere kop met het scherm er half overheen */
+  .kop {
+    position: relative;
+    overflow: hidden;
+    background: var(--navy);
+    color: var(--ink-on-navy);
+    padding: 80px 0 220px;
+  }
+  .kop-tekst { position: relative; }
+  .crumbs { display: flex; gap: 8px; align-items: center; font-size: 14px; }
+  .crumbs a { color: var(--ink-on-navy); }
+  .crumbs a:hover { color: var(--white); }
+  .kop-titel { color: var(--white); max-width: 900px; font-size: clamp(38px, 5.6vw, 62px); line-height: 1.06; }
+  .kop-lead { max-width: 680px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; padding-top: 8px; }
+  .btn-licht { color: var(--white); border-color: rgba(255, 255, 255, 0.35); background: transparent; }
+  .btn-licht:hover { color: var(--white); border-color: var(--white); }
+  .kop-scherm { position: relative; margin-top: -170px; }
+  .kop-scherm .screen { box-shadow: 0 40px 80px -30px rgba(4, 32, 47, 0.45); }
+
+  /* de avond als tijdlijn */
+  .avond { padding: 112px 0 96px; }
+  .gap-80 { gap: 88px; }
+  .gap-32 { gap: 32px; }
+  .midden { margin: 0 auto; text-align: center; align-items: center; }
+  .moment {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 48px;
+  }
+  .tijd { position: sticky; top: 104px; align-self: start; display: flex; flex-direction: column; gap: 6px; }
+  .tijd-wanneer {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+  }
+  .split.tekst-eerst { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+  .smal { max-width: 640px; }
+  .vragen {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .vragen li {
+    background: var(--white);
+    border: 2px dashed var(--teal-300);
+    border-radius: var(--r-card);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .vraag-kop {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  /* telefoons */
+  .feature {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 56px;
+    align-items: center;
+  }
+  .feature > * { min-width: 0; }
+  .f-tekst { font-size: 18px; }
+  .illu { display: flex; align-items: center; justify-content: center; gap: 24px; min-height: 360px; }
+  .telefoon {
+    width: 200px;
+    background: var(--navy-900);
+    padding: 9px;
+    border-radius: 38px;
+    box-shadow: 0 30px 60px -20px rgba(4, 32, 47, 0.45);
+  }
+  .telefoon img { display: block; width: 100%; height: auto; border-radius: 30px; }
+  .telefoon.laag { margin-top: 70px; }
+
+  /* kaartjes */
+  .meer {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .meer li { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .ico {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--r-pill);
+    background: var(--teal-100);
+    color: var(--teal-800);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .meer h3 { font-size: 18px; font-weight: 500; line-height: 1.3; }
+  .meer p { font-size: 15.5px; }
+
+  /* prijs */
+  .prijsband {
+    background: var(--navy);
+    color: var(--ink-on-navy);
+    border-radius: var(--r-dialog);
+    padding: 56px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .prijs-tekst { flex: 1 1 420px; max-width: 580px; }
+  .prijs-kop { color: var(--white); }
+  .prijs-actie { flex: 0 1 380px; align-items: flex-start; }
+  .btn-52 { min-height: 52px; }
+  .persoonlijk { display: flex; gap: 14px; align-items: center; font-size: 15px; }
+  .persoonlijk picture { flex-shrink: 0; }
+  .persoonlijk img {
+    display: block;
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: var(--r-pill);
+    background: var(--mist);
+    flex-shrink: 0;
+  }
+  .persoonlijk a { color: var(--white); }
+
+  /* faq */
+  .faq-sectie { padding-top: 0; }
+  .faq-kop {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 31px;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    color: var(--teal-700);
+  }
+  .faq { display: flex; flex-direction: column; }
+  .vraag { padding: 24px 0; border-top: 1px solid var(--border); }
+  .vraag:last-child { border-bottom: 1px solid var(--border); }
+  .vraag h3 { font-size: 19px; font-weight: 500; }
+
+  @media (max-width: 1023px) {
+    .moment { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .tijd { position: static; flex-direction: row; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+    .meer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 767px) {
+    .kop { padding: 56px 0 140px; }
+    .kop-scherm { margin-top: -100px; }
+    .avond { padding: 72px 0 64px; }
+    .gap-80 { gap: 56px; }
+    .split, .split.tekst-eerst { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .split > .screen { order: 1; }
+    .vragen { grid-template-columns: minmax(0, 1fr); }
+    .feature { gap: 28px; }
+    .illu { min-height: 0; }
+    .telefoon { width: 46%; max-width: 200px; }
+    .telefoon.laag { margin-top: 40px; }
+    .prijsband { padding: 32px 24px; }
+  }
+  @media (max-width: 560px) {
+    .meer { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 479px) {
+    .actions .btn, .prijs-actie .btn { width: 100%; }
+  }
+</style>
