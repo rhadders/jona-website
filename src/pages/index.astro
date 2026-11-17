@@ -70,24 +70,6 @@ import FormScript from "../components/FormScript.astro";
       <article class="product">
         <div class="screen">
           <picture>
-            <source srcset="/beeld/selaread-ontdek.webp" type="image/webp">
-            <img src="/beeld/selaread-ontdek.png" width="1800" height="1177" loading="lazy" alt="De pagina Ontdek in Selaread: een zoekveld, rubrieken als Israël, Kerkbladen en Kinderen, en een overzicht van magazines met hun omslagen">
-          </picture>
-        </div>
-        <div class="stack gap-16">
-          <span class="tag">Lancering voorjaar 2027</span>
-          <h3 class="h2-sm">Selaread</h3>
-          <p class="product-text">Lees onbeperkt christelijke tijdschriften, op mobiel, tablet of desktop. Selaread is een moderne kioskapp. Ook voor uitgevers die op zoek zijn naar een leesapp voor hun eigen abonnees.</p>
-          <a href="/selaread" class="link">Meer over Selaread</a>
-          <div class="actions">
-            <a href="/selaread#beta" class="btn btn-primary"><span>Meld je aan als testgebruiker</span> <Icon name="arrow-right" /></a>
-          </div>
-        </div>
-      </article>
-
-      <article class="product">
-        <div class="screen">
-          <picture>
             <source srcset="/beeld/tirgumai-start.webp" type="image/webp">
             <img src="/beeld/tirgumai-start.png" width="1800" height="1125" loading="lazy" alt="Het startscherm van TirgumAI: Genesis 1:1 in het Hebreeuws met de eigen vertaling eronder, knoppen Verder vertalen en Hoofdstuk lezen, en de projecten">
           </picture>
@@ -102,6 +84,11 @@ import FormScript from "../components/FormScript.astro";
           </div>
         </div>
       </article>
+
+      <div class="alle-software">
+        <p class="muted">Ook Selaread, de leeskiosk voor christelijke tijdschriften, en wat er nog meer aankomt.</p>
+        <a href="/software" class="btn btn-secondary btn-wit"><span>Bekijk al onze software</span> <Icon name="arrow-right" /></a>
+      </div>
     </div>
   </section>
 
@@ -371,6 +358,16 @@ import FormScript from "../components/FormScript.astro";
     align-items: center;
   }
   .product-text { font-size: 18px; }
+  .alle-software {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .btn-wit { background: var(--white); border-color: var(--navy); }
   .maatwerk { padding: 112px 0 0; }
   .maatwerk-lead { font-size: 19px; line-height: 1.6; }
   .principes {

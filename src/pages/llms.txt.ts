@@ -23,7 +23,7 @@ Wij bouwen ook software en AI op maat, via ons zusterbedrijf EchoNova (https://e
 
 ## Software
 
-${lijst(["software"])}
+${lijst(["overzicht", "software"])}
 
 ## Diensten
 
