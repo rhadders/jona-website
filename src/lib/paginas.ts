@@ -14,6 +14,8 @@ export interface Pagina {
   extern?: string;
   /** Prijs in euro excl. btw, alleen als die op de pagina staat. */
   prijs?: number;
+  /** Alleen bij klantverhalen: de klant en een beeld van het werk. */
+  klant?: { naam: string; beeld: string };
 }
 
 export const PAGINAS: Pagina[] = [
@@ -74,6 +76,15 @@ export const PAGINAS: Pagina[] = [
     description:
       "Hadders Media biedt als eerste in Nederland live ondertiteling en nasynchronisatie bij uitvaarten. Wij bouwden een platform dat livestreams, vertalingen en condoleances samenbrengt, eenvoudig te beheren en overal ter wereld te volgen.",
     soort: "verhaal",
+    klant: { naam: "Hadders Media", beeld: "/beeld/hadders-media-beheer.png" },
+  },
+  {
+    pad: "/klantverhaal/zin-der-dingen",
+    title: "Klantverhaal: een app bij het boek De Zin der Dingen",
+    description:
+      "Bij het boek De Zin der Dingen van Jaap Bönker en Ruben Hadders bouwden wij een iOS- en Android-app voor de Bijbelse Cultuur Stichting. Lezers ontdekken er 125 bijbelse voorwerpen, om te lezen of te luisteren, met regelmatig nieuwe artikelen.",
+    soort: "verhaal",
+    klant: { naam: "Bijbelse Cultuur Stichting", beeld: "/beeld/zin-der-dingen-app.png" },
   },
 ];
 

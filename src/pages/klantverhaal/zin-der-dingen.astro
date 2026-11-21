@@ -1,0 +1,242 @@
+---
+import { pagina } from "../../lib/paginas";
+import Base from "../../layouts/Base.astro";
+import Icon from "../../components/Icon.astro";
+import LetsTalk from "../../components/LetsTalk.astro";
+import FormScript from "../../components/FormScript.astro";
+
+const kort = [
+  { k: "Organisatie", v: "Bijbelse Cultuur Stichting" },
+  { k: "Sector", v: "Non profit" },
+  { k: "Wat we bouwden", v: "iOS / Android app" },
+  { k: "Jaar", v: "2026" },
+  { k: "Website", v: "www.bijbelsecultuur.nl", href: "https://www.bijbelsecultuur.nl" },
+];
+---
+<Base
+  {...pagina("/klantverhaal/zin-der-dingen")}
+>
+  <article class="verhaal">
+    <section class="kop">
+      <div class="wrap narrow stack gap-24">
+        <nav aria-label="Kruimelpad" class="crumbs">
+          <a href="/#verhaal">Gemaakt voor een klant</a>
+          <Icon name="chevron-right" size={14} />
+          <span>De Zin der Dingen</span>
+        </nav>
+        <p class="eyebrow">Verhaal · in opdracht gebouwd</p>
+        <h1 class="h1 h1-sm">Een boek dat blijft groeien, nu ook in een app</h1>
+        <p class="lead">Bij het boek <em>De Zin der Dingen</em> van Jaap Bönker en Ruben Hadders bouwden wij een app voor de Bijbelse Cultuur Stichting. Lezers ontdekken er de 125 bijbelse voorwerpen uit de boekenset, om te lezen of te luisteren. En omdat de app kan meegroeien, komen er regelmatig nieuwe artikelen bij.</p>
+      </div>
+    </section>
+
+    <section class="beeld">
+      <div class="wrap">
+        <figure class="stack gap-12">
+          <div class="film">
+            <video controls playsinline preload="metadata" width="1600" height="900" poster="/video/zin-der-dingen-app-poster.webp" aria-label="Korte video van de app bij De Zin der Dingen: het overzicht van de 125 voorwerpen in drie delen, een voorwerp met de bijbeltekst om te lezen of te luisteren, en de artikelen">
+              <source src="/video/zin-der-dingen-app.mp4" type="video/mp4">
+              Je browser kan deze video niet afspelen. <a href="/video/zin-der-dingen-app.mp4">Download de video</a>.
+            </video>
+          </div>
+          <figcaption class="bijschrift">De app in een halve minuut: de voorwerpen in drie delen, een voorwerp om te lezen of te beluisteren, en de artikelen.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="artikel">
+      <div class="wrap kolommen">
+        <div class="tekst stack gap-48">
+          <div class="stack gap-16">
+            <h2 class="kop2">De vraag</h2>
+            <p class="alinea">In de Bijbel schuilen alledaagse dingen als een lamp, een mantel en een kruik, die in de verhalen dragers worden van een diepere waarheid. In <em>De Zin der Dingen</em> nemen Jaap Bönker en Ruben Hadders de lezer mee langs 125 van zulke voorwerpen en hun betekenis. De boekenset verscheen in drie delen: leven met elkaar, leven met het land en leven met God.</p>
+            <p class="alinea">Maar een boek is af op het moment dat het gedrukt is. De Bijbelse Cultuur Stichting wilde lezers ook daarna blijven inspireren met de oosterse wereld van de Bijbel, en vroeg ons om een app bij het boek.</p>
+          </div>
+
+          <div class="stack gap-16">
+            <h2 class="kop2">Wat we bouwden</h2>
+            <p class="alinea">We bouwden een app voor iOS en Android waarin alle voorwerpen uit het boek bij elkaar staan. Ze zijn verdeeld over de drie delen van de boekenset, en de app houdt per deel bij hoeveel voorwerpen je al hebt gelezen. Je kunt ook alfabetisch bladeren en zoeken.</p>
+            <p class="alinea">Bij elk voorwerp hoort een eigen pagina, met de bijbeltekst erbij en een overzicht van de hoofdstukken, bijvoorbeeld over de beschrijving en het gebruik, het belang voor Israël en de geestelijke betekenis. Je leest het verhaal zelf of laat het je voorlezen. Interessante voorwerpen sla je op of deel je met anderen.</p>
+            <p class="alinea">Naast de voorwerpen heeft de app een eigen plek voor achtergrondartikelen, bijvoorbeeld over wonen in een vierkamerhuis of over het jaar rond met de feesten van Israël. De stichting voegt die zelf toe, zodat er steeds iets nieuws te ontdekken valt.</p>
+          </div>
+
+          <figure class="citaat">
+            <blockquote>
+              <p>Een boek kan je niet ‘updaten’, maar met de app kunnen we nu regelmatig nieuwe artikelen toevoegen en mensen blijven inspireren met de oosterse wereld van de Bijbel. We zijn er erg blij mee!</p>
+            </blockquote>
+            <figcaption><strong>Jaap Bönker</strong>, schrijver en spreker</figcaption>
+          </figure>
+
+          <div class="stack gap-16">
+            <h2 class="kop2">Wat het oplevert</h2>
+            <p class="alinea">Het boek blijft zoals het is, de app groeit mee. Met nieuwe artikelen houdt de stichting haar lezers betrokken en bereikt ze ook mensen die de boekenset nog niet kennen. Het verhaal van de oosterse wereld van de Bijbel krijgt zo een plek in de broekzak, om op elk moment te lezen of te beluisteren.</p>
+            <p class="alinea">Wil je meer weten over het boek zelf? Kijk op <a href="https://bijbelsecultuur.nl/zin-der-dingen-actie/" target="_blank" rel="noopener">bijbelsecultuur.nl</a>.</p>
+          </div>
+        </div>
+
+        <aside class="zijbalk">
+          <div class="kort stack gap-16">
+            <p class="eyebrow">In het kort</p>
+            <dl class="feiten">
+              {kort.map((r) => (
+                <div class="feit">
+                  <dt>{r.k}</dt>
+                  <dd>{"href" in r ? <a href={r.href} target="_blank" rel="noopener">{r.v}</a> : r.v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div class="kaart-navy on-navy stack gap-12">
+            <h2 class="kaart-kop">Ook een app die jouw verhaal laat groeien?</h2>
+            <p class="kaart-tekst">Grote kans dat we het snel kunnen bouwen. Begin met een kennismaking.</p>
+            <a href="/advies" class="btn btn-accent btn-klein">Plan een kennismaking</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </article>
+
+  <LetsTalk id="advies" />
+  <FormScript />
+</Base>
+
+<style>
+  .kop { padding: 96px 0 64px; }
+  .h1-sm { font-size: clamp(34px, 4.8vw, 52px); }
+  .crumbs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .crumbs a { color: var(--muted); }
+  .lead { font-size: 20px; }
+
+  .beeld { padding: 0 0 64px; }
+  .bijschrift { font-size: 14px; color: var(--muted); }
+  .film {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-card);
+    background: var(--mist);
+  }
+  .film video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+
+  .artikel { padding: 32px 0 96px; }
+  .kolommen {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 64px;
+    align-items: start;
+  }
+  .tekst { max-width: 760px; }
+  .kop2 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .alinea {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  .citaat {
+    position: relative;
+    margin: 0;
+    padding-top: 56px;
+  }
+  .citaat::before {
+    content: "\201C";
+    position: absolute;
+    top: -8px;
+    left: -4px;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 120px;
+    line-height: 1;
+    color: var(--teal);
+  }
+  .citaat blockquote { margin: 0; }
+  .citaat blockquote p {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(21px, 2.4vw, 26px);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--navy);
+    text-wrap: balance;
+  }
+  .citaat figcaption {
+    margin-top: 24px;
+    font-size: 16px;
+    color: var(--muted);
+  }
+  .citaat figcaption strong { color: var(--navy); font-weight: 500; }
+  .citaat figcaption::before {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 2px;
+    margin-bottom: 20px;
+    background: var(--teal);
+  }
+
+  .zijbalk {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 104px;
+  }
+  .kort {
+    padding: 28px;
+    background: var(--mist);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+  }
+  .feiten {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 15px;
+  }
+  .feit { display: flex; flex-direction: column; gap: 2px; }
+  .feit dt { color: var(--muted); }
+  .feit dd { margin: 0; font-weight: 500; }
+  .feit dd a { text-decoration: none; }
+  .feit dd a:hover { text-decoration: underline; text-decoration-color: var(--teal); text-underline-offset: 4px; }
+  .kaart-navy {
+    padding: 28px;
+    background: var(--navy-800);
+    border-radius: var(--r-card);
+  }
+  .kaart-kop {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+  .kaart-tekst { font-size: 15px; color: var(--ink-on-navy); }
+  .btn-klein { min-height: 44px; padding: 0 20px; font-size: 15px; align-self: flex-start; }
+
+  @media (max-width: 1023px) {
+    .kolommen { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+    .zijbalk { position: static; }
+  }
+  @media (max-width: 767px) {
+    .kop { padding: 64px 0 40px; }
+    .beeld { padding-bottom: 48px; }
+    .artikel { padding: 16px 0 64px; }
+    .kop2 { font-size: 28px; }
+    .citaat { padding-top: 48px; }
+    .citaat::before { font-size: 96px; }
+    .kort, .kaart-navy { padding: 22px; }
+  }
+</style>

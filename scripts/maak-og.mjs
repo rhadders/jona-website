@@ -32,6 +32,7 @@ const KAARTEN = [
   { slug: "advies", eyebrow: "Kennismaken", kop: "Een half uur over hoe software jullie werk leuker kan maken", beeld: { soort: "duif", vlak: "navy" }, label: "Gratis · online of bij jullie aan tafel" },
   { slug: "over-jona", eyebrow: "Over Jona", kop: "Softwareoplossingen die bedrijven en organisaties helpen het goede te doen", beeld: { soort: "team" } },
   { slug: "klantverhaal-hadders-media", eyebrow: "Klantverhaal · Hadders Media", kop: "Een afscheid volgen, waar je ook bent en welke taal je ook spreekt", beeld: { soort: "scherm", src: "beeld/hadders-media-beheer.png" } },
+  { slug: "klantverhaal-zin-der-dingen", eyebrow: "Klantverhaal · De Zin der Dingen", kop: "Een boek dat blijft groeien, nu ook in een app", beeld: { soort: "los", src: "beeld/zin-der-dingen-app.png" } },
 ];
 
 function beeldHtml(b) {
