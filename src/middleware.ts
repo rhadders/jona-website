@@ -1,10 +1,14 @@
 import { defineMiddleware } from "astro:middleware";
 import { COOKIE, cookieGeldig, gateAan, isVrij } from "./lib/toegang";
+import { doorverwijzing } from "./lib/adressen";
 
-// Zolang de site achter de toegangscode staat, krijgt elke bezoeker zonder
-// geldige cookie de codepagina te zien (op hetzelfde adres) en wordt de site
-// niet geïndexeerd.
+// Eerst de doorverwijzingen (oud domein, kale /, oude adressen zonder taal;
+// zie src/lib/adressen.ts). Daarna: zolang de site achter de toegangscode
+// staat, krijgt elke bezoeker zonder geldige cookie de codepagina te zien (op
+// hetzelfde adres) en wordt de site niet geïndexeerd.
 export const onRequest = defineMiddleware(async (context, next) => {
+  const verwijs = doorverwijzing(context.request, context.url);
+  if (verwijs) return verwijs;
   if (!gateAan()) return next();
 
   const { pathname, search } = context.url;

@@ -1,28 +1,49 @@
 ---
 import Icon from "./Icon.astro";
+import { ui } from "../i18n/ui";
+import { MAATWERK, taalUitPad, TAALNAAM } from "../i18n/talen";
+import { link, vertalingen } from "../lib/paginas";
 interface Props { current?: "software" | "ai-scan" | "over-jona" | "advies" | "actuelegegevens" }
 const { current } = Astro.props;
+const taal = taalUitPad(Astro.url.pathname);
+const t = ui(taal);
 const items = [
-  { href: "/software", label: "Onze software", key: "software" },
-  { href: "/ai-scan", label: "AI-scan", key: "ai-scan" },
-  { href: "/over-jona", label: "Over Jona", key: "over-jona" },
+  { href: link("software", taal), label: t.nav.software, key: "software" },
+  // De AI-scan hoort bij werk in opdracht; dat bieden we niet overal aan (MAATWERK).
+  ...(MAATWERK[taal] ? [{ href: link("ai-scan", taal), label: t.nav.aiScan, key: "ai-scan" }] : []),
+  { href: link("over-jona", taal), label: t.nav.over, key: "over-jona" },
 ];
+// Knop rechts: kennismaken, of zonder werk in opdracht het contactblok op Over Jona.
+const contact = MAATWERK[taal] ? link("advies", taal) : link("over-jona", taal, "advies");
+// Taalwisselaar: alleen de talen waarin deze pagina bestaat.
+const andere = vertalingen(Astro.url.pathname);
 ---
 <header class="site-header">
   <div class="wrap bar">
-    <a href="/" class="brand" aria-label="Jona · zinvolle technologie, naar de homepage">
-      <img src="/logo/jona-logo.svg" alt="Jona · zinvolle technologie" width="230" height="80">
+    <a href={link("home", taal)} class="brand" aria-label={t.naarHome}>
+      <img src="/logo/jona-logo.svg" alt={t.logoAlt} width="230" height="80">
     </a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="hoofdmenu" data-menu-toggle>
       <span class="open"><Icon name="menu" size={22} /></span>
       <span class="close"><Icon name="x" size={22} /></span>
-      <span class="visually-hidden">Menu</span>
+      <span class="visually-hidden">{t.menu}</span>
     </button>
-    <nav id="hoofdmenu" class="nav" aria-label="Hoofdmenu">
+    <nav id="hoofdmenu" class="nav" aria-label={t.hoofdmenu}>
       {items.map((i) => (
         <a href={i.href} aria-current={current === i.key ? "page" : undefined}>{i.label}</a>
       ))}
-      <a href="/advies" class={"btn pill " + (current === "advies" ? "btn-primary" : "btn-outline")} aria-current={current === "advies" ? "page" : undefined}>Plan een kennismaking</a>
+      <a href={contact} class={"btn pill " + (current === "advies" ? "btn-primary" : "btn-outline")} aria-current={current === "advies" ? "page" : undefined}>{t.kennismaking}</a>
+      {andere.length > 1 && (
+        <ul class="talen" aria-label={t.andereTaal}>
+          {andere.map((a) => (
+            <li>
+              <a href={a.pad} hreflang={a.taal} lang={a.taal} aria-current={a.taal === taal ? "true" : undefined} title={TAALNAAM[a.taal]}>
+                <span aria-hidden="true">{a.taal.toUpperCase()}</span><span class="visually-hidden">{TAALNAAM[a.taal]}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </nav>
   </div>
 </header>
@@ -84,6 +105,27 @@ const items = [
     font-weight: 500;
     border-bottom-color: var(--teal);
   }
+  .talen {
+    display: flex;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+  }
+  .talen a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: var(--r-pill);
+    color: var(--muted);
+  }
+  .nav .talen a { border-bottom: 0; padding: 0 6px; }
+  .nav .talen a:hover { background: var(--mist); }
+  .nav .talen a[aria-current="true"] { font-weight: 600; color: var(--navy); }
   .pill {
     min-height: 44px;
     padding: 0 22px;
@@ -132,5 +174,7 @@ const items = [
     .nav a[aria-current="page"]:not(.btn),
     .nav a:not(.btn):hover { border-bottom-color: var(--teal); }
     .nav .btn { margin-top: 12px; }
+    .talen { margin-top: 12px; justify-content: center; font-size: 16px; }
+    .nav .talen a { min-width: 48px; min-height: 44px; border-bottom: 0; }
   }
 </style>

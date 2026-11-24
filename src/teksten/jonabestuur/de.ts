@@ -1,0 +1,113 @@
+// Seite Jona Vorstand, Deutsch (mit "du", der Vorstand mit "ihr"). Gleiche Struktur wie nl.ts.
+import type { JonaBestuurTekst, Kaart, Vraag } from "./nl";
+
+export const de: JonaBestuurTekst = {
+  kruimelpad: "Brotkrümelnavigation",
+  software: "Unsere Software",
+  hero: {
+    tag: "Jetzt verfügbar · 14 Tage kostenlos testen",
+    kop: "Jona Vorstand: Tagesordnung, Protokolle und Beschlüsse an einem Ort.",
+    lead: "Der Schriftführer eines kleinen Vorstands erledigt die meiste Arbeit abends, neben Beruf und Familie. Die Tagesordnung erstellen, in der Sitzung mitschreiben, das Protokoll ausarbeiten und sich merken, was beschlossen wurde. Jona Vorstand bringt alles an einen Ort. So einfach, dass du keine Anleitung brauchst, und der Rest des Vorstands auch nicht.",
+    knopProberen: "14 Tage kostenlos testen",
+    knopSite: "Zu vorstand.jonatools.com",
+    altBrowser: "Der Sitzungsmodus von Jona Vorstand: links die Tagesordnung, rechts Tagesordnungspunkt 6, Haushalt 2027, mit drei Fragen: Was wurde besprochen, was wurde beschlossen und wer macht was",
+    altTelefoon: "Ein Tagesordnungspunkt im Sitzungsmodus auf dem Handy",
+  },
+  stappen: {
+    eyebrow: "Von der Tagesordnung zum Beschluss",
+    kop: "Alles, was ein Schriftführer tut, an einem Ort",
+    stap: "Schritt",
+    lijst: [
+      { icon: "calendar", titel: "Die Tagesordnung erstellen", tekst: "Die festen Punkte stehen schon drin, wie die Eröffnung und Verschiedenes. Vorstandsmitglieder schlagen selbst Punkte vor, und offene Aufgaben tauchen automatisch wieder auf." },
+      { icon: "users", titel: "Die Sitzung, Punkt für Punkt", tekst: "Bei jedem Punkt nur drei Fragen: Was wurde besprochen, was wurde beschlossen und wer macht was. Alles wird sofort gespeichert." },
+      { icon: "file-text", titel: "Das Protokoll genehmigen", tekst: "Nach dem letzten Punkt steht der Protokollentwurf bereit. Du liest ihn gegen, teilst ihn zur Kontrolle, und beim nächsten Mal wird er genehmigt." },
+      { icon: "search", titel: "Beschlüsse wiederfinden", tekst: "Jeder Beschluss bekommt eine Nummer und steht im Beschlussregister. Du tippst ein Wort, und schon hast du ihn." },
+    ] as Kaart[],
+  },
+  vergadermodus: {
+    eyebrow: "Der Sitzungsmodus",
+    kop: "Du gehst die Sitzung durch, ein Punkt nach dem anderen",
+    tekst: "Links die Tagesordnung, rechts der Punkt, bei dem ihr gerade seid. Du trägst ein, was nötig ist, und gehst weiter zum nächsten Punkt. Alles wird sofort gespeichert, auch auf dem Tablet oder Handy.",
+    vragen: [
+      { label: "Besprochen", vraag: "Was wurde besprochen?", tekst: "Ein paar Sätze reichen." },
+      { label: "Beschlossen", vraag: "Was wurde beschlossen?", tekst: "Der Beschluss bekommt sofort eine Nummer." },
+      { label: "Wer macht was", vraag: "Wer macht was?", tekst: "Eine Aufgabe, mit Name und Datum." },
+    ] as Vraag[],
+  },
+  notulen: {
+    alt: "Protokoll vom 9. November, zur Kontrolle geteilt, mit einem Beschluss und einer Aufgabe beim Punkt Haushalt 2027",
+    eyebrow: "Das Protokoll",
+    kop: "Das Protokoll schreibt sich fast von selbst",
+    tekst: "Nach dem letzten Punkt steht der Protokollentwurf bereit, mit den Beschlüssen und Aufgaben darin. Du liest ihn gegen, teilst ihn zur Kontrolle mit dem Vorstand, und beim nächsten Mal wird er genehmigt. Danach ist er festgeschrieben, auch als PDF.",
+  },
+  besluiten: {
+    eyebrow: "Beschlussregister",
+    kop: "„Was hatten wir noch mal zur Miete vereinbart?“",
+    tekst: "Jeder Beschluss steht im Beschlussregister, mit einer Nummer und dem Tagesordnungspunkt, aus dem er stammt. Du tippst ein Wort, und schon hast du ihn. So muss niemand mehr alte Protokolle durchblättern.",
+    alt: "Das Beschlussregister: vier Beschlüsse aus 2026, darunter der vertrauliche Beschluss 2026-004, und ein ersetzter Beschluss aus 2024",
+  },
+  telefoon: {
+    altAgenda: "Die Tagesordnung auf dem Handy",
+    altBesluiten: "Das Beschlussregister auf dem Handy",
+    eyebrow: "Auch auf dem Handy",
+    kop: "Tagesordnung und Beschlüsse immer zur Hand",
+    tekst: "Kurz nachsehen, was beim nächsten Mal auf der Tagesordnung steht oder was letztes Jahr beschlossen wurde? Auf dem Handy hast du es schnell gefunden. Auch der Rest des Vorstands kann mitlesen.",
+  },
+  meer: {
+    eyebrow: "Und mehr, wenn du es brauchst",
+    kop: "Alles ist drin, und nichts steht im Weg",
+    lijst: [
+      { icon: "mail", titel: "Erinnerungen an Aufgaben", tekst: "Eine E-Mail, wenn das Datum einer Aufgabe näher rückt." },
+      { icon: "lock", titel: "Vertrauliche Punkte", tekst: "Nur sichtbar für die, die sie sehen dürfen." },
+      { icon: "circle-plus", titel: "Punkt vorschlagen", tekst: "Vorstandsmitglieder setzen selbst Punkte auf die Tagesordnung." },
+      { icon: "book-open", titel: "Durchsuchbares Archiv", tekst: "Alle Sitzungen und Unterlagen, mit einem einzigen Wort wiederzufinden." },
+      { icon: "download", titel: "Excel und PDF", tekst: "Das Register und die Aufgaben als Excel, das Protokoll als PDF." },
+      { icon: "monitor", titel: "Nichts zu installieren", tekst: "Läuft im Browser, auf Computer, Tablet und Handy." },
+    ] as Kaart[],
+  },
+  veilig: {
+    kop: "Vorstandsunterlagen sind vertraulich",
+    tekst: "Darauf ist Jona Vorstand ausgelegt.",
+    lijst: [
+      "Die Anmeldung erfolgt immer mit einem zweiten Schritt auf deinem Handy",
+      "Die Daten eures Vorstands sind strikt von denen anderer getrennt",
+      "Anhänge werden verschlüsselt gespeichert, und jede Nacht wird ein Backup erstellt",
+      "Ein Vorstandsmitglied sieht nur, was geteilt wurde",
+      "Genehmigte Protokolle und Beschlüsse kann niemand heimlich ändern",
+      "Du kannst alles von eurem Vorstand auf einmal exportieren",
+    ],
+  },
+  prijs: {
+    eyebrow: "Was es kostet",
+    kop: "Erst 14 Tage kostenlos testen",
+    tekst: "Du probierst Jona Vorstand erst in Ruhe aus, mit deinem eigenen Vorstand und euren eigenen Sitzungen. Gefällt es dir, wählst du, ob du jährlich oder monatlich zahlst. Ein Preis für den ganzen Vorstand zusammen, und alles ist dabei.",
+    portretAlt: "Gezeichnetes Porträt von Ruben Hadders",
+    persoonlijk: "Du bist unsicher, ob es zu eurem Vorstand passt? Ruf mich gern an oder schreib mir eine E-Mail, ich denke gern mit dir mit.",
+    naam: "Ruben Hadders, Entwickler von Jona Vorstand",
+    telefoon: "+31 33 230 17 37",
+    kaartKop: "Jona Vorstand für euren Vorstand",
+    perJaarBetalen: "Jährlich zahlen",
+    perMaandBetalen: "Monatlich zahlen",
+    perMaand: "pro Monat",
+    perJaar: "pro Jahr",
+    perMaandAfgerekend: "monatlich abgerechnet",
+    checks: [
+      "14 Tage kostenlos, mit euren eigenen Sitzungen",
+      "Für den ganzen Vorstand zusammen, mit allen Funktionen",
+      "Persönliche Hilfe, wenn du mal nicht weiterkommst",
+      "Preise inkl. MwSt.",
+    ],
+    knop: "Starte deine kostenlose Testphase",
+    note: ["Die Anmeldung dauert zwei Minuten und läuft über ", "."],
+  },
+  faq: {
+    kop: "Häufige Fragen",
+    lijst: [
+      { v: "Für wen ist Jona Vorstand gedacht?", a: "Für kleine Vorstände, etwa einer Stiftung oder eines Vereins, in denen der Schriftführer die Arbeit neben dem Beruf macht. Wenn euer Vorstand ein paar Mal im Jahr tagt und du wiederfinden willst, was beschlossen wurde, ist es für dich gemacht." },
+      { v: "Muss der Rest des Vorstands auch damit arbeiten?", a: "Das geht, muss aber nicht. Vorstandsmitglieder lesen Tagesordnung und Protokoll mit, schlagen selbst Punkte vor und sehen ihre eigenen Aufgaben. Ein Vorstandsmitglied sieht nur, was mit ihm geteilt wurde." },
+      { v: "Muss ich etwas installieren?", a: "Nein. Du meldest dich über vorstand.jonatools.com an, auf deinem Computer, Tablet oder Handy. Es gibt nichts herunterzuladen oder zu aktualisieren." },
+      { v: "Kann ich auch nur mit Tablet oder Handy eine Sitzung führen?", a: "Ja. Die Tagesordnung, der Sitzungsmodus und das Beschlussregister funktionieren auch auf einem kleinen Bildschirm, und alles, was du einträgst, wird sofort gespeichert." },
+      { v: "Wie sicher sind unsere Vorstandsunterlagen?", a: "Darauf ist Jona Vorstand ausgelegt. Die Anmeldung erfolgt immer mit einem zweiten Schritt auf deinem Handy, die Daten eures Vorstands sind strikt von denen anderer getrennt, Anhänge werden verschlüsselt gespeichert und jede Nacht wird ein Backup erstellt." },
+    ],
+  },
+};

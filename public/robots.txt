@@ -1,4 +1,4 @@
-# robots.txt voor jonatechnologie.nl
+# robots.txt voor jonatechnology.com
 #
 # Zoekmachines en AI-diensten zijn welkom op alle openbare pagina's.
 # Een korte samenvatting voor AI-assistenten staat op /llms.txt.
@@ -11,6 +11,9 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /bedankt
+Disallow: /nl/bedankt
+Disallow: /en/thank-you
+Disallow: /de/danke
 Disallow: /toegang
 
 # AI-diensten, expliciet toegestaan. Zowel crawlers voor zoekresultaten en
@@ -38,6 +41,9 @@ User-agent: CCBot
 Allow: /
 Disallow: /api/
 Disallow: /bedankt
+Disallow: /nl/bedankt
+Disallow: /en/thank-you
+Disallow: /de/danke
 Disallow: /toegang
 
-Sitemap: https://jonatechnologie.nl/sitemap.xml
+Sitemap: https://jonatechnology.com/sitemap.xml

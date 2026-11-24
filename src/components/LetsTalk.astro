@@ -1,8 +1,13 @@
 ---
 // Het navy "Let's talk"-blok met het korte kennismakingsformulier.
 import Icon from "./Icon.astro";
+import { ui } from "../i18n/ui";
+import { taalUitPad } from "../i18n/talen";
+import { BEDANKT } from "../lib/paginas";
 interface Props { id?: string }
 const { id = "advies" } = Astro.props;
+const taal = taalUitPad(Astro.url.pathname);
+const t = ui(taal).letsTalk;
 ---
 <section id={id} class="letstalk">
   <div class="wrap">
@@ -10,35 +15,36 @@ const { id = "advies" } = Astro.props;
       <img src="/logo/jona-mark.svg" alt="" aria-hidden="true" class="watermark" width="560" height="560">
       <div class="stack gap-20 intro">
         <p class="eyebrow">Let's talk</p>
-        <h2 class="h2-lt">Hoe kunnen we met software en AI voor jou het verschil maken?</h2>
-        <p class="lead-lt">We zitten al genoeg achter ons beeldscherm, daarom komen we graag naar je toe om je bedrijf of organisatie beter te leren kennen. Kost verder niets, behalve een kop koffie of thee (als het kan met wat lekkers).</p>
+        <h2 class="h2-lt">{t.kop}</h2>
+        <p class="lead-lt">{t.tekst}</p>
       </div>
-      <form class="form" method="post" action="/api/kennismaking" data-form="kennismaking" novalidate>
+      <form class="form" method="post" action="/api/kennismaking" data-form="kennismaking" data-bedankt={BEDANKT[taal]} novalidate>
         <input type="hidden" name="_bron" value="">
+        <input type="hidden" name="_taal" value={taal}>
         <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
         <div class="row">
           <div class="field">
-            <label for={`${id}-naam`}>Je naam</label>
+            <label for={`${id}-naam`}>{t.naam}</label>
             <input id={`${id}-naam`} name="naam" type="text" autocomplete="name" required>
             <span class="err" data-error-for="naam"></span>
           </div>
           <div class="field">
-            <label for={`${id}-organisatie`}>Organisatie</label>
+            <label for={`${id}-organisatie`}>{t.organisatie}</label>
             <input id={`${id}-organisatie`} name="organisatie" type="text" autocomplete="organization">
           </div>
         </div>
         <div class="field">
-          <label for={`${id}-email`}>E-mailadres</label>
+          <label for={`${id}-email`}>{t.email}</label>
           <input id={`${id}-email`} name="email" type="email" autocomplete="email" required>
           <span class="err" data-error-for="email"></span>
         </div>
         <div class="field">
-          <label for={`${id}-bericht`}>Met welk idee of welke vraag loop je rond?</label>
-          <textarea id={`${id}-bericht`} name="bericht" rows="4" placeholder="Een paar zinnen is genoeg."></textarea>
+          <label for={`${id}-bericht`}>{t.bericht}</label>
+          <textarea id={`${id}-bericht`} name="bericht" rows="4" placeholder={t.berichtHint}></textarea>
         </div>
         <p class="form-status" role="status" aria-live="polite"></p>
-        <button type="submit" class="btn btn-accent self-start"><span>Plan een kennismaking</span> <Icon name="arrow-right" /></button>
-        <p class="note">We gebruiken je gegevens alleen om contact op te nemen.</p>
+        <button type="submit" class="btn btn-accent self-start"><span>{t.knop}</span> <Icon name="arrow-right" /></button>
+        <p class="note">{t.privacy}</p>
       </form>
     </div>
   </div>

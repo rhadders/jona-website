@@ -1,0 +1,142 @@
+---
+// Plan een kennismaking, één opmaak voor alle talen. De teksten staan in
+// src/teksten/advies/<taal>.ts; de routes in src/pages/<taal>/ (nl/advies,
+// en/contact, de/kontakt).
+import { BEDANKT, link, pagina } from "../lib/paginas";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import FormScript from "../components/FormScript.astro";
+import SoortSelect from "../components/SoortSelect.astro";
+import type { Taal } from "../i18n/talen";
+import { nl } from "../teksten/advies/nl";
+import { en } from "../teksten/advies/en";
+
+// Geen Duitse versie: in Duitsland bouwt Jona niet in opdracht (MAATWERK in src/i18n/talen.ts).
+interface Props { taal: Exclude<Taal, "de"> }
+const { taal } = Astro.props;
+const t = { nl, en }[taal];
+const f = t.form;
+---
+<Base
+  {...pagina(link("advies", taal))}
+  current="advies"
+>
+  <section class="kennismaken">
+    <div class="wrap grid">
+      <div class="stack gap-40">
+        <div class="stack gap-24">
+          <p class="eyebrow">{t.eyebrow}</p>
+          <h1 class="h1 h1-sm">{t.kop}</h1>
+          <p class="lead">{t.lead}</p>
+        </div>
+
+        <ol class="steps">
+          {t.stappen.map((st, i) => (
+            <li>
+              <span class="num">{i + 1}</span>
+              <div class="stack gap-6">
+                <h2>{st.kop}</h2>
+                <p class="muted">{st.tekst}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <div class="scan-card stack gap-12">
+          <p class="eyebrow">{t.scan.eyebrow}</p>
+          <h2 class="h3 h3-22">{t.scan.kop}</h2>
+          <p class="muted scan-tekst">{t.scan.tekst}</p>
+          <a href={link("ai-scan", taal)} class="link self-start">{t.scan.link} <Icon name="arrow-right" size={16} /></a>
+        </div>
+      </div>
+
+      <form id="aanvraag" class="form formcard" method="post" action="/api/kennismaking" data-form="kennismaking" data-bedankt={BEDANKT[taal]} novalidate>
+        <h2 class="h3 h3-26">{f.kop}</h2>
+        <input type="hidden" name="_bron" value="">
+        <input type="hidden" name="_taal" value={taal}>
+        <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="row">
+          <div class="field">
+            <label for="naam">{f.naam}</label>
+            <input id="naam" name="naam" type="text" autocomplete="name" required>
+            <span class="err" data-error-for="naam"></span>
+          </div>
+          <div class="field">
+            <label for="rol">{f.rol}</label>
+            <input id="rol" name="rol" type="text" autocomplete="organization-title">
+          </div>
+        </div>
+        <div class="field">
+          <label for="organisatie">{f.organisatie}</label>
+          <input id="organisatie" name="organisatie" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="soort">{f.soort}</label>
+          <SoortSelect id="soort" standaard="bedrijf" />
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="email">{f.email}</label>
+            <input id="email" name="email" type="email" placeholder={f.emailVoorbeeld} autocomplete="email" required>
+            <span class="err" data-error-for="email"></span>
+          </div>
+          <div class="field">
+            <label for="telefoon">{f.telefoon} <span class="opt">{f.optioneel}</span></label>
+            <input id="telefoon" name="telefoon" type="tel" placeholder={f.telefoonVoorbeeld} autocomplete="tel">
+          </div>
+        </div>
+        <div class="field">
+          <label for="bericht">{f.bericht}</label>
+          <textarea id="bericht" name="bericht" rows="4" placeholder={f.berichtVoorbeeld}></textarea>
+        </div>
+        <fieldset class="radios">
+          <legend>{f.voorkeur}</legend>
+          {f.vormen.map((v, i) => <label><input type="radio" name="vorm" value={v} checked={i === 0}> {v}</label>)}
+        </fieldset>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <button type="submit" class="btn btn-primary btn-block btn-52">{f.knop} <Icon name="arrow-right" /></button>
+        <p class="note">{f.note} <a href="mailto:info@jonatechnologie.nl">info@jonatechnologie.nl</a></p>
+      </form>
+    </div>
+  </section>
+  <FormScript />
+</Base>
+
+<style>
+  .kennismaken { padding: 112px 0 96px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 72px;
+    align-items: start;
+  }
+  .h1-sm { font-size: clamp(34px, 4.8vw, 52px); }
+  .scan-card {
+    padding: 24px;
+    background: var(--mist);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+  }
+  .h3-22 { font-size: 22px; }
+  .h3-26 { font-size: 26px; }
+  .scan-tekst { font-size: 16px; }
+  .self-start { align-self: flex-start; }
+  .formcard {
+    padding: 40px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-52 { min-height: 52px; }
+  .err { font-size: 13px; color: var(--warn-ink); }
+  .err:empty { display: none; }
+  @media (max-width: 767px) {
+    .kennismaken { padding: 72px 0 64px; }
+    .grid { gap: 40px; }
+    .formcard { padding: 24px 20px; }
+  }
+  @media (max-width: 479px) {
+    .grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

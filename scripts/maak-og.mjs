@@ -1,10 +1,12 @@
 // Maakt de deelplaatjes (Open Graph, 1200 x 630) voor elke openbare pagina.
 // Uitvoeren: npm run og   (nodig: Google Chrome op deze Mac)
-// Uitvoer: public/beeld/og/<pagina>.png. Base.astro kiest het plaatje bij de
-// pagina via ogPad() in src/lib/paginas.ts.
+// Uitvoer: public/beeld/og/<pagina>.png, en voor Engels en Duits
+// public/beeld/og/<taal>/<pagina>.png. Base.astro kiest het plaatje bij de
+// pagina via ogPad() in src/lib/paginas.ts; zet een nieuw vertaald plaatje
+// daar ook in OG_VERTAALD.
 // Teksten komen van de pagina's zelf (bovenregel en hoofdkop).
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, writeFileSync, rmSync, existsSync, readFileSync } from "node:fs";
+import { mkdtempSync, writeFileSync, rmSync, existsSync, readFileSync, mkdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -38,9 +40,45 @@ const KAARTEN = [
   { slug: "klantverhaal-holy-moly", eyebrow: "Klantverhaal · Holy Moly!", kop: "Een game app voor een kaartspel van bijbelse proporties", beeld: { soort: "scherm", src: "beeld/holy-moly-showcase.png" } },
   { slug: "klantverhaal-vbgg", eyebrow: "Klantverhaal · Vakantieweken VBGG", kop: "Van papieren administratie naar één portal voor elke doelgroep", beeld: { soort: "scherm", src: "beeld/vbgg-website.png" } },
   { slug: "klantverhaal-bc-app", eyebrow: "Klantverhaal · Bijbelse Cultuur Stichting", kop: "Een app die de voorwerpen uit de Bijbel laat spreken", beeld: { soort: "scherm", src: "beeld/bc-app.png" } },
+  // Engels en Duits
+  { taal: "en", slug: "home", eyebrow: "Mission-driven software & AI", kop: "Meaningful technology for businesses and organizations with a mission", beeld: { soort: "duif", vlak: "mist" } },
+  { taal: "de", slug: "home", eyebrow: "Software & KI mit Mission", kop: "Sinnvolle Technologie für Unternehmen und Organisationen mit einer Mission", beeld: { soort: "duif", vlak: "mist" } },
+  { taal: "en", slug: "software", eyebrow: "Our software", kop: "All the apps we build ourselves, in one place", beeld: { soort: "duif", vlak: "mist" } },
+  { taal: "de", slug: "software", eyebrow: "Unsere Software", kop: "Alle Apps, die wir selbst bauen, an einem Ort", beeld: { soort: "duif", vlak: "mist" } },
+  { taal: "en", slug: "jonagiften", eyebrow: "Jona Donations", kop: "Donation management any treasurer can understand", beeld: { soort: "scherm", src: "beeld/jonagiften-jaar.png" } },
+  { taal: "de", slug: "jonagiften", eyebrow: "Jona Spenden", kop: "Eine Spendenverwaltung, die jeder Kassenwart versteht", beeld: { soort: "scherm", src: "beeld/jonagiften-jaar.png" } },
+  { taal: "en", slug: "jonabestuur", eyebrow: "Jona Board", kop: "Agendas, minutes and decisions for small boards", beeld: { soort: "scherm", src: "beeld/jonabestuur-vergadermodus.png" } },
+  { taal: "de", slug: "jonabestuur", eyebrow: "Jona Vorstand", kop: "Tagesordnung, Protokolle und Beschlüsse für kleine Vorstände", beeld: { soort: "scherm", src: "beeld/jonabestuur-vergadermodus.png" } },
+  { taal: "en", slug: "selaread", eyebrow: "Selaread", kop: "The digital newsstand for Christian magazines", beeld: { soort: "los", src: "beeld/selaread-apparaten.png" } },
+  { taal: "de", slug: "selaread", eyebrow: "Selaread", kop: "Der digitale Kiosk für christliche Zeitschriften", beeld: { soort: "los", src: "beeld/selaread-apparaten.png" } },
+  { taal: "en", slug: "tirgumai", eyebrow: "TirgumAI", kop: "Translate the Bible verse by verse, with the help of AI", beeld: { soort: "scherm", src: "beeld/tirgumai-werkplek-licht.png" } },
+  { taal: "de", slug: "tirgumai", eyebrow: "TirgumAI", kop: "Die Bibel Vers für Vers übersetzen, mit Hilfe von KI", beeld: { soort: "scherm", src: "beeld/tirgumai-werkplek-licht.png" } },
+  { taal: "en", slug: "ai-scan", eyebrow: "The AI scan", kop: "One day with your team, one plan you can act on", beeld: { soort: "duif", vlak: "teal" }, label: "€925 excl. VAT and travel costs" },
+  { taal: "en", slug: "advies", eyebrow: "Let's meet", kop: "Half an hour about how software can make your work more enjoyable", beeld: { soort: "duif", vlak: "navy" }, label: "Free · online or at your place" },
+  { taal: "en", slug: "over-jona", eyebrow: "About Jona", kop: "Software solutions that help businesses and organizations do good", beeld: { soort: "team" } },
+  { taal: "de", slug: "over-jona", eyebrow: "Über Jona", kop: "Softwarelösungen, die Unternehmen und Organisationen helfen, Gutes zu tun", beeld: { soort: "team" } },
+  { taal: "en", slug: "klantverhaal-hadders-media", eyebrow: "Case study · Hadders Media", kop: "Attend a farewell wherever you are, whatever language you speak", beeld: { soort: "scherm", src: "beeld/hadders-media-beheer.png" } },
+  { taal: "en", slug: "klantverhaal-holy-moly", eyebrow: "Case study · Holy Moly!", kop: "A game app for a card game of biblical proportions", beeld: { soort: "scherm", src: "beeld/holy-moly-showcase.png" } },
+  { taal: "en", slug: "klantverhaal-vbgg", eyebrow: "Case study · Vakantieweken VBGG", kop: "From paper records to one portal for every audience", beeld: { soort: "scherm", src: "beeld/vbgg-website.png" } },
+  { taal: "en", slug: "klantverhaal-bc-app", eyebrow: "Case study · Bijbelse Cultuur Stichting", kop: "An app that lets the objects of the Bible speak", beeld: { soort: "scherm", src: "beeld/bc-app.png" } },
 ];
 
-function beeldHtml(b) {
+// Alleen sommige kaarten maken: npm run og -- en/home klantverhaal-vbgg
+const filter = process.argv.slice(2);
+const naam = (k) => (k.taal ? `${k.taal}/${k.slug}` : k.slug);
+
+// Een schermafbeelding in de taal van de kaart, als die er is (public/beeld/<taal>/…);
+// Duits valt terug op Engels, net als src/i18n/beelden.ts.
+function inTaal(src, taal) {
+  for (const t of taal === "de" ? ["de", "en"] : taal === "en" ? ["en"] : []) {
+    const kandidaat = src.replace(/^beeld\//, `beeld/${t}/`);
+    if (existsSync(join(PUB, kandidaat))) return kandidaat;
+  }
+  return src;
+}
+
+function beeldHtml(b, taal) {
+  if (b.src) b = { ...b, src: inTaal(b.src, taal) };
   switch (b.soort) {
     case "scherm":
       return `<div class="scherm"><img src="${f(b.src)}"></div>`;
@@ -54,7 +92,7 @@ function beeldHtml(b) {
   }
 }
 
-const html = (k) => `<!doctype html><html lang="nl" class="${k.beeld.soort === "team" ? "breed" : ""}"><head><meta charset="utf-8"><style>
+const html = (k) => `<!doctype html><html lang="${k.taal ?? "nl"}" class="${k.beeld.soort === "team" ? "breed" : ""}"><head><meta charset="utf-8"><style>
 @font-face { font-family: Lora; font-weight: 500; src: url(${f("fonts/lora-latin-500-normal.woff2")}); }
 @font-face { font-family: Jost; font-weight: 400; src: url(${f("fonts/jost-latin-400-normal.woff2")}); }
 @font-face { font-family: Jost; font-weight: 500; src: url(${f("fonts/jost-latin-500-normal.woff2")}); }
@@ -93,9 +131,9 @@ h1 { font-family: Lora, serif; font-weight: 500; font-size: 54px; line-height: 1
     <h1>${k.kop}</h1>
     ${k.label ? `<div class="label">${k.label}</div>` : ""}
   </div>
-  <div class="voet">jonatechnologie.nl</div>
+  <div class="voet">jonatechnology.com</div>
 </div>
-<div class="vlak" style="background:${VLAK[k.beeld.vlak ?? "mist"][0]}">${beeldHtml(k.beeld)}</div>
+<div class="vlak" style="background:${VLAK[k.beeld.vlak ?? "mist"][0]}">${beeldHtml(k.beeld, k.taal)}</div>
 <script>
   // Kop verkleinen tot hij in de tekstkolom past.
   document.fonts.ready.then(() => {
@@ -108,13 +146,15 @@ h1 { font-family: Lora, serif; font-weight: 500; font-size: 54px; line-height: 1
 if (!existsSync(CHROME)) throw new Error(`Chrome niet gevonden op ${CHROME}. Zet CHROME=/pad/naar/chrome.`);
 const tmp = mkdtempSync(join(tmpdir(), "jona-og-"));
 try {
-  for (const k of KAARTEN) {
-    const bron = join(tmp, `${k.slug}.html`), ruw = join(tmp, `${k.slug}.png`);
+  for (const k of KAARTEN.filter((k) => !filter.length || filter.includes(naam(k)))) {
+    const id = naam(k).replace("/", "-");
+    const bron = join(tmp, `${id}.html`), ruw = join(tmp, `${id}.png`);
     writeFileSync(bron, html(k));
     execFileSync(CHROME, ["--headless=new", "--disable-gpu", "--hide-scrollbars", "--force-device-scale-factor=1",
       "--allow-file-access-from-files", "--virtual-time-budget=3000", "--window-size=1200,630", `--screenshot=${ruw}`,
       pathToFileURL(bron).href], { stdio: "ignore" });
-    const doel = join(UIT, `${k.slug}.png`);
+    const doel = join(UIT, `${naam(k)}.png`);
+    mkdirSync(join(doel, ".."), { recursive: true });
     await sharp(ruw).resize(1200, 630).png({ palette: true, quality: 90, effort: 10 }).toFile(doel);
     console.log("✓", doel.replace(ROOT + "/", ""));
   }

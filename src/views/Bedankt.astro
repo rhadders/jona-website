@@ -1,0 +1,84 @@
+---
+// De bedankpagina na een formulier, in elke taal. ?soort= kiest de tekst.
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { link } from "../lib/paginas";
+import type { Taal } from "../i18n/talen";
+
+interface Props { taal: Taal }
+const { taal } = Astro.props;
+
+type Tekst = { kop: string; tekst: string };
+const TEKSTEN: Record<Taal, { title: string; description: string; standaard: Tekst; nogIets: string; terug: string; soorten: Record<string, Tekst> }> = {
+  nl: {
+    title: "Bedankt",
+    description: "Je bericht is binnen.",
+    standaard: { kop: "Dank je wel", tekst: "Je bericht is binnen. We nemen binnen twee werkdagen contact op." },
+    nogIets: "Toch nog iets kwijt? Mail naar",
+    terug: "Terug naar de homepage",
+    soorten: {
+      kennismaking: { kop: "Dank je, we nemen contact op", tekst: "Je aanvraag voor een kennismaking is binnen. Binnen twee werkdagen hoor je van ons om een moment te prikken." },
+      "ai-scan": { kop: "Dank je, de aanvraag is binnen", tekst: "We nemen binnen twee werkdagen contact op om een dag te prikken en af te stemmen wie er bij jullie bij moeten zijn." },
+      testgebruiker: { kop: "Welkom bij de beta", tekst: "Je aanmelding als testgebruiker van ActueleGegevens.nl is binnen. Binnen twee werkdagen nemen we contact op om je account klaar te zetten." },
+      "nieuwsbrief-tirgumai": { kop: "Dank je, we houden je op de hoogte", tekst: "Je e-mailadres is binnen. Zodra er nieuws is over TirgumAI, hoor je het als eerste. We gebruiken je adres alleen daarvoor." },
+      "beta-selaread": { kop: "Welkom bij de beta-test van Selaread", tekst: "Je aanmelding is binnen. Zodra de beta-test start, krijg je van ons een uitnodiging met je toegang. Met uitgevers nemen we vooraf persoonlijk contact op." },
+    },
+  },
+  en: {
+    title: "Thank you",
+    description: "Your message has been received.",
+    standaard: { kop: "Thank you", tekst: "Your message has been received. We'll get back to you within two business days." },
+    nogIets: "Anything else on your mind? Email",
+    terug: "Back to the homepage",
+    soorten: {
+      kennismaking: { kop: "Thanks, we'll be in touch", tekst: "Your meeting request has been received. You'll hear from us within two business days to find a time that works." },
+      "ai-scan": { kop: "Thanks, we received your request", tekst: "We'll get in touch within two business days to pick a date and agree on who should be there on your side." },
+      "nieuwsbrief-tirgumai": { kop: "Thanks, we'll keep you posted", tekst: "We have your email address. As soon as there's news about TirgumAI, you'll be the first to know. We only use your address for that." },
+      "beta-selaread": { kop: "Welcome to the Selaread beta", tekst: "Your sign-up has been received. When the beta starts, we'll send you an invitation with your access. We'll contact publishers personally beforehand." },
+    },
+  },
+  de: {
+    title: "Danke",
+    description: "Deine Nachricht ist angekommen.",
+    standaard: { kop: "Vielen Dank", tekst: "Deine Nachricht ist angekommen. Wir melden uns innerhalb von zwei Werktagen." },
+    nogIets: "Noch etwas auf dem Herzen? Schreib an",
+    terug: "Zurück zur Startseite",
+    soorten: {
+      kennismaking: { kop: "Danke, wir melden uns", tekst: "Deine Nachricht ist angekommen. Innerhalb von zwei Werktagen hörst du von uns." },
+      "nieuwsbrief-tirgumai": { kop: "Danke, wir halten dich auf dem Laufenden", tekst: "Deine E-Mail-Adresse ist angekommen. Sobald es Neuigkeiten zu TirgumAI gibt, erfährst du es als Erstes. Wir verwenden deine Adresse nur dafür." },
+      "beta-selaread": { kop: "Willkommen beim Betatest von Selaread", tekst: "Deine Anmeldung ist angekommen. Sobald der Betatest startet, bekommst du von uns eine Einladung mit deinem Zugang. Verlage kontaktieren wir vorher persönlich." },
+    },
+  },
+};
+
+const tt = TEKSTEN[taal];
+const soort = Astro.url.searchParams.get("soort");
+const t = tt.soorten[soort ?? ""] ?? tt.standaard;
+---
+<Base title={tt.title} description={tt.description} noindex>
+  <section class="bedankt">
+    <div class="wrap narrow stack gap-24">
+      <span class="vink"><Icon name="check" size={28} /></span>
+      <h1 class="h1 h1-sm">{t.kop}</h1>
+      <p class="lead">{t.tekst}</p>
+      <p class="muted">{tt.nogIets} <a href="mailto:info@jonatechnologie.nl">info@jonatechnologie.nl</a>.</p>
+      <a href={link("home", taal)} class="btn btn-outline self-start">{tt.terug}</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .bedankt { padding: 128px 0 160px; }
+  .h1-sm { font-size: clamp(34px, 4.8vw, 52px); }
+  .vink {
+    width: 56px; height: 56px;
+    border-radius: var(--r-pill);
+    background: var(--teal-100);
+    color: var(--teal-700);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .self-start { align-self: flex-start; }
+  @media (max-width: 767px) { .bedankt { padding: 72px 0 96px; } }
+</style>
