@@ -1,13 +1,19 @@
 ---
 import Base from "../layouts/Base.astro";
+import { ui } from "../i18n/ui";
+import { taalUitPad } from "../i18n/talen";
+import { link } from "../lib/paginas";
+// Eén 404 voor de hele site, in de taal van het adres dat niet bestaat.
+const taal = taalUitPad(Astro.url.pathname);
+const t = ui(taal).nietGevonden;
 ---
-<Base title="Pagina niet gevonden" description="Deze pagina bestaat niet (meer)." noindex>
+<Base title={t.title} description={t.description} noindex>
   <section class="nf">
     <div class="wrap narrow stack gap-24">
       <p class="eyebrow">404</p>
-      <h1 class="h1 h1-sm">Deze pagina is er niet</h1>
-      <p class="lead">Misschien is de link verouderd of zit er een tikfout in. Via de homepage vind je alles terug.</p>
-      <a href="/" class="btn btn-primary self-start">Naar de homepage</a>
+      <h1 class="h1 h1-sm">{t.kop}</h1>
+      <p class="lead">{t.tekst}</p>
+      <a href={link("home", taal)} class="btn btn-primary self-start">{t.knop}</a>
     </div>
   </section>
 </Base>

@@ -1,0 +1,113 @@
+// Jona Board page, English (American English). Same structure as nl.ts.
+import type { JonaBestuurTekst, Kaart, Vraag } from "./nl";
+
+export const en: JonaBestuurTekst = {
+  kruimelpad: "Breadcrumb",
+  software: "Our software",
+  hero: {
+    tag: "Available now · Try it free for 14 days",
+    kop: "Jona Board: agendas, minutes and decisions in one place.",
+    lead: "The secretary of a small board does most of the work in the evenings, alongside a job and a family. Drawing up the agenda, taking notes during the meeting, writing up the minutes and remembering what was decided. Jona Board puts it all in one place. So simple you won't need a manual, and neither will the rest of the board.",
+    knopProberen: "Try it free for 14 days",
+    knopSite: "Go to board.jonatools.com",
+    altBrowser: "Meeting mode in Jona Board: the agenda on the left, agenda item 6, Budget 2027, on the right, with three questions: what was discussed, what was decided, and who does what",
+    altTelefoon: "An agenda item in meeting mode on a phone",
+  },
+  stappen: {
+    eyebrow: "From agenda to decision",
+    kop: "Everything a secretary does, in one place",
+    stap: "Step",
+    lijst: [
+      { icon: "calendar", titel: "Draw up the agenda", tekst: "The standard items are already there, like the opening and any other business. Board members propose items themselves, and open action items come back automatically." },
+      { icon: "users", titel: "Meet, item by item", tekst: "Just three questions for each item: what was discussed, what was decided, and who does what. Everything is saved right away." },
+      { icon: "file-text", titel: "Approve the minutes", tekst: "After the last item, the draft minutes are ready. You read them over, share them for review, and approve them at the next meeting." },
+      { icon: "search", titel: "Find decisions", tekst: "Every decision gets a number and goes into the decision log. Type a word and there it is." },
+    ] as Kaart[],
+  },
+  vergadermodus: {
+    eyebrow: "Meeting mode",
+    kop: "You meet, one item at a time",
+    tekst: "The agenda on the left, the item you're on right now on the right. You fill in what's needed and move on to the next item. Everything is saved right away, on a tablet or phone too.",
+    vragen: [
+      { label: "Discussed", vraag: "What was discussed?", tekst: "A few sentences are enough." },
+      { label: "Decided", vraag: "What was decided?", tekst: "The decision gets a number right away." },
+      { label: "Who does what", vraag: "Who does what?", tekst: "An action item, with a name and a date." },
+    ] as Vraag[],
+  },
+  notulen: {
+    alt: "Minutes of November 9, shared for review, with a decision and an action item under the item Budget 2027",
+    eyebrow: "The minutes",
+    kop: "The minutes almost write themselves",
+    tekst: "After the last item, the draft minutes are ready, with the decisions and action items included. You read them over, share them with the board for review, and approve them at the next meeting. After that they're final, also as a PDF.",
+  },
+  besluiten: {
+    eyebrow: "Decision log",
+    kop: "“What did we agree on about the rent again?”",
+    tekst: "Every decision is in the decision log, with a number and the agenda item it came from. Type a word and there it is. No one has to leaf through old minutes anymore.",
+    alt: "The decision log: four decisions from 2026, including the confidential decision 2026-004, and one replaced decision from 2024",
+  },
+  telefoon: {
+    altAgenda: "The agenda on a phone",
+    altBesluiten: "The decision log on a phone",
+    eyebrow: "On your phone, too",
+    kop: "The agenda and decisions always at hand",
+    tekst: "Want to quickly check what's on the agenda next time, or what was decided last year? On your phone, you'll find it in no time. The rest of the board can follow along too.",
+  },
+  meer: {
+    eyebrow: "And more, when you need it",
+    kop: "It's all in there, and it stays out of your way",
+    lijst: [
+      { icon: "mail", titel: "Reminders for action items", tekst: "An email when an action item's date is coming up." },
+      { icon: "lock", titel: "Confidential items", tekst: "Visible only to those who are allowed to see them." },
+      { icon: "circle-plus", titel: "Propose an item", tekst: "Board members put items on the agenda themselves." },
+      { icon: "book-open", titel: "Searchable archive", tekst: "All meetings and documents, found with a single word." },
+      { icon: "download", titel: "Excel and PDF", tekst: "The decision log and action items as Excel, the minutes as PDF." },
+      { icon: "monitor", titel: "Nothing to install", tekst: "Works in the browser, on computer, tablet and phone." },
+    ] as Kaart[],
+  },
+  veilig: {
+    kop: "Board documents are confidential",
+    tekst: "That's what Jona Board is built around.",
+    lijst: [
+      "Logging in always takes a second step on your phone",
+      "Your board's data is strictly separated from everyone else's",
+      "Attachments are stored encrypted, and a backup is made every night",
+      "A board member only sees what has been shared",
+      "No one can quietly change approved minutes and decisions",
+      "You can export everything from your board in one go",
+    ],
+  },
+  prijs: {
+    eyebrow: "What it costs",
+    kop: "Try it free for 14 days first",
+    tekst: "Take your time trying out Jona Board first, with your own board and your own meetings. If you like it, you choose whether to pay yearly or monthly. One price for the whole board together, with everything included.",
+    portretAlt: "Drawn portrait of Ruben Hadders",
+    persoonlijk: "Not sure it's right for your board? Feel free to call or email me. I'm happy to think it through with you.",
+    naam: "Ruben Hadders, developer of Jona Board",
+    telefoon: "+31 33 230 17 37",
+    kaartKop: "Jona Board for your board",
+    perJaarBetalen: "Pay yearly",
+    perMaandBetalen: "Pay monthly",
+    perMaand: "per month",
+    perJaar: "per year",
+    perMaandAfgerekend: "billed monthly",
+    checks: [
+      "14 days free, with your own meetings",
+      "For the whole board together, with all features",
+      "Personal help when you get stuck",
+      "Prices include VAT",
+    ],
+    knop: "Start your free trial",
+    note: ["Signing up takes two minutes and is done at ", "."],
+  },
+  faq: {
+    kop: "Frequently asked questions",
+    lijst: [
+      { v: "Who is Jona Board for?", a: "For small boards, such as those of a foundation or an association, where the secretary does the work alongside a job. If your board meets a few times a year and you want to be able to look up what was decided, it's made for you." },
+      { v: "Does the rest of the board have to use it too?", a: "They can, but they don't have to. Board members can read the agenda and the minutes, propose items themselves and see their own action items. A board member only sees what has been shared with them." },
+      { v: "Do I need to install anything?", a: "No. You log in at board.jonatools.com, on your computer, tablet or phone. There's nothing to download or update." },
+      { v: "Can I run a meeting with just a tablet or phone?", a: "Yes. The agenda, meeting mode and the decision log work on a small screen too, and everything you enter is saved right away." },
+      { v: "How secure are our board documents?", a: "That's what Jona Board is built around. Logging in always takes a second step on your phone, your board's data is strictly separated from everyone else's, attachments are stored encrypted, and a backup is made every night." },
+    ],
+  },
+};

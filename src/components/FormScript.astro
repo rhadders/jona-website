@@ -3,6 +3,14 @@
 // op een gewone post naar hetzelfde endpoint.
 ---
 <script>
+  // Meldingen in de taal van de pagina (<html lang>); de rest komt van de server.
+  const taal = (document.documentElement.lang || "nl").slice(0, 2);
+  const MELDING: Record<string, { mislukt: string; algemeen: string }> = {
+    nl: { mislukt: "Het versturen lukt nu niet. Mail ons dan rechtstreeks op info@jonatechnologie.nl.", algemeen: "Er ging iets mis." },
+    en: { mislukt: "We can't send your message right now. Please email us directly at info@jonatechnologie.nl.", algemeen: "Something went wrong." },
+    de: { mislukt: "Das Senden klappt gerade nicht. Schreib uns dann direkt an info@jonatechnologie.nl.", algemeen: "Etwas ist schiefgelaufen." },
+  };
+  const m = MELDING[taal] ?? MELDING.nl;
   const forms = document.querySelectorAll<HTMLFormElement>("form[data-form]");
   for (const form of forms) {
     const status = form.querySelector<HTMLElement>(".form-status");
@@ -33,14 +41,15 @@
         });
         const body = (await res.json()) as { ok: boolean; message?: string; errors?: Record<string, string> };
         if (body.ok) {
-          location.assign(`/bedankt?soort=${encodeURIComponent(form.dataset.form ?? "")}`);
+          const bedankt = form.dataset.bedankt ?? `/${taal in MELDING ? taal : "nl"}/${taal === "en" ? "thank-you" : taal === "de" ? "danke" : "bedankt"}`;
+          location.assign(`${bedankt}?soort=${encodeURIComponent(form.dataset.form ?? "")}`);
           return;
         }
         setErrors(body.errors);
-        if (status) { status.dataset.state = "error"; status.textContent = body.message ?? "Er ging iets mis."; }
+        if (status) { status.dataset.state = "error"; status.textContent = body.message ?? m.algemeen; }
         form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
       } catch {
-        if (status) { status.dataset.state = "error"; status.textContent = "Het versturen lukt nu niet. Mail ons dan rechtstreeks op info@jonatechnologie.nl."; }
+        if (status) { status.dataset.state = "error"; status.textContent = m.mislukt; }
       } finally {
         if (button) button.disabled = false;
       }

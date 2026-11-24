@@ -3,19 +3,22 @@
 // al op de site staan; er staat hier niets nieuws in.
 // Zolang de toegangscode aan staat, valt deze route ook achter de code.
 import type { APIRoute } from "astro";
-import { PAGINAS, zoekPagina } from "../lib/paginas";
+import { paginasIn, zoekPagina } from "../lib/paginas";
 
 export const GET: APIRoute = ({ site }) => {
-  const basis = site ?? new URL("https://jonatechnologie.nl");
+  const basis = site ?? new URL("https://jonatechnology.com");
   const url = (pad: string) => new URL(pad, basis).href;
   const lijst = (soorten: string[]) =>
-    PAGINAS.filter((p) => soorten.includes(p.soort))
-      .map((p) => `- [${p.title}](${url(p.pad)}): ${p.description}`)
+    paginasIn("nl").filter((p) => soorten.includes(p.soort))
+      .map((p) => `- [${p.tekst.title}](${url(p.tekst.pad)}): ${p.tekst.description}`)
       .join("\n");
+  // Pagina's die er ook in het Engels of Duits zijn.
+  const vertaald = (taal: "en" | "de") =>
+    paginasIn(taal).map((p) => `- [${p.tekst.title}](${url(p.tekst.pad)}): ${p.tekst.description}`).join("\n");
 
   const tekst = `# Jona · zinvolle technologie
 
-> ${zoekPagina("/")!.description}
+> ${zoekPagina("/nl")!.tekst.description}
 
 Jona zinvolle technologie, zoals wij voluit heten, is een sociaal bewogen tech-startup uit Veenendaal. We bouwen aan gebruiksvriendelijke software en AI-oplossingen voor kleine bedrijven, stichtingen en verenigingen. Zodat zij kunnen uitblinken in hun werk en het verschil kunnen maken voor anderen.
 
@@ -38,6 +41,14 @@ ${lijst(["over", "verhaal"])}
 - Bezoekadres: Kazemat 23, Veenendaal
 - Telefoon: 06 - 159 432 00
 - E-mail: info@jonatechnologie.nl
+
+## In English
+
+${vertaald("en")}
+
+## Auf Deutsch
+
+${vertaald("de")}
 
 ## Optional
 

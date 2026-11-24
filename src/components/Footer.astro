@@ -1,39 +1,55 @@
 ---
+import { ui } from "../i18n/ui";
+import { MAATWERK, taalUitPad } from "../i18n/talen";
+import { beschikbaar, link } from "../lib/paginas";
+import { app } from "../i18n/apps";
 const year = new Date().getFullYear();
+const taal = taalUitPad(Astro.url.pathname);
+const t = ui(taal);
+// Alleen apps die in deze taal te gebruiken zijn (ActueleGegevens.nl is alleen Nederlands).
+const apps = [
+  { id: "jonagiften", naam: app("jonagiften", taal).naam },
+  { id: "jonabestuur", naam: app("jonabestuur", taal).naam },
+  { id: "selaread", naam: "Selaread" },
+  { id: "actuelegegevens", naam: "ActueleGegevens.nl" },
+  { id: "tirgumai", naam: "TirgumAI" },
+].filter((a) => beschikbaar(a.id, taal));
 ---
 <footer class="site-footer on-navy">
   <div class="wrap stack gap-48">
     <div class="cols">
       <div class="stack gap-16">
-        <img src="/logo/jona-logo-wit.svg" alt="Jona zinvolle technologie" width="200" height="70" class="logo">
-        <p class="tagline">Software voor bedrijven en organisaties met een missie.</p>
+        <img src="/logo/jona-logo-wit.svg" alt={t.logoAlt.replace(" ·", "")} width="200" height="70" class="logo">
+        <p class="tagline">{t.voet.tagline}</p>
       </div>
       <div class="col">
-        <span class="eyebrow light">Onze software</span>
-        <a href="/jonagiften">Jona Giften</a>
-        <a href="/jonabestuur">Jona Bestuur</a>
-        <a href="/selaread">Selaread</a>
-        <a href="/actuelegegevens">ActueleGegevens.nl</a>
-        <a href="/tirgumai">TirgumAI</a>
-        <a href="/software">Alle software</a>
+        <span class="eyebrow light">{t.voet.software}</span>
+        {apps.map((a) => <a href={link(a.id, taal)}>{a.naam}</a>)}
+        <a href={link("software", taal)}>{t.voet.alleSoftware}</a>
       </div>
       <div class="col">
-        <span class="eyebrow light">Jona</span>
-        <a href="/over-jona">Over Jona</a>
-        <a href="/ai-scan">AI-scan</a>
-        <a href="/advies">Plan een kennismaking</a>
+        <span class="eyebrow light">{t.voet.jona}</span>
+        <a href={link("over-jona", taal)}>{t.nav.over}</a>
+        {MAATWERK[taal] ? (
+          <>
+            <a href={link("ai-scan", taal)}>{t.nav.aiScan}</a>
+            <a href={link("advies", taal)}>{t.kennismaking}</a>
+          </>
+        ) : (
+          <a href={link("over-jona", taal, "advies")}>{t.kennismaking}</a>
+        )}
       </div>
       <div class="col">
-        <span class="eyebrow light">Bezoekadres</span>
-        <span>Kazemat 23, Veenendaal</span>
-        <span>T: <a href="tel:+31615943200">06 - 159 432 00</a></span>
+        <span class="eyebrow light">{t.voet.adres}</span>
+        <span>{t.voet.adresRegel}</span>
+        <span>T: <a href="tel:+31615943200">{t.voet.telefoon}</a></span>
         <span>E: <a href="mailto:info@jonatechnologie.nl">info@jonatechnologie.nl</a></span>
       </div>
     </div>
     <div class="bottom">
-      <span>Een joint venture met <a href="https://echonova.nl" target="_blank" rel="noopener">EchoNova</a>.</span>
+      {MAATWERK[taal] && <span>{t.voet.jointVenture} <a href="https://echonova.nl" target="_blank" rel="noopener">EchoNova</a>.</span>}
       <span>&copy; {year} Jona zinvolle technologie</span>
-      <span>KvK: 72450355</span>
+      <span>{t.voet.kvk}: 72450355</span>
     </div>
   </div>
 </footer>

@@ -1,0 +1,416 @@
+---
+// De homepage, één opmaak voor alle talen. De teksten staan in
+// src/teksten/home/<taal>.ts; de routes in src/pages/<taal>/index.astro.
+import { link, pagina } from "../lib/paginas";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import LetsTalk from "../components/LetsTalk.astro";
+import FormScript from "../components/FormScript.astro";
+import { MAATWERK, type Taal } from "../i18n/talen";
+import { nl, type Doel } from "../teksten/home/nl";
+import { en } from "../teksten/home/en";
+import { de } from "../teksten/home/de";
+
+interface Props { taal: Taal }
+const { taal } = Astro.props;
+const t = { nl, en, de }[taal];
+const naar = (d: Doel) => (typeof d === "string" ? d : link(d.pagina, taal, d.anker));
+const n = t.verhalen?.lijst.length ?? 0;
+import { beeld } from "../i18n/beelden";
+---
+<Base
+  {...pagina(link("home", taal))}
+>
+  <section id="top" class="hero">
+    <a href={link("over-jona", taal, "waarom-jona")} class="duif" aria-label={t.hero.duifAria}>
+      <img src="/logo/jona-mark.svg" alt="" class="hero-mark" width="520" height="520">
+      <span class="duif-label" aria-hidden="true">{t.hero.duifVraag} <strong>{t.hero.duifKlik} <Icon name="arrow-right" size={16} /></strong></span>
+    </a>
+    <div class="wrap narrow stack gap-28 hero-inner">
+      <p class="eyebrow">{t.hero.eyebrow}</p>
+      <h1 class="h1" set:html={t.hero.kopHtml} />
+      <p class="lead">{t.hero.lead}</p>
+      <div class="actions">
+        <a href="#producten" class="btn btn-primary"><span>{t.hero.knopSoftware}</span> <Icon name="arrow-right" /></a>
+        <a href={MAATWERK[taal] ? link("advies", taal) : "#advies"} class="btn btn-secondary">{t.hero.knopKennismaking}</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="producten" class="section section-mist">
+    <div class="wrap stack gap-56">
+      <div class="stack gap-12 narrow">
+        <p class="eyebrow">{t.producten.eyebrow}</p>
+        <h2 class="h2">{t.producten.kop}</h2>
+      </div>
+
+      {t.producten.lijst.map((p) => (
+        <article class="product">
+          <div class="screen">
+            <picture>
+              <source srcset={beeld(`${p.beeld.src}.webp`, taal)} type="image/webp">
+              <img src={beeld(`${p.beeld.src}.png`, taal)} width={p.beeld.breed} height={p.beeld.hoog} loading="lazy" alt={p.beeld.alt}>
+            </picture>
+          </div>
+          <div class="stack gap-16">
+            <span class="tag">{p.tag}</span>
+            <h3 class="h2-sm">{p.naam}</h3>
+            <p class="product-text">{p.tekst}</p>
+            <a href={link(p.meer.pagina, taal)} class="link">{p.meer.label}</a>
+            <div class="actions">
+              <a href={naar(p.actie.doel)} rel={typeof p.actie.doel === "string" ? "noopener" : undefined} class={`btn btn-${p.actie.stijl}`}><span>{p.actie.label}</span> <Icon name="arrow-right" /></a>
+            </div>
+          </div>
+        </article>
+      ))}
+
+      <div class="alle-software">
+        <p class="muted">{t.producten.alles}</p>
+        <a href={link("software", taal)} class="btn btn-secondary btn-wit"><span>{t.producten.allesKnop}</span> <Icon name="arrow-right" /></a>
+      </div>
+    </div>
+  </section>
+
+  {/* Maatwerk en klantverhalen alleen waar we ook in opdracht bouwen (MAATWERK). */}
+  {MAATWERK[taal] && t.maatwerk && t.verhalen && (
+    <Fragment>
+  <section id="maatwerk" class="maatwerk">
+    <div class="wrap narrow stack gap-24">
+      <p class="eyebrow">{t.maatwerk!.eyebrow}</p>
+      <h2 class="h2">{t.maatwerk!.kop}</h2>
+      <p class="maatwerk-lead" set:html={t.maatwerk!.leadHtml} />
+      <div class="principes">
+        {t.maatwerk!.principes.map((pr, i) => (
+          <div class="principe">
+            <span class="cijfer">{i + 1}</span>
+            <div class="stack gap-6">
+              <h3>{pr.kop}</h3>
+              <p class="muted">{pr.tekst}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="verhaal" class="verhaal">
+    <div class="wrap">
+      <div class="carrousel" data-carrousel aria-roledescription="carrousel" aria-label={t.verhalen!.aria}>
+        <div class="slides" data-slides>
+          {t.verhalen!.lijst.map((v, i) => (
+            <article class={`slide ${v.mockup ? "slide-mockup " : ""}grid-2`} role="group" aria-roledescription="slide" aria-label={`${i + 1} ${t.verhalen!.van} ${n}`}>
+              <div class={v.mockup ? "mockup" : "screen"}>
+                <picture>
+                  <source srcset={beeld(`${v.beeld.src}.webp`, taal)} type="image/webp">
+                  <img src={beeld(`${v.beeld.src}.png`, taal)} width={v.beeld.breed} height={v.beeld.hoog} loading="lazy" alt={v.beeld.alt}>
+                </picture>
+              </div>
+              <div class="stack gap-20">
+                <p class="eyebrow">{t.verhalen!.eyebrow}</p>
+                <h2 class="h2-sm">{v.kop}</h2>
+                <p class="muted">{v.tekst}</p>
+                <a href={link(v.pagina, taal)} class="link self-start">{t.verhalen!.lees} <Icon name="arrow-right" size={16} /></a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="carrousel-nav" data-nav hidden>
+          <button type="button" class="pijl" data-prev aria-label={t.verhalen!.vorige}><Icon name="chevron-left" size={20} /></button>
+          <div class="dots">
+            {t.verhalen!.lijst.map((v, i) => (
+              <button type="button" class="dot" data-dot aria-label={`${t.verhalen!.gaNaar} ${v.klant}`} aria-current={i === 0 ? "true" : "false"}></button>
+            ))}
+          </div>
+          <button type="button" class="pijl" data-next aria-label={t.verhalen!.volgende}><Icon name="chevron-right" size={20} /></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    </Fragment>
+  )}
+
+  <LetsTalk id="advies" />
+  <FormScript />
+</Base>
+
+<script>
+  // Carrousel "Gemaakt voor een klant": een scrollende baan met snappunten.
+  // Zonder JavaScript blijft de baan gewoon te vegen; de knoppen komen er met JavaScript bij.
+  // De baan loopt rond: vóór de eerste slide staat een kopie van de laatste en na de laatste
+  // een kopie van de eerste. Komt de baan op een kopie tot stilstand, dan springt hij
+  // ongemerkt naar het origineel, zodat je eindeloos door kunt klikken of vegen.
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  for (const root of document.querySelectorAll<HTMLElement>("[data-carrousel]")) {
+    const track = root.querySelector<HTMLElement>("[data-slides]");
+    const echt = Array.from(root.querySelectorAll<HTMLElement>(".slide"));
+    const nav = root.querySelector<HTMLElement>("[data-nav]");
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-dot]"));
+    const prev = root.querySelector<HTMLButtonElement>("[data-prev]");
+    const next = root.querySelector<HTMLButtonElement>("[data-next]");
+    const n = echt.length;
+    if (!track || !nav || n < 2) continue;
+
+    const kopie = (el: HTMLElement) => {
+      const k = el.cloneNode(true) as HTMLElement;
+      k.setAttribute("aria-hidden", "true");
+      k.inert = true;
+      k.querySelectorAll("img").forEach((img) => (img.loading = "eager"));
+      return k;
+    };
+    track.prepend(kopie(echt[n - 1]));
+    track.append(kopie(echt[0]));
+    const alle = Array.from(track.children) as HTMLElement[]; // posities 0..n+1, de echte slides op 1..n
+
+    nav.hidden = false;
+    root.classList.add("is-js");
+    let pos = 1;
+    let doel = 1;
+    let rust = 0;
+
+    const offset = (p: number) => alle[p].offsetLeft - alle[0].offsetLeft;
+    const spring = (p: number) => {
+      pos = p;
+      track.scrollTo({ left: offset(p), behavior: "instant" });
+    };
+    const lees = () => {
+      const stap = offset(1) || 1;
+      pos = Math.max(0, Math.min(n + 1, Math.round(track.scrollLeft / stap)));
+      const i = (pos - 1 + n) % n;
+      dots.forEach((d, k) => d.setAttribute("aria-current", String(k === i)));
+    };
+    // Op een kopie tot stilstand gekomen: naar het origineel.
+    const herstel = () => {
+      if (pos === 0) spring(n);
+      else if (pos === n + 1) spring(1);
+      doel = pos;
+    };
+    // doel is waar de baan naartoe onderweg is, zodat snel achter elkaar klikken geen klik verliest.
+    const goTo = (p: number) => {
+      doel = p;
+      track.scrollTo({ left: offset(p), behavior: reduced ? "instant" : "smooth" });
+    };
+    const stap = (d: number) => {
+      if (doel === 0) spring(n);
+      else if (doel === n + 1) spring(1);
+      else pos = doel;
+      goTo(pos + d);
+    };
+
+    prev?.addEventListener("click", () => stap(-1));
+    next?.addEventListener("click", () => stap(1));
+    dots.forEach((d, k) => d.addEventListener("click", () => goTo(k + 1)));
+    track.addEventListener("scroll", () => {
+      lees();
+      clearTimeout(rust);
+      rust = window.setTimeout(herstel, 140);
+    }, { passive: true });
+    window.addEventListener("resize", () => { spring(pos === 0 ? n : pos === n + 1 ? 1 : pos); doel = pos; });
+    spring(1);
+    lees();
+  }
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 128px 0 112px;
+  }
+  /* De duif is een link naar "Waarom Jona". Alleen met een muis reageert het vlak; op touch blijft het een rustig decor. */
+  .duif {
+    position: absolute;
+    top: 48px;
+    right: 64px;
+    width: 520px;
+    height: 520px;
+    display: block;
+    z-index: 1;
+    pointer-events: none;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .hero-mark {
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0.08;
+    transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .duif-label {
+    position: absolute;
+    left: 62%;
+    bottom: 8%;
+    transform: translate(-50%, 10px);
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    white-space: nowrap;
+    padding: 12px 20px;
+    border-radius: var(--r-pill);
+    background: var(--navy);
+    color: var(--white);
+    font-size: 15px;
+    box-shadow: var(--shadow-card);
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .duif-label strong {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    font-weight: 500;
+    color: var(--teal-300);
+  }
+  @media (hover: hover) {
+    .duif { pointer-events: auto; }
+    .duif:hover .hero-mark { opacity: 0.2; transform: translateY(-6px) rotate(-2deg); }
+  }
+  .duif:hover .duif-label,
+  .duif:focus-visible .duif-label {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  .duif:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; border-radius: var(--r-card); }
+  .duif:focus-visible .hero-mark { opacity: 0.2; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-mark, .duif-label { transition: none; }
+    .duif:hover .hero-mark { transform: none; }
+  }
+  .hero-inner { position: relative; }
+  .lead { max-width: 62ch; }
+  .actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 8px;
+  }
+  .product {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 48px;
+    align-items: center;
+  }
+  .product-text { font-size: 18px; }
+  .alle-software {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .btn-wit { background: var(--white); border-color: var(--navy); }
+  .maatwerk { padding: 112px 0 0; }
+  .maatwerk-lead { font-size: 19px; line-height: 1.6; }
+  .principes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px 40px;
+    padding-top: 8px;
+  }
+  .principe { display: flex; gap: 16px; align-items: flex-start; }
+  .principe h3 { font-size: 17px; font-weight: 500; }
+  .principe p { font-size: 16px; }
+  .cijfer {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--teal);
+    flex-shrink: 0;
+    min-width: 20px;
+    padding-top: 2px;
+  }
+  .verhaal { padding: 144px 0; }
+  .self-start { align-self: flex-start; }
+
+  /* carrousel: de baan bloedt de goot in, zodat de schaduw van het scherm niet wordt afgesneden */
+  .slides {
+    position: relative;
+    display: flex;
+    gap: calc(var(--gutter) * 2);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    margin: -24px calc(-1 * var(--gutter)) -40px;
+    padding: 24px var(--gutter) 64px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .is-js .slides { scrollbar-width: none; }
+  .is-js .slides::-webkit-scrollbar { display: none; }
+  /* mockup zonder kader: de afbeelding heeft zelf een witte achtergrond en schaduw */
+  .mockup { display: flex; justify-content: center; }
+  /* naast de tekst: de kolom is zo breed als de mockup zelf, en beeld en tekst staan samen in het midden */
+  @media (min-width: 768px) {
+    .slide-mockup { grid-template-columns: auto minmax(0, 520px); justify-content: center; }
+  }
+  .mockup img { display: block; width: auto; max-width: 100%; height: auto; max-height: 560px; }
+  .slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .carrousel-nav {
+    /* boven de baan, die onderaan doorloopt voor de schaduw van het scherm */
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-top: 8px;
+  }
+  .dots { display: flex; gap: 10px; }
+  .dot {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border-radius: var(--r-pill);
+    border: 2px solid var(--teal);
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  .dot:hover,
+  .dot[aria-current="true"] { background: var(--teal); }
+  .pijl {
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--navy);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .pijl:hover { border-color: var(--navy); }
+  .product-text + .link { align-self: flex-start; }
+
+  @media (max-width: 1023px) {
+    .duif { width: 380px; height: 380px; right: -40px; top: 40px; }
+  }
+  @media (max-width: 767px) {
+    .hero { padding: 72px 0 64px; }
+    .duif { width: 260px; height: 260px; right: -60px; top: 20px; }
+    .hero-mark { opacity: 0.06; }
+    .br-wide { display: none; }
+    .maatwerk { padding-top: 64px; }
+    .verhaal { padding: 80px 0; }
+    .carrousel-nav { padding-top: 4px; }
+    .product { gap: 28px; }
+  }
+  @media (max-width: 479px) {
+    .product { grid-template-columns: minmax(0, 1fr); }
+    .actions .btn { width: 100%; }
+  }
+</style>

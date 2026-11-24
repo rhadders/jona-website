@@ -17,7 +17,7 @@ const melding = fout === "2" ? "Te veel pogingen. Probeer het over tien minuten 
 if (herkomst !== "/toegang") Astro.response.status = 401;
 // Ook achter de code tonen gedeelde links een passende titel en plaatje.
 const gedeeld = zoekPagina(herkomst) ?? zoekPagina("/")!;
-const site = Astro.site ?? new URL("https://jonatechnologie.nl");
+const site = Astro.site ?? new URL("https://jonatechnology.com");
 ---
 <!doctype html>
 <html lang="nl">

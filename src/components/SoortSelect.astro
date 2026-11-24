@@ -1,8 +1,18 @@
 ---
-interface Props { id: string; name?: string; standaard?: string }
+// Keuzelijst "soort organisatie", in de taal van de pagina. `standaard` is
+// de sleutel van de voorgekozen optie (bijvoorbeeld "bedrijf").
+import { taalUitPad, type Taal } from "../i18n/talen";
+interface Props { id: string; name?: string; standaard?: Sleutel }
+type Sleutel = "kerk" | "goed-doel" | "vereniging" | "zorg" | "bedrijf" | "anders";
 const { id, name = "soort", standaard } = Astro.props;
-const opties = ["Kerk", "Goed doel", "Ledenvereniging", "Zorgorganisatie", "Bedrijf", "Anders"];
+const taal = taalUitPad(Astro.url.pathname);
+const OPTIES: Record<Taal, Record<Sleutel, string>> = {
+  nl: { kerk: "Kerk", "goed-doel": "Goed doel", vereniging: "Ledenvereniging", zorg: "Zorgorganisatie", bedrijf: "Bedrijf", anders: "Anders" },
+  en: { kerk: "Church", "goed-doel": "Charity", vereniging: "Membership association", zorg: "Care organization", bedrijf: "Business", anders: "Other" },
+  de: { kerk: "Kirche", "goed-doel": "Gemeinnützige Organisation", vereniging: "Verein", zorg: "Pflegeeinrichtung", bedrijf: "Unternehmen", anders: "Sonstiges" },
+};
+const opties = Object.entries(OPTIES[taal]) as [Sleutel, string][];
 ---
 <select id={id} name={name}>
-  {opties.map((o) => <option value={o} selected={o === standaard}>{o}</option>)}
+  {opties.map(([k, o]) => <option value={o} selected={k === standaard}>{o}</option>)}
 </select>

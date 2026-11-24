@@ -6,7 +6,7 @@ import node from "@astrojs/node";
 // middleware in src/middleware.ts elke aanvraag kan controleren op de
 // toegangscode. Zonder die beveiliging kan dit terug naar output: "static".
 export default defineConfig({
-  site: "https://jonatechnologie.nl",
+  site: "https://jonatechnology.com",
   output: "server",
   adapter: node({ mode: "standalone" }),
   server: { host: true, port: 4321 },

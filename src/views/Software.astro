@@ -1,0 +1,289 @@
+---
+// Het software-overzicht, één opmaak voor alle talen. De teksten staan in
+// src/teksten/software/<taal>.ts; de routes in src/pages/<taal>/software.astro.
+// Apps die in een taal niet te gebruiken zijn (ActueleGegevens.nl buiten het
+// Nederlands), vallen eruit via `beschikbaar` in src/lib/paginas.ts.
+import { beschikbaar, link, pagina } from "../lib/paginas";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { MAATWERK, type Taal } from "../i18n/talen";
+import { nl, type Doel } from "../teksten/software/nl";
+import { en } from "../teksten/software/en";
+import { de } from "../teksten/software/de";
+
+interface Props { taal: Taal }
+const { taal } = Astro.props;
+const t = { nl, en, de }[taal];
+
+const href = (d: Doel) => (typeof d === "string" ? d : link(d.pagina, taal, d.anker));
+const extern = (d: Doel) => typeof d === "string" && d.startsWith("http");
+const nu = t.nu.filter((app) => beschikbaar(app.id, taal));
+const binnenkort = t.binnenkort.filter((app) => beschikbaar(app.id, taal));
+import { beeld } from "../i18n/beelden";
+---
+<Base
+  {...pagina(link("software", taal))}
+  current="software"
+>
+  <section class="kop">
+    <img src="/logo/jona-mark.svg" alt="" class="kop-duif" width="420" height="420">
+    <div class="wrap">
+      <div class="narrow stack gap-20">
+        <p class="eyebrow">{t.kop.eyebrow}</p>
+        <h1 class="h1">{t.kop.titel}</h1>
+        <p class="lead">{t.kop.lead}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="groep groep-nu" aria-labelledby="nu">
+    <div class="wrap stack gap-28">
+      <h2 id="nu" class="groep-kop"><span class="stip" aria-hidden="true"></span>{t.nuKop}</h2>
+      {nu.map((app) => (
+        <article class="app-breed">
+          <div class="app-beeld">
+            <picture>
+              <source srcset={beeld(`${app.beeld}.webp`, taal)} type="image/webp">
+              <img src={beeld(`${app.beeld}.png`, taal)} width={app.breed} height={app.hoog} loading="lazy" alt={app.alt}>
+            </picture>
+          </div>
+          <div class="app-tekst stack gap-16">
+            <span class="tag">{app.tag}</span>
+            <h3 class="h2-sm">{app.naam}</h3>
+            <p class="muted">{app.tekst}</p>
+            <div class="acties">
+              <a href={href(app.doel)} rel={extern(app.doel) ? "noopener" : undefined} class="btn btn-primary"><span>{app.actie}</span> <Icon name="arrow-right" /></a>
+              <a href={link(app.id, taal)} class="link">{t.meerOver} {app.naam}</a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="groep groep-straks" aria-labelledby="binnenkort">
+    <div class="wrap stack gap-28">
+      <h2 id="binnenkort" class="groep-kop"><span class="stip stip-open" aria-hidden="true"></span>{t.binnenkortKop}</h2>
+      <div class="straks-raster">
+        {binnenkort.map((app) => (
+          <article class="app-klein">
+            <div class="app-klein-beeld">
+              <picture>
+                <source srcset={beeld(`${app.beeld}.webp`, taal)} type="image/webp">
+                <img src={beeld(`${app.beeld}.png`, taal)} width={app.breed} height={app.hoog} loading="lazy" alt={app.alt}>
+              </picture>
+            </div>
+            <div class="app-klein-tekst stack gap-12">
+              <p class="eyebrow">{app.tag}</p>
+              <h3 class="h3 h3-groot">{app.naam}</h3>
+              <p class="muted groei">{app.tekst}</p>
+              <div class="acties">
+                <a href={href(app.doel)} class="btn btn-secondary btn-wit">{app.actie}</a>
+                <a href={link(app.id, taal)} class="link">{t.meerOver} {app.naam}</a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-mist" aria-labelledby="vergelijk">
+    <div class="wrap stack gap-28">
+      <h2 id="vergelijk" class="h2-sm">{t.vergelijk.kop}</h2>
+      <div class="tabel-doos">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">{t.vergelijk.app}</th>
+              <th scope="col">{t.vergelijk.voorWie}</th>
+              <th scope="col">{t.vergelijk.wanneer}</th>
+              <th scope="col"><span class="visually-hidden">{t.vergelijk.aanDeSlag}</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...nu, ...binnenkort].map((app) => (
+              <tr>
+                <th scope="row"><a href={link(app.id, taal)}>{app.naam}</a></th>
+                <td class="muted">{app.voor}</td>
+                <td><span class="tag">{app.tag}</span></td>
+                <td class="rechts"><a href={href(app.doel)} rel={extern(app.doel) ? "noopener" : undefined} class="link">{app.actie}</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  {/* Software op maat alleen waar we ook in opdracht bouwen (MAATWERK). */}
+  {MAATWERK[taal] && t.maatwerk && (
+  <section class="maatwerk">
+    <div class="wrap maatwerk-rij">
+      <div class="stack gap-6 maatwerk-tekst">
+        <h2 class="h3 h3-groot">{t.maatwerk!.kop}</h2>
+        <p class="muted" set:html={t.maatwerk!.tekstHtml} />
+      </div>
+      <a href={link("advies", taal)} class="btn btn-primary"><span>{t.maatwerk!.knop}</span> <Icon name="arrow-right" /></a>
+    </div>
+  </section>
+  )}
+</Base>
+
+<style>
+  .kop {
+    position: relative;
+    overflow: hidden;
+    padding: 96px 0 72px;
+  }
+  .kop .wrap { position: relative; }
+  .kop-duif {
+    position: absolute;
+    right: -60px;
+    top: -40px;
+    width: 420px;
+    height: 420px;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  .groep { padding: 56px 0; }
+  .groep-nu { padding-top: 0; }
+  .groep-straks { padding-bottom: 96px; }
+  .groep-kop {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  .stip {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    border-radius: var(--r-pill);
+    background: var(--teal);
+  }
+  .stip-open { background: transparent; border: 2px solid var(--teal); }
+
+  .app-breed {
+    display: flex;
+    flex-wrap: wrap;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .app-beeld { flex: 1 1 460px; min-width: 0; background: var(--mist); }
+  .app-beeld img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+  }
+  .app-tekst {
+    flex: 1 1 380px;
+    min-width: 0;
+    padding: 40px;
+    justify-content: center;
+  }
+
+  .straks-raster {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+  }
+  .app-klein {
+    display: flex;
+    flex-direction: column;
+    background: var(--mist);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+    overflow: hidden;
+  }
+  .app-klein-beeld {
+    margin: 24px 24px 0;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-notice);
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+  }
+  .app-klein-beeld img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+  }
+  .app-klein-tekst { padding: 24px 32px 32px; flex-grow: 1; }
+  .groei { flex-grow: 1; }
+  .h3-groot { font-size: 28px; }
+
+  .acties {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 24px;
+    padding-top: 6px;
+  }
+  .btn-wit { background: var(--white); border-color: var(--navy); }
+
+  .tabel-doos {
+    position: relative;
+    overflow-x: auto;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-card);
+  }
+  table { width: 100%; min-width: 720px; border-collapse: collapse; text-align: left; }
+  thead th {
+    padding: 20px 28px;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-700);
+  }
+  tbody tr { border-top: 1px solid var(--border); }
+  tbody th, tbody td { padding: 20px 28px; vertical-align: middle; }
+  tbody th {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 20px;
+  }
+  tbody th a { text-decoration: none; }
+  tbody .tag { white-space: nowrap; }
+  .rechts { text-align: right; white-space: nowrap; }
+
+  .maatwerk { padding: 88px 0; }
+  .maatwerk-rij {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .maatwerk-tekst { max-width: 640px; }
+
+  @media (max-width: 767px) {
+    .kop { padding: 64px 0 48px; }
+    .kop-duif { width: 260px; height: 260px; right: -60px; top: -20px; opacity: 0.06; }
+    .app-tekst { padding: 28px 24px; }
+    .app-klein-beeld { margin: 16px 16px 0; }
+    .app-klein-tekst { padding: 20px 24px 28px; }
+    .groep { padding: 40px 0; }
+    .groep-straks { padding-bottom: 64px; }
+    .maatwerk { padding: 64px 0; }
+  }
+  @media (max-width: 479px) {
+    .app-beeld, .app-tekst { flex-basis: 100%; }
+    .straks-raster { grid-template-columns: minmax(0, 1fr); }
+    .acties .btn { width: 100%; }
+  }
+</style>

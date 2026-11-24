@@ -4,7 +4,8 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Iconen from "../components/Iconen.astro";
 import { schemaVoor } from "../lib/schema";
-import { ogPad } from "../lib/paginas";
+import { ogPad, vertalingen, zoekPagina, link } from "../lib/paginas";
+import { HTML_LANG, OG_LOCALE, taalUitPad } from "../i18n/talen";
 
 interface Props {
   title: string;
@@ -13,27 +14,39 @@ interface Props {
   noindex?: boolean;
 }
 const { title, description, current, noindex = false } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://jonatechnologie.nl");
+const site = Astro.site ?? new URL("https://jonatechnology.com");
+const taal = taalUitPad(Astro.url.pathname);
+// Canoniek adres uit de paginalijst, zodat /nl/ en /nl niet als twee pagina's tellen.
+const canonical = new URL(zoekPagina(Astro.url.pathname)?.tekst.pad ?? Astro.url.pathname, site);
 const fullTitle = title.includes("Jona") ? title : `${title} · Jona`;
+// Dezelfde pagina in de andere talen (hreflang). x-default: voor de homepage
+// het kale domein (dat kiest de taal van de browser), anders de Engelse versie.
+const talen = noindex ? [] : vertalingen(Astro.url.pathname);
+const xDefault = zoekPagina(Astro.url.pathname)?.pagina.id === "home"
+  ? { pad: "/" }
+  : talen.find((t) => t.taal === "en") ?? talen.find((t) => t.taal === "nl");
 // Gestructureerde data alleen op openbare pagina's uit src/lib/paginas.ts.
 const schema = noindex ? null : schemaVoor(Astro.url.pathname);
 const ogImage = new URL(ogPad(Astro.url.pathname), canonical);
 ---
 <!doctype html>
-<html lang="nl">
+<html lang={HTML_LANG[taal]}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {talen.length > 1 && talen.map((t) => <link rel="alternate" hreflang={HTML_LANG[t.taal]} href={new URL(t.pad, site)} />)}
+    {talen.length > 1 && xDefault && <link rel="alternate" hreflang="x-default" href={new URL(xDefault.pad, site)} />}
     {noindex && <meta name="robots" content="noindex" />}
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Jona · zinvolle technologie" />
+    <meta property="og:site_name" content={zoekPagina(link("home", taal))?.tekst.title ?? "Jona · zinvolle technologie"} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:locale" content={OG_LOCALE[taal]} />
+    {talen.filter((t) => t.taal !== taal).map((t) => <meta property="og:locale:alternate" content={OG_LOCALE[t.taal]} />)}
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
